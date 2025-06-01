@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "menagerie",
+	"version": "${version}",
+	"name": "Menagerie",
+	"description": "I have three spoons and eight ways to kill God himself with them",
+	"authors": [
+		"Capozi",
+		"Cosmo_Leveling",
+		"Eyalego"
+	],
+	"contact": {
+	},
+	"license": "ARR",
+	"icon": "assets/menagerie/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.capozi.menagerie.Menagerie"
+		],
+		"client": [
+			"net.capozi.menagerie.MenagerieClient"
+		],
+		"fabric-datagen": [
+			"net.capozi.menagerie.MenagerieDataGenerator"
+		]
+	},
+	"mixins": [
+		"menagerie.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.10",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

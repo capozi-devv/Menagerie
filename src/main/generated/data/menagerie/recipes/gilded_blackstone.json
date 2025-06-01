@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "R": {
+      "item": "minecraft:blackstone"
+    },
+    "S": {
+      "item": "minecraft:gold_nugget"
+    }
+  },
+  "pattern": [
+    " S ",
+    "SRS",
+    " S "
+  ],
+  "result": {
+    "item": "minecraft:gilded_blackstone"
+  },
+  "show_notification": true
+}

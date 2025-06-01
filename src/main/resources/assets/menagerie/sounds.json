@@ -1,0 +1,17 @@
+{
+  "button_click": {
+    "sounds": [
+      "menagerie:item/button_click"
+    ]
+  },
+  "film_advance_last": {
+    "sounds": [
+      "menagerie:item/film_advance_last"
+    ]
+  },
+  "flash": {
+    "sounds": [
+      "menagerie:item/flash"
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "minecraft:echo_shard"
+    },
+    "G": {
+      "item": "minecraft:gold_block"
+    },
+    "L": {
+      "item": "minecraft:lapis_block"
+    },
+    "N": {
+      "item": "minecraft:netherite_block"
+    },
+    "R": {
+      "item": "minecraft:redstone_lamp"
+    }
+  },
+  "pattern": [
+    "GG ",
+    "GNE",
+    " RL"
+  ],
+  "result": {
+    "item": "menagerie:camera_of_the_otherside"
+  },
+  "show_notification": true
+}

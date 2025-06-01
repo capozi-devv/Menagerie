@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "L": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "S": {
+      "item": "minecraft:soul_sand"
+    }
+  },
+  "pattern": [
+    "SAS",
+    "ALA",
+    "SNS"
+  ],
+  "result": {
+    "item": "menagerie:mark_of_dissonance"
+  },
+  "show_notification": true
+}
