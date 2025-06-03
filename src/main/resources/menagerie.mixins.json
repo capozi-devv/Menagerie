@@ -3,12 +3,13 @@
 	"package": "net.capozi.menagerie.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"PlayerEntityMixin",
 		"LivingEntityMixin",
+		"PlayerEntityMixin",
 		"ServerPlayerEntityMixin"
 	],
 	"client": [
 		"ItemRendererMixin",
+		"KeyboardMixin",
 		"ModelLoaderMixin"
 	],
 	"injectors": {

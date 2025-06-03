@@ -7,5 +7,4 @@ public interface TrappedState {
     void setTrapped(boolean trapped);
     ChainsEntity getTrappedChains();
     void setTrappedChains(ChainsEntity chains);
-
 }

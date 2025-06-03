@@ -16,7 +16,6 @@ import net.minecraft.util.Identifier;
 public class ItemInit {
     public static void itemsRegistry() {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(ItemInit::registerItemToToolsTabItemGroup);
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(ItemInit::registerItemToBuildingBlocksGroups);
     }
     private static Item registerItems(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(Menagerie.MOD_ID, name), item);
@@ -25,9 +24,6 @@ public class ItemInit {
         entries.add(MARK_OF_DISSONANCE);
         entries.add(CAMERA_OF_THE_OTHERSIDE);
         entries.add(TEST_ITEM);
-    }
-    public static void registerItemToBuildingBlocksGroups(FabricItemGroupEntries entries) {
-
     }
     public static final Item MARK_OF_DISSONANCE = registerItems("mark_of_dissonance", new MarkOfDissonanceItem(new FabricItemSettings().maxCount(1)));
     public static final Item CAMERA_OF_THE_OTHERSIDE = registerItems("camera_of_the_otherside",new CameraOfTheOthersideItem(new FabricItemSettings().maxCount(1)));

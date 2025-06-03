@@ -1,14 +1,13 @@
 package net.capozi.menagerie.mixin;
 
-import net.capozi.menagerie.Menagerie;
-import net.capozi.menagerie.common.item.TrappedState;
+import net.capozi.menagerie.foundation.EffectInit;
 import net.capozi.menagerie.foundation.ItemInit;
-import net.capozi.menagerie.common.item.CameraOfTheOthersideItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
@@ -17,7 +16,6 @@ import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
@@ -43,10 +41,7 @@ public abstract class LivingEntityMixin {
     }
     private void triggerTotemEffect(ServerPlayerEntity killed) {
         killed.setHealth(20.0F);
-        killed.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20000, 255, false, false, false));
-        killed.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 20000, 128, false, false, false));
-        killed.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 20000, 255, false, false, false));
-        // Cancel motion and pushing
+        killed.addStatusEffect(new StatusEffectInstance(EffectInit.CHAINED_EFFECT, 20000, 1, false, false, false));
         killed.setVelocity(Vec3d.ZERO);
         killed.velocityModified = true;
         //Play kill sound
@@ -54,5 +49,13 @@ public abstract class LivingEntityMixin {
                 null, killed.getBlockPos(), SoundEvents.BLOCK_BELL_RESONATE,
                 SoundCategory.PLAYERS, 15.0F, 1.0F
         );
+    }
+    @Inject(method = "canHaveStatusEffect", at = @At("HEAD"), cancellable = true)
+    public void canHaveStatusEffect(StatusEffectInstance effect, CallbackInfoReturnable<Boolean> cir) {
+        if((Object)this instanceof PlayerEntity player) {
+            if (player.getInventory().contains(ItemInit.MARK_OF_DISSONANCE.getDefaultStack())) {
+                cir.setReturnValue(effect.getEffectType() == StatusEffects.WITHER || effect.getEffectType() == StatusEffects.INSTANT_DAMAGE || effect.getEffectType() == StatusEffects.INSTANT_HEALTH || effect.getEffectType() == EffectInit.CHAINED_EFFECT);
+            }
+        }
     }
 }

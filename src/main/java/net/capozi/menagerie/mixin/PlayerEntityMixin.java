@@ -23,6 +23,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
@@ -64,14 +65,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         return this.getInventory().contains(ItemInit.MARK_OF_DISSONANCE.getDefaultStack()) ? true : super.isUndead();
     }
     public boolean hurtByWater() {
-        return !this.getInventory().contains(ItemInit.MARK_OF_DISSONANCE.getDefaultStack()) || !this.getWorld().getBiome(this.getBlockPos()).isIn(BiomeTags.IS_RIVER) && !this.isInFlowingFluid(FluidTags.WATER) ? super.hurtByWater(): true;
-    }
-    public boolean canHaveStatusEffect(StatusEffectInstance effect) {
-        if (!this.getInventory().contains(ItemInit.MARK_OF_DISSONANCE.getDefaultStack())) {
-            return super.canHaveStatusEffect(effect);
-        } else {
-            return effect.getEffectType() == StatusEffects.WITHER || effect.getEffectType() == StatusEffects.INSTANT_DAMAGE || effect.getEffectType() == StatusEffects.INSTANT_HEALTH;
-        }
+        return !this.getInventory().contains(ItemInit.MARK_OF_DISSONANCE.getDefaultStack()) && (!this.isInFlowingFluid(FluidTags.WATER) || !this.isSubmergedInWater()) ? super.hurtByWater(): true;
     }
     private boolean isInFlowingFluid(TagKey<Fluid> tag) {
         if (this.isRegionUnloaded()) {

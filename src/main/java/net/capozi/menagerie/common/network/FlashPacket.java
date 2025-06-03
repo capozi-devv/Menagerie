@@ -21,7 +21,6 @@ public class FlashPacket {
     public static void sendToTracking(ServerWorld world, ServerPlayerEntity sourcePlayer) {
         PacketByteBuf buf = PacketByteBufs.create();
         for (ServerPlayerEntity targetPlayer : world.getPlayers()) {
-            if (targetPlayer == sourcePlayer) continue;
             if (world.isChunkLoaded(targetPlayer.getBlockPos())) {
                 double distanceSquared = targetPlayer.squaredDistanceTo(sourcePlayer);
                 if (distanceSquared < 150 * 150) { // viewing distance

@@ -5,6 +5,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
 import net.capozi.menagerie.common.network.FlashPacket;
 import net.capozi.menagerie.common.render.FlashOverlayRenderer;
+import net.capozi.menagerie.foundation.EffectInit;
 import net.capozi.menagerie.foundation.SoundInit;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
@@ -39,7 +40,6 @@ public class CameraOfTheOthersideItem extends Item {
         if (target instanceof ServerPlayerEntity targetPlayer && target instanceof TrappedState trappedState) {
             BlockPos playerPos = target.getBlockPos();
             if (trappedState.isTrapped()) {
-                FlashOverlayRenderer.triggerFlash();
                 if (!user.getWorld().isClient && user instanceof ServerPlayerEntity serverPlayer) {
                     FlashPacket.sendToTracking((ServerWorld) user.getWorld(), serverPlayer);
                     user.getWorld().playSound(null, playerPos, SoundInit.BUTTON_CLICK,
@@ -51,7 +51,7 @@ public class CameraOfTheOthersideItem extends Item {
                 }
                 // Find and discard nearby ChainsEntity BEFORE the ban
                 // Kick and ban player
-                target.removeStatusEffect(StatusEffects.RESISTANCE);
+                target.removeStatusEffect(EffectInit.CHAINED_EFFECT);
                 ban(user, target);
                 List<ChainsEntity> chainsNearby = user.getWorld().getEntitiesByClass(
                         ChainsEntity.class,

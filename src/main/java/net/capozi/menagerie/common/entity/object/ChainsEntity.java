@@ -1,18 +1,29 @@
 package net.capozi.menagerie.common.entity.object;
 
+import net.capozi.menagerie.foundation.EffectInit;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.AmbientEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.ServerConfigHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public class ChainsEntity extends AmbientEntity implements ChainsEntityOverrides {
     public final AnimationState IdleAnimationState = new AnimationState();
+    private static final TrackedData<Optional<UUID>> PLAYER_UUID = DataTracker.registerData(ChainsEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     private int IdleAnimationTimeout = 0;
     public ChainsEntity(EntityType<? extends AmbientEntity> entityType, World world) {
         super(entityType, world);
@@ -67,6 +78,12 @@ public class ChainsEntity extends AmbientEntity implements ChainsEntityOverrides
     }
     @Override
     public void onDeath(DamageSource damageSource) {
+        if (!this.getWorld().isClient && this.getWorld() instanceof ServerWorld serverWorld) {
+            ServerPlayerEntity player = (ServerPlayerEntity) serverWorld.getPlayerByUuid(getPlayerUuid());
+            if (player != null) {
+                player.removeStatusEffect(EffectInit.CHAINED_EFFECT);
+            }
+        }
         setDespawnCounter(despawnCounter=0);
     }
     @Override
@@ -85,6 +102,12 @@ public class ChainsEntity extends AmbientEntity implements ChainsEntityOverrides
     @Override
     public void tick() {
         super.tick();
+        if (!this.getWorld().isClient && this.getWorld() instanceof ServerWorld serverWorld) {
+            ServerPlayerEntity player = (ServerPlayerEntity) serverWorld.getPlayerByUuid(getPlayerUuid());
+            if (player != null) {
+                this.teleport(player.getX(), player.getY(), player.getZ());
+            }
+        }
         this.setVelocity(0, 0, 0);
         this.setVelocity(Vec3d.ZERO);
         if (this.isDead()) {
@@ -100,5 +123,43 @@ public class ChainsEntity extends AmbientEntity implements ChainsEntityOverrides
                 livingRider.setHealth(livingRider.getMaxHealth());
             }
         }
+    }
+    @Override
+    protected void initDataTracker() {
+        super.initDataTracker();
+        this.dataTracker.startTracking(PLAYER_UUID, Optional.empty());
+    }
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        if (this.getPlayerUuid() != null) {
+            nbt.putUuid("Owner", this.getPlayerUuid());
+        }
+    }
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        UUID uUID;
+        if (nbt.containsUuid("Owner")) {
+            uUID = nbt.getUuid("Owner");
+        } else {
+            String string = nbt.getString("Owner");
+            uUID = ServerConfigHandler.getPlayerUuidByName(this.getServer(), string);
+        }
+        if (uUID != null) {
+            try {
+                this.setPlayerUuid(uUID);
+            } catch (Throwable ignored) {
+
+            }
+        }
+    }
+    @Nullable
+    public UUID getPlayerUuid() {
+        return (UUID)this.dataTracker.get(PLAYER_UUID).orElse(null);
+    }
+
+    public void setPlayerUuid(@Nullable UUID uuid) {
+        this.dataTracker.set(PLAYER_UUID, Optional.ofNullable(uuid));
     }
 }

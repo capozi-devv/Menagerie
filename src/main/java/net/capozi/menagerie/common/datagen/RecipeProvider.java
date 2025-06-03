@@ -42,16 +42,5 @@ public class RecipeProvider extends FabricRecipeProvider {
                 .input('N', Items.NETHERITE_INGOT)
                 .criterion(hasItem(Items.NETHERITE_SCRAP), conditionsFromItem(Items.NETHERITE_SCRAP))
                 .offerTo(exporter, new Identifier(getRecipeName(ItemInit.MARK_OF_DISSONANCE)));
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ItemInit.CAMERA_OF_THE_OTHERSIDE, 1)
-                .pattern("GG ")
-                .pattern("GNE")
-                .pattern(" RL")
-                .input('G', Items.GOLD_BLOCK)
-                .input('R', Items.REDSTONE_LAMP)
-                .input('N', Items.NETHERITE_BLOCK)
-                .input('E', Items.ECHO_SHARD)
-                .input('L', Items.LAPIS_BLOCK)
-                .criterion(hasItem(Items.NETHERITE_SCRAP), conditionsFromItem(Items.NETHERITE_SCRAP))
-                .offerTo(exporter, new Identifier(getRecipeName(ItemInit.CAMERA_OF_THE_OTHERSIDE)));
     }
 }
