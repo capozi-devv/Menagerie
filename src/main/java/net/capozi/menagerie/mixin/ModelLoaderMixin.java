@@ -21,5 +21,6 @@ public abstract class ModelLoaderMixin
     void onAddModel(BlockColors blockColors, Profiler profiler, Map jsonUnbakedModels, Map blockStates, CallbackInfo ci)
     {
         addModel(new ModelIdentifier(Menagerie.MOD_ID, "camera_active", "inventory"));
+        addModel(new ModelIdentifier(Menagerie.MOD_ID,"mark_active", "inventory"));
     }
 }

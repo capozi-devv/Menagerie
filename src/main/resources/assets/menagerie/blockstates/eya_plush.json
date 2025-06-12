@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "menagerie:block/eya_plush", "y": 180 },
+    "facing=south": { "model": "menagerie:block/eya_plush" },
+    "facing=west":  { "model": "menagerie:block/eya_plush", "y": 90 },
+    "facing=east":  { "model": "menagerie:block/eya_plush", "y": 270 }
+  }
+}

@@ -1,7 +1,8 @@
 {
   "variants": {
-    "": {
-      "model" : "menagerie:block/capozi_plush"
-    }
+    "facing=north": { "model": "menagerie:block/capozi_plush", "y": 180 },
+    "facing=south": { "model": "menagerie:block/capozi_plush" },
+    "facing=west":  { "model": "menagerie:block/capozi_plush", "y": 90 },
+    "facing=east":  { "model": "menagerie:block/capozi_plush", "y": 270 }
   }
 }

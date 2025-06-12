@@ -1,5 +1,6 @@
 package net.capozi.menagerie.common.datagen;
 
+import net.capozi.menagerie.foundation.BlockInit;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
@@ -18,19 +19,10 @@ public class LootTableProvider extends FabricBlockLootTableProvider {
     public LootTableProvider(FabricDataOutput dataOutput) {
         super(dataOutput);
     }
-
     @Override
     public void generate() {
-
-    }
-
-    public LootTable.Builder copperLikeOreDrops(Block drop, Item item) {
-        return BlockLootTableGenerator.dropsWithSilkTouch(drop, (LootPoolEntry.Builder)this.applyExplosionDecay(drop,
-                ((LeafEntry.Builder)
-                        ItemEntry.builder(item)
-                                .apply(SetCountLootFunction
-                                        .builder(UniformLootNumberProvider
-                                                .create(2.0f, 5.0f))))
-                        .apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE))));
+        addDrop(BlockInit.CAPOZI_PLUSH);
+        addDrop(BlockInit.EYA_PLUSH);
+        addDrop(BlockInit.COSMO_PLUSH);
     }
 }

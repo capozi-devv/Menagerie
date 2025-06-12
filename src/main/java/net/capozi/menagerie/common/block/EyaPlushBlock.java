@@ -17,8 +17,8 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
-public class CapoziPlushBlock extends Block {
-    public CapoziPlushBlock(Settings settings) {
+public class EyaPlushBlock extends Block {
+    public EyaPlushBlock(Settings settings) {
         super(settings);
     }
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;

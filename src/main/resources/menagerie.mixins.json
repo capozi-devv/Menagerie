@@ -10,7 +10,9 @@
 	"client": [
 		"ItemRendererMixin",
 		"KeyboardMixin",
-		"ModelLoaderMixin"
+		"ModelLoaderMixin",
+		"PlayerEntityModelMixin",
+		"PlayerEntityRendererMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

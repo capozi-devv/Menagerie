@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "menagerie:item/camera_of_the_otherside"
-  }
+  "parent": "menagerie:item/camera_active"
 }

@@ -2,7 +2,7 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"0": "menagerie:block/capozi_plush",
-		"particle": "minecraft:block/red_wool"
+		"particle": "minecraft:block/respawn_anchor_side4"
 	},
 	"elements": [
 		{

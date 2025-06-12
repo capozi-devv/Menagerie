@@ -17,7 +17,6 @@ public class ChainedEffect extends StatusEffect {
                 // Cancel all movement
                 player.setVelocity(Vec3d.ZERO);
                 player.velocityModified = true;
-
                 // (Optional) cancel sneaking/jumping if client-side
                 if (!player.getWorld().isClient) {
                     player.setSneaking(false);

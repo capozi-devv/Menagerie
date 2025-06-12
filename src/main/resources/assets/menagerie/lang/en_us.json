@@ -1,5 +1,11 @@
 {
   "item.menagerie.mark_of_dissonance" : "Mark of Dissonance",
-  "block.menagerie.vitrified_soul_sand" : "Vitrified Soul Sand",
+  "item.menagerie.gamblers_fallacy": "Gambler's Fallacy",
+  "block.menagerie.capozi_plush": "Capozi Plush",
+  "block.menagerie.eya_plush": "Eyalego Plush",
+  "block.menagerie.cosmo_plush": "Cosmo Plush",
+  "enchantment.menagerie.arcane": "Arcane",
+  "death.attack.arcane": "%1$s was obliterated by magic from %2$s",
+  "death.attack.arcane.item": "%1$s was obliterated by magic from %2$s wielding %3$s",
   "item.menagerie.camera_of_the_otherside" : "Camera of the Otherside"
 }

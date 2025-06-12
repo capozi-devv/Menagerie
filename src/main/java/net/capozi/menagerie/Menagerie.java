@@ -1,5 +1,6 @@
 package net.capozi.menagerie;
 
+import net.capozi.menagerie.common.datagen.LootTableModifiers;
 import net.capozi.menagerie.foundation.*;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
 import net.fabricmc.api.ModInitializer;
@@ -29,6 +30,8 @@ public class Menagerie implements ModInitializer {
 		BlockInit.registerBlocks();
 		SoundInit.registerSounds();
 		EffectInit.registerEffects();
+		EnchantInit.init();
+		LootTableModifiers.modifyLootTables();
 		FabricDefaultAttributeRegistry.register(EntityInit.ABYSSAL_CHAINS, ChainsEntity.createChainAttributes());
 		AttackEntityCallback.EVENT.register((PlayerEntity player, World world, net.minecraft.util.Hand hand, Entity target, EntityHitResult hitResult) -> {
 			StatusEffectInstance effect = player.getStatusEffect(EffectInit.CHAINED_EFFECT);
