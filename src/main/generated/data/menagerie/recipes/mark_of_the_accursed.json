@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "B": {
+      "item": "minecraft:bone_block"
+    },
+    "L": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "pattern": [
+    "BAB",
+    "ALA",
+    "BNB"
+  ],
+  "result": {
+    "item": "menagerie:mark_of_the_accursed"
+  },
+  "show_notification": true
+}

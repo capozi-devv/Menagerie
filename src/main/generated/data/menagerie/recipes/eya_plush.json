@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:red_wool"
+    },
+    "F": {
+      "item": "minecraft:magma_cream"
+    },
+    "G": {
+      "item": "minecraft:basalt"
+    },
+    "R": {
+      "item": "minecraft:magma_block"
+    }
+  },
+  "pattern": [
+    "RGR",
+    "GFG",
+    "RBR"
+  ],
+  "result": {
+    "item": "menagerie:eya_plush"
+  },
+  "show_notification": true
+}

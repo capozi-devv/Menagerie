@@ -18,5 +18,13 @@
     "sounds": [
       "menagerie:block/honk"
     ]
+  },
+  "damnatio_memoriae": {
+    "sounds": [
+      {
+        "name": "menagerie:item/damnatio_memoriae",
+        "stream": true
+      }
+    ]
   }
 }

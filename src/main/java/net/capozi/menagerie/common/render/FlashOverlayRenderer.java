@@ -1,6 +1,5 @@
 package net.capozi.menagerie.common.render;
 
-import net.capozi.menagerie.common.network.FlashPacket;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.gui.DrawContext;
 

@@ -1,5 +1,7 @@
 package net.capozi.menagerie.mixin;
 
+import net.capozi.menagerie.Menagerie;
+import net.capozi.menagerie.common.network.BoundArtifactComponent;
 import net.capozi.menagerie.foundation.EffectInit;
 import net.capozi.menagerie.foundation.EnchantInit;
 import net.capozi.menagerie.foundation.ItemInit;
@@ -46,7 +48,6 @@ public abstract class LivingEntityMixin {
             triggerTotemEffect(killed); // heal and freeze logic
         }
     }
-
     private boolean hasCameraItem(ServerPlayerEntity player) {
         for (ItemStack stack : player.getInventory().main) {
             if (stack.isOf(ItemInit.CAMERA_OF_THE_OTHERSIDE)) {
@@ -69,8 +70,13 @@ public abstract class LivingEntityMixin {
     @Inject(method = "canHaveStatusEffect", at = @At("HEAD"), cancellable = true)
     public void canHaveStatusEffect(StatusEffectInstance effect, CallbackInfoReturnable<Boolean> cir) {
         if((Object)this instanceof PlayerEntity player) {
-            if (player.getInventory().contains(ItemInit.MARK_OF_DISSONANCE.getDefaultStack())) {
-                cir.setReturnValue(effect.getEffectType() == StatusEffects.WITHER || effect.getEffectType() == StatusEffects.INSTANT_DAMAGE || effect.getEffectType() == StatusEffects.INSTANT_HEALTH || effect.getEffectType() == EffectInit.CHAINED_EFFECT);
+            BoundArtifactComponent component = Menagerie.getBoundArtifact().get(player);
+            if (component.hasArtifact() && !player.hasStatusEffect(EffectInit.ETHEROT)) {
+                cir.setReturnValue(effect.getEffectType() == StatusEffects.WITHER || effect.getEffectType() == StatusEffects.INSTANT_DAMAGE || effect.getEffectType() == StatusEffects.INSTANT_HEALTH || effect.getEffectType() == EffectInit.CHAINED_EFFECT || effect.getEffectType() == EffectInit.ETHEROT);
+            } else if (Menagerie.getBoundAccursed().get(player).hasAccursed()) {
+                if (effect.getEffectType() == StatusEffects.REGENERATION || effect.getEffectType() == StatusEffects.POISON) {
+                    cir.setReturnValue(false); // Immune to these
+                }
             }
         }
     }

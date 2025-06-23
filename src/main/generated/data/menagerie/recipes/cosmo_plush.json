@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:red_wool"
+    },
+    "F": {
+      "item": "minecraft:feather"
+    },
+    "G": {
+      "item": "minecraft:light_gray_wool"
+    },
+    "R": {
+      "item": "minecraft:gray_wool"
+    }
+  },
+  "pattern": [
+    "RGR",
+    "GFG",
+    "RBR"
+  ],
+  "result": {
+    "item": "menagerie:cosmo_plush"
+  },
+  "show_notification": true
+}

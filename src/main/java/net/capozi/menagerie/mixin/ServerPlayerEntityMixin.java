@@ -2,12 +2,17 @@ package net.capozi.menagerie.mixin;
 
 import com.mojang.authlib.GameProfile;
 import net.capozi.menagerie.Menagerie;
+import net.capozi.menagerie.common.network.BoundAccursedComponent;
+import net.capozi.menagerie.common.network.BoundArtifactComponent;
+import net.capozi.menagerie.common.network.EtherotComponent;
 import net.capozi.menagerie.foundation.EffectInit;
 import net.capozi.menagerie.foundation.EntityInit;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
 import net.capozi.menagerie.common.item.TrappedState;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -54,8 +59,44 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Tr
                     chains.velocityModified =true;
                     this.trappedChains = chains;
                 }
-                return;
             }
         }
+    }
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void burnInDaylightIfAccursed(CallbackInfo ci) {
+        if (this.isAlive() && !this.isSpectator() && !this.isCreative()) {
+            BlockPos pos = this.getBlockPos();
+            if (this.getWorld().isDay() &&
+                    this.getWorld().isSkyVisible(this.getBlockPos()) &&
+                    !this.isSubmergedInWater() &&
+                    this.getBrightnessAtEyes() > 0.5F) {
+                BoundAccursedComponent accursed = Menagerie.getBoundAccursed().get(this);
+                World world = this.getWorld();
+                if (this.hasStatusEffect(EffectInit.ETHEROT)) {
+                    if(this.getFireTicks() <= 0){
+                        this.setOnFireFor(20);
+                    }
+                }
+                if (world.isRaining() && world.hasRain(pos)) return; // Don't burn in rain
+                    // Check if wearing a helmet (prevents burn)
+                    ItemStack headStack = this.getEquippedStack(EquipmentSlot.HEAD);
+                    boolean hasHelmet = !headStack.isEmpty();
+                    if (!hasHelmet) {
+                        if(this.getFireTicks() <= 0 && accursed.hasAccursed()) {
+                            this.setOnFireFor(20);
+                        }
+                    }
+            }
+        }
+    }
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void tickCustomTimer(CallbackInfo ci) {
+        ServerPlayerEntity player = (ServerPlayerEntity)(Object)this;
+        EtherotComponent component = Menagerie.getEtherotStatus().get(player);
+        component.tickEtherot(player);
+        BoundAccursedComponent accursed = Menagerie.getBoundAccursed().get(player);
+        BoundArtifactComponent artifact = Menagerie.getBoundArtifact().get(player);
+        accursed.tickAccursed(player);
+        artifact.tickArtifact(player);
     }
 }

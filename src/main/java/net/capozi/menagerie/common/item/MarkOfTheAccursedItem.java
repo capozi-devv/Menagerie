@@ -11,8 +11,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
-public class MarkOfDissonanceItem extends Item {
-    public MarkOfDissonanceItem(Item.Settings settings) {
+public class MarkOfTheAccursedItem extends Item {
+    public MarkOfTheAccursedItem(Settings settings) {
         super(settings);
     }
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
@@ -23,7 +23,7 @@ public class MarkOfDissonanceItem extends Item {
                 player.sendMessage(Text.literal("Thy soul cannot split in twain."), true);
                 return TypedActionResult.fail(player.getStackInHand(hand));
             }
-            artifact.setHasArtifact(true); // This should set internal boolean true
+            accursed.setHasAccursed(true); // This should set internal boolean true
             player.getItemCooldownManager().set(this, 20);
             if (!player.getAbilities().creativeMode) {
                 player.getStackInHand(hand).decrement(1);

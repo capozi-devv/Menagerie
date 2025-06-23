@@ -1,19 +1,16 @@
 package net.capozi.menagerie.mixin;
 
-import net.capozi.menagerie.foundation.ItemInit;
+import net.capozi.menagerie.Menagerie;
+import net.capozi.menagerie.common.network.BoundArtifactComponent;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.registry.tag.BiomeTags;
-import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -23,7 +20,6 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
@@ -52,20 +48,26 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     )
     private void menagerie$onDamaged(Args args) {
         DamageSource source = (DamageSource) args.get(0);
-        float value = (Float)args.get(1);
-        if (this.getInventory().contains(ItemInit.MARK_OF_DISSONANCE.getDefaultStack()) && this.isSubmergedInWater && !this.isDead() && this.random.nextInt(6) == 1) {
+        float value = (Float) args.get(1);
+        BoundArtifactComponent component = Menagerie.getBoundArtifact().get(this);
+        if (component.hasArtifact() && this.isSubmergedInWater() && !this.isDead() && this.random.nextInt(6) == 1) {
             args.set(1, value * 2.0F);
         }
-
     }
+    @Override
     public EntityGroup getGroup() {
-        return this.getInventory().contains(ItemInit.MARK_OF_DISSONANCE.getDefaultStack()) ? EntityGroup.UNDEAD : super.getGroup();
+        BoundArtifactComponent component = Menagerie.getBoundArtifact().get(this);
+        return component.hasArtifact() ? EntityGroup.UNDEAD : super.getGroup();
     }
+    @Override
     public boolean isUndead() {
-        return this.getInventory().contains(ItemInit.MARK_OF_DISSONANCE.getDefaultStack()) ? true : super.isUndead();
+        BoundArtifactComponent component = Menagerie.getBoundArtifact().get(this);
+        return component.hasArtifact() || super.isUndead();
     }
+    @Override
     public boolean hurtByWater() {
-        return !this.getInventory().contains(ItemInit.MARK_OF_DISSONANCE.getDefaultStack()) && (!this.isInFlowingFluid(FluidTags.WATER) || !this.isSubmergedInWater()) ? super.hurtByWater(): true;
+        BoundArtifactComponent component = Menagerie.getBoundArtifact().get(this);
+        return component.hasArtifact() ? true : super.hurtByWater();
     }
     private boolean isInFlowingFluid(TagKey<Fluid> tag) {
         if (this.isRegionUnloaded()) {
@@ -84,7 +86,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             Vec3d vec3d = Vec3d.ZERO;
             int o = 0;
             BlockPos.Mutable mutable = new BlockPos.Mutable();
-
             for(int p = i; p < j; ++p) {
                 for(int q = k; q < l; ++q) {
                     for(int r = m; r < n; ++r) {

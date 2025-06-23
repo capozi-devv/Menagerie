@@ -17,7 +17,7 @@ public class LootTableModifiers {
             if(FISHING_ID.equals(id)) {
                 LootPool.Builder poolBuilder = LootPool.builder()
                         .rolls(ConstantLootNumberProvider.create(1))
-                        .conditionally(RandomChanceLootCondition.builder(0.005f))
+                        .conditionally(RandomChanceLootCondition.builder(0.001f))
                         .with(ItemEntry.builder(Items.SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE))
                         .with(ItemEntry.builder(Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE))
                         .with(ItemEntry.builder(Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE))

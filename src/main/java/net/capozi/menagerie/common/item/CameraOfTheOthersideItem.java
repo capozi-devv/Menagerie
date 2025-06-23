@@ -72,7 +72,6 @@ public class CameraOfTheOthersideItem extends Item {
         }
         return ActionResult.PASS;
     }
-
     private void ban(PlayerEntity user, LivingEntity entity){
         ServerPlayerEntity target = (ServerPlayerEntity) entity;
         ServerPlayerEntity source = (ServerPlayerEntity) user;
