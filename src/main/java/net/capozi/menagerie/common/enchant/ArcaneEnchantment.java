@@ -15,5 +15,18 @@ public class ArcaneEnchantment extends Enchantment {
     public boolean isAcceptableItem(ItemStack stack) {
         return stack.getItem() instanceof ToolItem || stack.getItem() instanceof RangedWeaponItem;
     }
+    @Override
+    public boolean isTreasure() {
+        return true;
+    }
+    // Optional: mark as incompatible with books if you want
+    @Override
+    public boolean isAvailableForEnchantedBookOffer() {
+        return false; // or false if you want to exclude from villager trades
+    }
+    @Override
+    public boolean isAvailableForRandomSelection() {
+        return true; // include in loot table/random selection
+    }
 }
 

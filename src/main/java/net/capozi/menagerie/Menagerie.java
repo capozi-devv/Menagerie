@@ -11,6 +11,7 @@ import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
+import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -18,6 +19,14 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.decoration.painting.PaintingVariant;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.condition.RandomChanceLootCondition;
+import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.loot.function.SetNbtLootFunction;
+import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.ActionResult;
@@ -30,6 +39,7 @@ import org.slf4j.LoggerFactory;
 public class Menagerie implements ModInitializer {
 	public static final String MOD_ID = "menagerie";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	private static final Identifier WARDEN_LOOT_TABLE_ID = new Identifier("minecraft", "entities/warden");
 	public static ComponentKey<BoundArtifactComponent> BOUND_ARTIFACT;
 	public static ComponentKey<BoundAccursedComponent> BOUND_ACCURSED;
 	public static ComponentKey<EtherotComponent> ETHEROT;
@@ -59,6 +69,28 @@ public class Menagerie implements ModInitializer {
 				return effect == null || effect.getAmplifier() < 0; // Cancel the damage
 			}
 			return true; // Allow normal damage
+		});
+		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
+			if (WARDEN_LOOT_TABLE_ID.equals(id)) {
+				NbtList enchantments = new NbtList();
+				NbtCompound enchantment = new NbtCompound();
+				enchantment.putString("id", "menagerie:arcane");
+				enchantment.putInt("lvl", 1);
+				enchantments.add(enchantment);
+
+				NbtCompound nbt = new NbtCompound();
+				nbt.put("StoredEnchantments", enchantments);
+
+				// Create loot pool entry for enchanted book
+				LootPool.Builder pool = LootPool.builder()
+						.rolls(ConstantLootNumberProvider.create(1))
+						.with(ItemEntry.builder(Items.ENCHANTED_BOOK)
+								.apply(SetNbtLootFunction.builder(nbt))
+								.weight(1))
+						.conditionally(RandomChanceLootCondition.builder(0.25f)); // 25% chance
+
+				tableBuilder.pool(pool);
+			}
 		});
 	}
 	public static Identifier identifier(String name) {

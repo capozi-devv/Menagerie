@@ -26,5 +26,15 @@
         "stream": true
       }
     ]
+  },
+  "simulacra1": {
+    "sounds": [
+      "menagerie:item/simulacra1"
+    ]
+  },
+  "simulacra2": {
+    "sounds": [
+      "menagerie:item/simulacra2"
+    ]
   }
 }

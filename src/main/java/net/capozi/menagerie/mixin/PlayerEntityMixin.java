@@ -28,7 +28,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     protected boolean isSubmergedInWater;
     @Shadow public abstract PlayerInventory getInventory();
     @Shadow public abstract boolean isPushedByFluids();
-
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }

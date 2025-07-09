@@ -9,7 +9,15 @@
 		"Cosmo_Leveling",
 		"Eyalego"
 	],
+	"custom": {
+		"cardinal-components": [
+			"menagerie:bound_artifact",
+			"menagerie:bound_accursed",
+			"menagerie:etherot"
+		]
+	},
 	"contact": {
+
 	},
 	"license": "ARR",
 	"icon": "assets/menagerie/icon.png",
@@ -23,6 +31,9 @@
 		],
 		"fabric-datagen": [
 			"net.capozi.menagerie.MenagerieDataGenerator"
+		],
+		"cardinal-components-entity": [
+			"net.capozi.menagerie.MenagerieComponents"
 		]
 	},
 	"mixins": [

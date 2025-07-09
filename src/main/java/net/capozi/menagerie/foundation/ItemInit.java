@@ -1,10 +1,7 @@
 package net.capozi.menagerie.foundation;
 
 import net.capozi.menagerie.Menagerie;
-import net.capozi.menagerie.common.item.CameraOfTheOthersideItem;
-import net.capozi.menagerie.common.item.MarkOfTheAccursedItem;
-import net.capozi.menagerie.common.item.MarkOfDissonanceItem;
-import net.capozi.menagerie.common.item.TestItem;
+import net.capozi.menagerie.common.item.*;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -38,6 +35,7 @@ public class ItemInit {
     public static final Item MARK_OF_DISSONANCE = registerItems("mark_of_dissonance", new MarkOfDissonanceItem(new FabricItemSettings().maxCount(1)));
     public static final Item CAMERA_OF_THE_OTHERSIDE = registerItems("camera_of_the_otherside",new CameraOfTheOthersideItem(new FabricItemSettings().maxCount(1)));
     public static final Item MARK_OF_THE_ACCURSED = registerItems("mark_of_the_accursed", new MarkOfTheAccursedItem(new FabricItemSettings().maxCount(1)));
+    public static final Item SIMULACRUM_VESSEL = registerItems("simulacrum_vessel", new SimulacrumVesselItem(new FabricItemSettings().maxCount(1)));
     public static final Item TEST_ITEM = registerItems("test_item", new TestItem(new FabricItemSettings()));
     public static final Item DAMNATIO_MEMORIAE_MUSIC_DISC = registerItems("damnatio_memoriae", new MusicDiscItem(7, SoundInit.DAMNATIO_MEMORIAE, new FabricItemSettings().maxCount(1), 83));
 }

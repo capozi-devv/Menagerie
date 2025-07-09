@@ -9,7 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 
 public class Etherot extends StatusEffect {
     public Etherot() {
-        super(StatusEffectCategory.HARMFUL, 0x5A5A5A);
+        super(StatusEffectCategory.HARMFUL, 0x19fff7);
     }
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {

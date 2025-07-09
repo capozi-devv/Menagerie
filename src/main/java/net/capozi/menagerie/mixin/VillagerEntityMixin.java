@@ -2,7 +2,6 @@ package net.capozi.menagerie.mixin;
 
 import net.capozi.menagerie.Menagerie;
 import net.capozi.menagerie.common.network.BoundAccursedComponent;
-import net.capozi.menagerie.common.network.BoundArtifactComponent;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
