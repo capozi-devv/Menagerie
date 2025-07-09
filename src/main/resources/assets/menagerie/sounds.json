@@ -27,14 +27,9 @@
       }
     ]
   },
-  "simulacra1": {
+  "simulacra": {
     "sounds": [
-      "menagerie:item/simulacra1"
-    ]
-  },
-  "simulacra2": {
-    "sounds": [
-      "menagerie:item/simulacra2"
+      "menagerie:item/simulacra"
     ]
   }
 }

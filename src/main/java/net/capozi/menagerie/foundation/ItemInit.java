@@ -26,6 +26,7 @@ public class ItemInit {
         entries.add(MARK_OF_DISSONANCE);
         entries.add(CAMERA_OF_THE_OTHERSIDE);
         entries.add(MARK_OF_THE_ACCURSED);
+        entries.add(SIMULACRUM_VESSEL);
     }
     public static void registerBlocksToBuildingTab(FabricItemGroupEntries entries) {
         entries.add(CAPOZI_PLUSH);

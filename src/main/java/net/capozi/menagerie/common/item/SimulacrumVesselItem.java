@@ -16,21 +16,19 @@ public class SimulacrumVesselItem extends Item {
         super(settings);
     }
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
-        Item copyTarget = player.getStackInHand(hand).getItem();
-        ItemStack copyTargetStack = player.getStackInHand(hand);
+        Item copyTarget = player.getMainHandStack().getItem();
+        ItemStack copyTargetStack = player.getMainHandStack();
         BlockPos pos = player.getBlockPos();
         if (copyTarget instanceof SimulacrumVesselItem) {
-            player.sendMessage(Text.literal("Simulacra cannot self-replicate"));
+            player.sendMessage(Text.literal("Simulacra cannot self-replicate"), true);
             return TypedActionResult.fail(copyTargetStack);
-        }
-        if(copyTargetStack.getCount() > 1) {
-            player.sendMessage(Text.literal("Simulacra cannot produce more than what they were made from"));
+        } else if (copyTargetStack.getCount() > 1) {
+            player.sendMessage(Text.literal("Simulacra cannot produce more than what they were made from"), true);
             return TypedActionResult.fail(copyTargetStack);
         } else {
             player.getOffHandStack().decrement(1);
             player.getInventory().setStack(40, copyTargetStack);
-            player.getWorld().playSound(null, pos, SoundInit.SIMULACRA_ONE, SoundCategory.PLAYERS, 1f, 1f);
-            player.getWorld().playSound(null, pos, SoundInit.SIMULACRA_TWO, SoundCategory.PLAYERS, 1f, 1f);
+            player.getWorld().playSound(null, pos, SoundInit.SIMULACRA, SoundCategory.PLAYERS, 1f, 1f);
             return TypedActionResult.consume(copyTargetStack);
         }
     }
