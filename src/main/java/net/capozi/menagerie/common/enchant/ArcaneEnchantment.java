@@ -22,7 +22,7 @@ public class ArcaneEnchantment extends Enchantment {
     // Optional: mark as incompatible with books if you want
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
-        return false; // or false if you want to exclude from villager trades
+        return false;
     }
     @Override
     public boolean isAvailableForRandomSelection() {
