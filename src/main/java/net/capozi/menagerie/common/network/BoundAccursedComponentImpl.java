@@ -19,13 +19,12 @@ public class BoundAccursedComponentImpl implements BoundAccursedComponent{
     }
     @Override
     public void tickAccursed(PlayerEntity player) {
-        if (hasAccursed() && !player.hasStatusEffect(EffectInit.ETHEROT)) {
+        if (hasAccursed()) {
             HealthUtils.addExtraHearts(player, 10.0);
             player.setAir(300);
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 70, 1, false, false, false));
         }
     }
-
     @Override
     public void readFromNbt(NbtCompound tag) {
         this.hasAccursed = tag.getBoolean("HasAccursed");

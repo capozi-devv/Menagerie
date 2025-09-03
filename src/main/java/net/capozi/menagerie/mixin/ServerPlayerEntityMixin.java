@@ -4,7 +4,6 @@ import com.mojang.authlib.GameProfile;
 import net.capozi.menagerie.Menagerie;
 import net.capozi.menagerie.common.network.BoundAccursedComponent;
 import net.capozi.menagerie.common.network.BoundArtifactComponent;
-import net.capozi.menagerie.common.network.EtherotComponent;
 import net.capozi.menagerie.foundation.EffectInit;
 import net.capozi.menagerie.foundation.EntityInit;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
@@ -72,11 +71,6 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Tr
                     this.getBrightnessAtEyes() > 0.5F) {
                 BoundAccursedComponent accursed = Menagerie.getBoundAccursed().get(this);
                 World world = this.getWorld();
-                if (this.hasStatusEffect(EffectInit.ETHEROT)) {
-                    if(this.getFireTicks() <= 0){
-                        this.setOnFireFor(20);
-                    }
-                }
                 if (world.isRaining() && world.hasRain(pos)) return; // Don't burn in rain
                     // Check if wearing a helmet (prevents burn)
                     ItemStack headStack = this.getEquippedStack(EquipmentSlot.HEAD);
@@ -92,8 +86,6 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Tr
     @Inject(method = "tick", at = @At("HEAD"))
     private void tickCustomTimer(CallbackInfo ci) {
         ServerPlayerEntity player = (ServerPlayerEntity)(Object)this;
-        EtherotComponent component = Menagerie.getEtherotStatus().get(player);
-        component.tickEtherot(player);
         BoundAccursedComponent accursed = Menagerie.getBoundAccursed().get(player);
         BoundArtifactComponent artifact = Menagerie.getBoundArtifact().get(player);
         accursed.tickAccursed(player);

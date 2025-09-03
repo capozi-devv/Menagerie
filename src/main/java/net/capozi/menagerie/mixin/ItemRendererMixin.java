@@ -18,8 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(ItemRenderer.class)
-public abstract class ItemRendererMixin
-{
+public abstract class ItemRendererMixin {
     private static final ModelIdentifier CAMERA_ACTIVE;
     private static final ModelIdentifier MARK_ACTIVE;
     @Shadow @Final private ItemModels models;

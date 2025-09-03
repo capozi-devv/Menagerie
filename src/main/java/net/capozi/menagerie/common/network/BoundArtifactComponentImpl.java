@@ -30,7 +30,7 @@ public class BoundArtifactComponentImpl implements BoundArtifactComponent, AutoS
 
     @Override
     public void tickArtifact(PlayerEntity player) {
-        if (hasArtifact() && !player.hasStatusEffect(EffectInit.ETHEROT)) {
+        if (hasArtifact()) {
             player.setFireTicks(0);
             player.extinguish();
         }

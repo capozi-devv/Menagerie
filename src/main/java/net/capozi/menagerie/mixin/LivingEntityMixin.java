@@ -71,8 +71,8 @@ public abstract class LivingEntityMixin {
     public void canHaveStatusEffect(StatusEffectInstance effect, CallbackInfoReturnable<Boolean> cir) {
         if((Object)this instanceof PlayerEntity player) {
             BoundArtifactComponent component = Menagerie.getBoundArtifact().get(player);
-            if (component.hasArtifact() && !player.hasStatusEffect(EffectInit.ETHEROT)) {
-                cir.setReturnValue(effect.getEffectType() == StatusEffects.WITHER || effect.getEffectType() == StatusEffects.INSTANT_DAMAGE || effect.getEffectType() == StatusEffects.INSTANT_HEALTH || effect.getEffectType() == EffectInit.CHAINED_EFFECT || effect.getEffectType() == EffectInit.ETHEROT);
+            if (component.hasArtifact()) {
+                cir.setReturnValue(effect.getEffectType() == StatusEffects.WITHER || effect.getEffectType() == StatusEffects.INSTANT_DAMAGE || effect.getEffectType() == StatusEffects.INSTANT_HEALTH || effect.getEffectType() == EffectInit.CHAINED_EFFECT);
             } else if (Menagerie.getBoundAccursed().get(player).hasAccursed()) {
                 if (effect.getEffectType() == StatusEffects.REGENERATION || effect.getEffectType() == StatusEffects.POISON) {
                     cir.setReturnValue(false); // Immune to these
