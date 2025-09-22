@@ -5,7 +5,7 @@ import net.minecraft.client.gui.DrawContext;
 
 public class FlashOverlayRenderer {
     private static long flashStartTime = 0;
-    private static final long FLASH_DURATION_MS = 500;
+    private static final long FLASH_DURATION_MS = 5000;
     public static void init() {
         HudRenderCallback.EVENT.register((DrawContext drawContext, float tickDelta) -> {
             if (!isFlashing()) return;
@@ -15,7 +15,7 @@ public class FlashOverlayRenderer {
             // White-goldish color overlay (RGBA)
             drawContext.fill(
                     0, 0, drawContext.getScaledWindowWidth(), drawContext.getScaledWindowHeight(),
-                    ((int)(alpha * 190) << 24) | 0x8AFDFF // Gold color with alpha
+                    ((int)(alpha * 190) << 24) | 0xFFF09A // Gold color with alpha
             );
         });
     }
@@ -23,6 +23,6 @@ public class FlashOverlayRenderer {
         flashStartTime = System.currentTimeMillis();
     }
     private static boolean isFlashing() {
-        return System.currentTimeMillis() - flashStartTime < 500;
+        return System.currentTimeMillis() - flashStartTime < 5000;
     }
 }
