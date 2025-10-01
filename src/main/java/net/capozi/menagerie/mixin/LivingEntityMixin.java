@@ -58,7 +58,7 @@ public abstract class LivingEntityMixin {
     }
     private void triggerTotemEffect(ServerPlayerEntity killed) {
         killed.setHealth(20.0F);
-        killed.addStatusEffect(new StatusEffectInstance(EffectInit.CHAINED_EFFECT, 200000000, 1, false, false, false));
+        killed.addStatusEffect(new StatusEffectInstance(EffectInit.CHAINED_EFFECT, 600, 1, false, false, true));
         killed.setVelocity(Vec3d.ZERO);
         killed.velocityModified = true;
         //Play kill sound
