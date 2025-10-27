@@ -78,5 +78,14 @@ public class RecipeProvider extends FabricRecipeProvider {
                 .input('B', Items.RED_WOOL)
                 .criterion(hasItem(Items.FEATHER), conditionsFromItem(Items.FEATHER))
                 .offerTo(exporter, new Identifier(getRecipeName(BlockInit.COSMO_PLUSH)));
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ItemInit.SIMULACRUM_VESSEL, 1)
+                .pattern("SNS")
+                .pattern("LLL")
+                .pattern("SNS")
+                .input('S', Items.SLIME_BALL)
+                .input('L', Items.LAPIS_LAZULI)
+                .input('N', Items.QUARTZ)
+                .criterion(hasItem(Items.NETHERITE_SCRAP), conditionsFromItem(Items.NETHERITE_SCRAP))
+                .offerTo(exporter, new Identifier(getRecipeName(ItemInit.SIMULACRUM_VESSEL)));
     }
 }

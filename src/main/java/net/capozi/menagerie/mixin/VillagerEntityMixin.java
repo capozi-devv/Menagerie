@@ -18,6 +18,7 @@ public abstract class VillagerEntityMixin {
         if (!player.getWorld().isClient) {
             BoundAccursedComponent accursed = Menagerie.getBoundAccursed().get(player);
             if (accursed.hasAccursed()) {
+                cir.cancel();
                 cir.setReturnValue(ActionResult.FAIL);
             }
         }

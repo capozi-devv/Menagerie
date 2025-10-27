@@ -16,6 +16,7 @@ public class KeyboardMixin {
         if (MinecraftClient.getInstance().player != null) {
             if (MinecraftClient.getInstance().player.hasStatusEffect(EffectInit.CHAINED_EFFECT) && !MinecraftClient.getInstance().isPaused()) {
                 KeyBinding.unpressAll();
+
                 callbackInfo.cancel();
             }
         }

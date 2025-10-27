@@ -52,6 +52,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Tr
                     Vec3d pos = this.getPos();
                     chains.refreshPositionAndAngles(pos.x, pos.y, pos.z, 0, 0);
                     chains.addStatusEffect(new StatusEffectInstance(EffectInit.CHAINED_EFFECT, 200000000, 1, false, false, false));
+                    this.addStatusEffect(new StatusEffectInstance(EffectInit.CHAINED_EFFECT, 200000000, 1, false, false, false));
                     serverWorld.spawnEntity(chains);
                     chains.setPlayerUuid(this.getUuid());
                     this.velocityModified = true;
@@ -64,6 +65,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Tr
     @Inject(method = "tick", at = @At("TAIL"))
     private void burnInDaylightIfAccursed(CallbackInfo ci) {
         if (this.isAlive() && !this.isSpectator() && !this.isCreative()) {
+            this.setAir(10);
             BlockPos pos = this.getBlockPos();
             if (this.getWorld().isDay() &&
                     this.getWorld().isSkyVisible(this.getBlockPos()) &&

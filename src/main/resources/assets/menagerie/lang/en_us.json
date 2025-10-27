@@ -14,5 +14,5 @@
   "death.attack.arcane": "%1$s was obliterated by magic from %2$s",
   "death.attack.arcane.item": "%1$s was obliterated by magic from %2$s wielding %3$s",
   "item.menagerie.camera_of_the_otherside" : "Camera of the Otherside",
-  "effect.menagerie.etherot": "Etherot"
+  "effect.menagerie.immobilized": "Chained"
 }

@@ -1,6 +1,7 @@
 package net.capozi.menagerie.common.entity.object;
 
 import net.capozi.menagerie.foundation.EffectInit;
+import net.capozi.menagerie.foundation.ItemInit;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -10,6 +11,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.AmbientEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.ServerConfigHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -32,7 +34,7 @@ public class ChainsEntity extends AmbientEntity implements ChainsEntityOverrides
     }
     public static DefaultAttributeContainer.Builder createChainAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 1f)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 2f)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 100f);
 
     }
@@ -158,7 +160,24 @@ public class ChainsEntity extends AmbientEntity implements ChainsEntityOverrides
     public UUID getPlayerUuid() {
         return (UUID)this.dataTracker.get(PLAYER_UUID).orElse(null);
     }
-
+    private boolean hasCameraItem(ServerPlayerEntity player) {
+        for (ItemStack stack : player.getInventory().main) {
+            if (stack.isOf(ItemInit.CAMERA_OF_THE_OTHERSIDE)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    @Override
+    protected void applyDamage(DamageSource source, float amount) {
+        if(source.getAttacker() instanceof ServerPlayerEntity) {
+            if(hasCameraItem((ServerPlayerEntity)source.getAttacker()) && ((ServerPlayerEntity)source.getAttacker()).getMainHandStack().isEmpty()) {
+                super.applyDamage(source, amount);
+            } else {
+                super.applyDamage(source, 0f);
+            }
+        }
+    }
     public void setPlayerUuid(@Nullable UUID uuid) {
         this.dataTracker.set(PLAYER_UUID, Optional.ofNullable(uuid));
     }
