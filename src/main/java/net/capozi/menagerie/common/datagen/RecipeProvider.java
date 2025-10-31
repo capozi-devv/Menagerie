@@ -87,5 +87,15 @@ public class RecipeProvider extends FabricRecipeProvider {
                 .input('N', Items.QUARTZ)
                 .criterion(hasItem(Items.NETHERITE_SCRAP), conditionsFromItem(Items.NETHERITE_SCRAP))
                 .offerTo(exporter, new Identifier(getRecipeName(ItemInit.SIMULACRUM_VESSEL)));
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, ItemInit.HEAVYIRON_LONGSPOON, 1)
+                .pattern(" HB")
+                .pattern("NBH")
+                .pattern("SN ")
+                .input('H', ItemInit.HEAVYIRON_INGOT)
+                .input('B', Items.IRON_BLOCK)
+                .input('N', Items.IRON_NUGGET)
+                .input('S', Items.IRON_INGOT)
+                .criterion(hasItem(ItemInit.HEAVYIRON_INGOT), conditionsFromItem(ItemInit.HEAVYIRON_INGOT))
+                .offerTo(exporter, new Identifier(getRecipeName(ItemInit.HEAVYIRON_LONGSPOON)));
     }
 }

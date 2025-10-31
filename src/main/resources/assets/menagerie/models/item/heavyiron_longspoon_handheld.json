@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "menagerie:item/heavyiron_longspoon_handheld"
+  }
+}

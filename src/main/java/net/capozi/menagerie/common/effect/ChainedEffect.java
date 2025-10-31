@@ -26,6 +26,6 @@ public class ChainedEffect extends StatusEffect {
     }
     @Override
     public boolean canApplyUpdateEffect(int duration, int amplifier) {
-        return true; // Run applyUpdateEffect every tickEtherot
+        return true;
     }
 }
