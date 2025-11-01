@@ -49,9 +49,8 @@ public class CameraOfTheOthersideItem extends Item {
                     user.getWorld().playSound(null, playerPos, SoundInit.FILM_ADVANCE_LAST,
                             SoundCategory.MASTER, 1f, 1f);
                 }
-                // Find and discard nearby ChainsEntity BEFORE the ban
-                // Kick and ban player
                 target.removeStatusEffect(EffectInit.CHAINED_EFFECT);
+                target.kill();
                 ban(user, target);
                 List<ChainsEntity> chainsNearby = user.getWorld().getEntitiesByClass(
                         ChainsEntity.class,

@@ -1,6 +1,98 @@
 {
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "menagerie:item/heavyiron_longspoon_handheld"
-  }
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"parent": "item/handheld",
+	"textures": {
+		"layer0": "menagerie:item/heavyiron_longspoon_handheld"
+	},
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [-47, -89, 0],
+			"translation": [0, 5.75, 2.75],
+			"scale": [3, 3, 1]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [48, -89, 0],
+			"translation": [0, 5.75, 2.75],
+			"scale": [3, 3, 1]
+		},
+		"firstperson_righthand": {
+			"rotation": [-31, -79, 0],
+			"translation": [0, -0.25, 1],
+			"scale": [2, 2, 1]
+		},
+		"firstperson_lefthand": {
+			"rotation": [69, -79, 0],
+			"translation": [0, -0.25, 1],
+			"scale": [2, 2, 1]
+		},
+		"ground": {
+			"translation": [0, 6.5, 0],
+			"scale": [1.5, 1.5, 1]
+		}
+	},
+  "overrides": [
+    {
+      "predicate": {
+        "pulling": 1
+      },
+      "model": "tutorial:item/heavyiron_longspoon_handheld_pull1"
+    },
+    {
+      "predicate": {
+        "pulling": 1,
+        "pull": 0.125
+      },
+      "model": "tutorial:item/heavyiron_longspoon_handheld_pull2"
+    },
+    {
+      "predicate": {
+        "pulling": 1,
+        "pull": 0.25
+      },
+      "model": "tutorial:item/heavyiron_longspoon_handheld_pull3"
+    },
+    {
+      "predicate": {
+        "pulling": 1,
+        "pull": 0.375
+      },
+      "model": "tutorial:item/heavyiron_longspoon_handheld_pull4"
+    },
+    {
+      "predicate": {
+        "pulling": 1,
+        "pull": 0.5
+      },
+      "model": "tutorial:item/heavyiron_longspoon_handheld_pull5"
+    },
+    {
+      "predicate": {
+        "pulling": 1,
+        "pull": 0.625
+      },
+      "model": "tutorial:item/heavyiron_longspoon_handheld_pull6"
+    },
+    {
+      "predicate": {
+        "pulling": 1,
+        "pull": 0.75
+      },
+      "model": "tutorial:item/heavyiron_longspoon_handheld_pull7"
+    },
+    {
+      "predicate": {
+        "pulling": 1,
+        "pull": 0.875
+      },
+      "model": "tutorial:item/heavyiron_longspoon_handheld_pull8"
+    },
+    {
+      "predicate": {
+        "pulling": 1,
+        "pull": 0.99
+      },
+      "model": "tutorial:item/heavyiron_longspoon_handheld_pull9"
+    }
+  ]
 }

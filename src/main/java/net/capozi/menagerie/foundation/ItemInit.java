@@ -48,6 +48,6 @@ public class ItemInit {
     public static final Item SIMULACRUM_VESSEL = registerItems("simulacrum_vessel", new SimulacrumVesselItem(new FabricItemSettings().maxCount(1)));
     public static final Item TEST_ITEM = registerItems("test_item", new TestItem(new FabricItemSettings()));
     public static final Item DAMNATIO_MEMORIAE_MUSIC_DISC = registerItems("damnatio_memoriae", new MusicDiscItem(7, SoundInit.DAMNATIO_MEMORIAE, new FabricItemSettings().maxCount(1), 83));
-    public static final Item HEAVYIRON_LONGSPOON = registerItems("heavyiron_longspoon", new HeavyIronLongSpoonItem(ToolMaterials.NETHERITE, 6, -3.1F, new Item.Settings().maxCount(1).fireproof()));
+    public static final Item HEAVYIRON_LONGSPOON = registerItems("heavyiron_longspoon", new HeavyIronLongSpoonItem(ToolMaterials.NETHERITE, 6, -3.2F, new Item.Settings().maxCount(1).fireproof()));
     public static final Item HEAVYIRON_INGOT = registerItems("heavyiron_ingot", new Item(new Item.Settings()));
 }

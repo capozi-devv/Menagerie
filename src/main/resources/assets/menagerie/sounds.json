@@ -31,5 +31,10 @@
     "sounds": [
       "menagerie:item/simulacra"
     ]
+  },
+  "spoon_bonk": {
+    "sounds": [
+      "menagerie:item/spoon_bonk"
+    ]
   }
 }

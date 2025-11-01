@@ -43,11 +43,12 @@ public abstract class LivingEntityMixin {
             );
             killer.getServer().getPlayerManager().broadcast(customMessage, false);
         }
-        if (hasCameraItem(killer) && health <= 1) {
+        if (hasCameraItem(killer) && health <= amount) {
             cir.setReturnValue(false); // cancel death
             triggerTotemEffect(killed); // heal and freeze logic
         }
     }
+
     private boolean hasCameraItem(ServerPlayerEntity player) {
         for (ItemStack stack : player.getInventory().main) {
             if (stack.isOf(ItemInit.CAMERA_OF_THE_OTHERSIDE)) {

@@ -18,5 +18,6 @@ public class SoundInit {
     public static final SoundEvent FILM_ADVANCE_LAST = registerSoundEvents("film_advance_last");
     public static final SoundEvent FLASH = registerSoundEvents("flash");
     public static final SoundEvent SIMULACRA = registerSoundEvents("simulacra");
+    public static final SoundEvent SPOON_BONK = registerSoundEvents("spoon_bonk");
     public static final SoundEvent DAMNATIO_MEMORIAE = registerSoundEvents("damnatio_memoriae");
 }

@@ -4,6 +4,7 @@ import net.capozi.menagerie.foundation.EffectInit;
 import net.minecraft.client.Keyboard;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
+import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -15,8 +16,9 @@ public class KeyboardMixin {
     public void onKey(long window, int key, int scancode, int action, int modifiers, CallbackInfo callbackInfo) {
         if (MinecraftClient.getInstance().player != null) {
             if (MinecraftClient.getInstance().player.hasStatusEffect(EffectInit.CHAINED_EFFECT) && !MinecraftClient.getInstance().isPaused()) {
-                KeyBinding.unpressAll();
-
+                if (key != GLFW.GLFW_KEY_ESCAPE) {
+                    KeyBinding.unpressAll();
+                }
                 callbackInfo.cancel();
             }
         }
