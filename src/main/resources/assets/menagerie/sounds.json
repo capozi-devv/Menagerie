@@ -36,5 +36,10 @@
     "sounds": [
       "menagerie:item/spoon_bonk"
     ]
+  },
+  "pogo": {
+    "sounds": [
+      "menagerie:item/pogo"
+    ]
   }
 }

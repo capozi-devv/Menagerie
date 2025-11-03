@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_netherite_scrap": {
+    "has_heavyiron_ingot": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:netherite_scrap"
+              "menagerie:heavyiron_ingot"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:camera_of_the_otherside"
+        "recipe": "minecraft:heavyiron_longspoon"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_netherite_scrap",
+      "has_heavyiron_ingot",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:camera_of_the_otherside"
+      "minecraft:heavyiron_longspoon"
     ]
   },
   "sends_telemetry_event": false

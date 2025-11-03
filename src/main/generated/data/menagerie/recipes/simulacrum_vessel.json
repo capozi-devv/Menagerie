@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "N": {
+      "item": "minecraft:quartz"
+    },
+    "S": {
+      "item": "minecraft:slime_ball"
+    }
+  },
+  "pattern": [
+    "SNS",
+    "LLL",
+    "SNS"
+  ],
+  "result": {
+    "item": "menagerie:simulacrum_vessel"
+  },
+  "show_notification": true
+}

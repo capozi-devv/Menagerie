@@ -16,5 +16,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
         getOrCreateTagBuilder(ItemTags.MUSIC_DISCS)
                 .add(ItemInit.DAMNATIO_MEMORIAE_MUSIC_DISC);
+        getOrCreateTagBuilder(ItemTags.SHOVELS)
+                .add(ItemInit.HEAVYIRON_LONGSPOON);
     }
 }

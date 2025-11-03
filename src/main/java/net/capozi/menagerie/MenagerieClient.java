@@ -2,6 +2,7 @@ package net.capozi.menagerie;
 
 import net.capozi.menagerie.common.network.FlashPacket;
 import net.capozi.menagerie.common.render.FlashOverlayRenderer;
+import net.capozi.menagerie.foundation.EnchantInit;
 import net.capozi.menagerie.foundation.EntityInit;
 import net.capozi.menagerie.common.entity.client.ChainsEntityModel;
 import net.capozi.menagerie.common.render.ModModelLayers;
@@ -13,6 +14,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.util.Identifier;
 
 import static net.capozi.menagerie.foundation.BlockInit.*;
@@ -20,16 +22,16 @@ import static net.capozi.menagerie.foundation.BlockInit.*;
 public class MenagerieClient implements ClientModInitializer {
     public static void registerModelPredicateProviders() {
         ModelPredicateProviderRegistry.register(ItemInit.HEAVYIRON_LONGSPOON, new Identifier("pull"), (itemStack, clientWorld, livingEntity, seed) -> {
-            if (livingEntity == null) {
+            if (livingEntity == null || EnchantmentHelper.getLevel(EnchantInit.POGO, itemStack) > 0) {
                 return 0.0F;
             }
-            return livingEntity.getActiveItem() != itemStack ? 0.0F : (itemStack.getMaxUseTime() - livingEntity.getItemUseTimeLeft()) / 20.0F;
+            return livingEntity.getActiveItem() != itemStack || EnchantmentHelper.getLevel(EnchantInit.POGO, itemStack) != 0 ? 0.0F : (itemStack.getMaxUseTime() - livingEntity.getItemUseTimeLeft()) / 20.0F;
         });
         ModelPredicateProviderRegistry.register(ItemInit.HEAVYIRON_LONGSPOON,  new Identifier("pulling"), (itemStack, clientWorld, livingEntity, seed) -> {
-            if (livingEntity == null) {
+            if (livingEntity == null || EnchantmentHelper.getLevel(EnchantInit.POGO, itemStack) > 0) {
                 return 0.0F;
             }
-            return livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
+            return livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack && EnchantmentHelper.getLevel(EnchantInit.POGO, itemStack) == 0 ? 1.0F : 0.0F;
         });
     }
     @Override

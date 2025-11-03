@@ -91,10 +91,10 @@ public class RecipeProvider extends FabricRecipeProvider {
                 .pattern(" HB")
                 .pattern("NBH")
                 .pattern("SN ")
-                .input('H', ItemInit.HEAVYIRON_INGOT)
+                .input('H', Items.DEEPSLATE)
                 .input('B', Items.IRON_BLOCK)
                 .input('N', Items.IRON_NUGGET)
-                .input('S', Items.IRON_INGOT)
+                .input('S', Items.NETHERITE_INGOT)
                 .criterion(hasItem(ItemInit.HEAVYIRON_INGOT), conditionsFromItem(ItemInit.HEAVYIRON_INGOT))
                 .offerTo(exporter, new Identifier(getRecipeName(ItemInit.HEAVYIRON_LONGSPOON)));
     }

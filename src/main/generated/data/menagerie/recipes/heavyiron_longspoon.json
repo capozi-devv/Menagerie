@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "minecraft:iron_block"
+    },
+    "H": {
+      "item": "minecraft:deepslate"
+    },
+    "N": {
+      "item": "minecraft:iron_nugget"
+    },
+    "S": {
+      "item": "minecraft:netherite_ingot"
+    }
+  },
+  "pattern": [
+    " HB",
+    "NBH",
+    "SN "
+  ],
+  "result": {
+    "item": "menagerie:heavyiron_longspoon"
+  },
+  "show_notification": true
+}
