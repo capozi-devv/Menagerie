@@ -15,7 +15,7 @@ public class PlayerEntityRendererMixin {
     @Inject(method = "getArmPose",at = @At("HEAD"), cancellable = true)
     private static void customPose(AbstractClientPlayerEntity player, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir){
         if (player.getStackInHand(Hand.MAIN_HAND).isOf(ItemInit.CAMERA_OF_THE_OTHERSIDE)) {
-            cir.setReturnValue(BipedEntityModel.ArmPose.SPYGLASS);
+            cir.setReturnValue(BipedEntityModel.ArmPose.CROSSBOW_HOLD);
         }
     }
 }

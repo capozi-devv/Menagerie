@@ -1,9 +1,7 @@
 package net.capozi.menagerie.foundation;
 
 import net.capozi.menagerie.Menagerie;
-import net.capozi.menagerie.common.block.CapoziPlushBlock;
-import net.capozi.menagerie.common.block.CosmoPlushBlock;
-import net.capozi.menagerie.common.block.EyaPlushBlock;
+import net.capozi.menagerie.common.block.PlushBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -23,10 +21,8 @@ public class BlockInit {
         return Registry.register(Registries.ITEM, new Identifier(Menagerie.MOD_ID, name),
                 new BlockItem(block, new FabricItemSettings()));
     }
-    public static void registerBlocks() {
-
-    }
-    public static final Block CAPOZI_PLUSH = registerBlock("capozi_plush", new CapoziPlushBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).nonOpaque()));
-    public static final Block EYA_PLUSH = registerBlock("eya_plush", new EyaPlushBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).nonOpaque()));
-    public static final Block COSMO_PLUSH = registerBlock("cosmo_plush",new CosmoPlushBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).nonOpaque()));
+    public static void registerBlocks() {}
+    public static final Block CAPOZI_PLUSH = registerBlock("capozi_plush", new PlushBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).nonOpaque()));
+    public static final Block EYA_PLUSH = registerBlock("eya_plush", new PlushBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).nonOpaque()));
+    public static final Block COSMO_PLUSH = registerBlock("cosmo_plush",new PlushBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).nonOpaque()));
 }

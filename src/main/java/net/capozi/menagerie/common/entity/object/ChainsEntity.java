@@ -36,7 +36,6 @@ public class ChainsEntity extends AmbientEntity implements ChainsEntityOverrides
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 2f)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 100f);
-
     }
     private void SetupAnimationStates() {
         if (this.IdleAnimationTimeout <= 0) {
@@ -142,6 +141,10 @@ public class ChainsEntity extends AmbientEntity implements ChainsEntityOverrides
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
         UUID uUID;
+        if (nbt == null) {
+            this.discard();
+            return;
+        }
         if (nbt.containsUuid("Owner")) {
             uUID = nbt.getUuid("Owner");
         } else {
@@ -158,7 +161,7 @@ public class ChainsEntity extends AmbientEntity implements ChainsEntityOverrides
     }
     @Nullable
     public UUID getPlayerUuid() {
-        return (UUID)this.dataTracker.get(PLAYER_UUID).orElse(null);
+        return this.dataTracker.get(PLAYER_UUID).orElse(null);
     }
     private boolean hasCameraItem(ServerPlayerEntity player) {
         for (ItemStack stack : player.getInventory().main) {

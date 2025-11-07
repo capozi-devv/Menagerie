@@ -5,10 +5,7 @@ import net.capozi.menagerie.common.item.*;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.item.MusicDiscItem;
-import net.minecraft.item.ToolMaterials;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -25,17 +22,17 @@ public class ItemInit {
         return Registry.register(Registries.ITEM, new Identifier(Menagerie.MOD_ID, name), item);
     }
     public static void registerItemsToWeaponGroup(FabricItemGroupEntries entries) {
-        entries.add(HEAVYIRON_LONGSPOON);
+        entries.addAfter(Items.TRIDENT, HEAVYIRON_LONGSPOON);
     }
     public static void registerItemsToIngredientsGroup(FabricItemGroupEntries entries) {
         entries.add(HEAVYIRON_INGOT);
     }
     public static void registerItemToToolsTabItemGroup(FabricItemGroupEntries entries) {
-        entries.add(DAMNATIO_MEMORIAE_MUSIC_DISC);
-        entries.add(MARK_OF_DISSONANCE);
-        entries.add(CAMERA_OF_THE_OTHERSIDE);
-        entries.add(MARK_OF_THE_ACCURSED);
-        entries.add(SIMULACRUM_VESSEL);
+        entries.addAfter(Items.MUSIC_DISC_RELIC, DAMNATIO_MEMORIAE_MUSIC_DISC);
+        entries.addAfter(DAMNATIO_MEMORIAE_MUSIC_DISC, MARK_OF_DISSONANCE);
+        entries.addAfter(MARK_OF_DISSONANCE, CAMERA_OF_THE_OTHERSIDE);
+        entries.addAfter(CAMERA_OF_THE_OTHERSIDE, MARK_OF_THE_ACCURSED);
+        entries.addAfter(MARK_OF_THE_ACCURSED, SIMULACRUM_VESSEL);
     }
     public static void registerBlocksToBuildingTab(FabricItemGroupEntries entries) {
         entries.add(CAPOZI_PLUSH);

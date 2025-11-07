@@ -11,6 +11,8 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -38,18 +40,12 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     public void setTrapped(boolean trapped) {
         this.isTrapped = trapped;
     }
-    @ModifyArgs(
-            method = {"damage"},
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/entity/LivingEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"
-            )
-    )
+    @ModifyArgs(method = {"damage"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"))
     private void menagerie$onDamaged(Args args) {
         DamageSource source = (DamageSource) args.get(0);
         float value = (Float) args.get(1);
         BoundArtifactComponent component = Menagerie.getBoundArtifact().get(this);
-        if (component.hasArtifact() && this.isSubmergedInWater() && !this.isDead() && this.random.nextInt(6) == 1) {
+        if (component.hasArtifact() && (this.isSubmergedInWater() || isInFlowingFluid(FluidTags.WATER)) && !this.isDead() && this.random.nextInt(6) == 1) {
             args.set(1, value * 2.0F);
         }
     }

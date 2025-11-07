@@ -1,5 +1,6 @@
 package net.capozi.menagerie.common.enchant;
 
+import net.capozi.menagerie.foundation.EnchantInit;
 import net.capozi.menagerie.foundation.ItemInit;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
@@ -25,5 +26,10 @@ public class CondensedEnchantment extends Enchantment {
     @Override
     public int getMaxLevel() {
         return 1;
+    }
+
+    @Override
+    protected boolean canAccept(Enchantment other) {
+        return other == EnchantInit.POGO ? false : true;
     }
 }

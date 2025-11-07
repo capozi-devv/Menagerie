@@ -10,12 +10,21 @@ import net.capozi.menagerie.common.entity.client.ChainsRenderer;
 import net.capozi.menagerie.foundation.ItemInit;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.SwordItem;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+
+import java.text.DecimalFormat;
+import java.util.List;
 
 import static net.capozi.menagerie.foundation.BlockInit.*;
 
@@ -44,5 +53,16 @@ public class MenagerieClient implements ClientModInitializer {
         FlashPacket.registerClientReceiver();
         FlashOverlayRenderer.init();
         registerModelPredicateProviders();
+        ItemTooltipCallback.EVENT.register((ItemStack stack, TooltipContext context, List<Text> lines) -> {
+            // Check if it has your enchant
+            int level = EnchantmentHelper.getLevel(EnchantInit.ARCANE_DAMAGE, stack);
+            if (level > 0) {
+                float f = stack.getItem() instanceof SwordItem sword ? (sword.getAttackDamage() / 4) + 0.25f : 0f;
+                DecimalFormat df = new DecimalFormat("#.##");
+                String totl = " " + df.format(f) + " Magic Damage";
+                lines.add(5, Text.literal(totl).formatted(Formatting.DARK_GREEN));
+
+            }
+        });
     }
 }

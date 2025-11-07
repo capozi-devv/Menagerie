@@ -14,10 +14,8 @@ public class ChainedEffect extends StatusEffect {
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
         if ((entity instanceof PlayerEntity player)) {
             if (amplifier >= 0) {
-                // Cancel all movement
                 player.setVelocity(Vec3d.ZERO);
                 player.velocityModified = true;
-                // (Optional) cancel sneaking/jumping if client-side
                 if (!player.getWorld().isClient) {
                     player.setSneaking(false);
                 }

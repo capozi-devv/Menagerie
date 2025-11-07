@@ -12,10 +12,9 @@ public class FlashOverlayRenderer {
             float progress = (System.currentTimeMillis() - flashStartTime) / (float) FLASH_DURATION_MS;
             float alpha = 1.0f - progress;
             if (alpha < 0f) alpha = 0f;
-            // White-goldish color overlay (RGBA)
             drawContext.fill(
                     0, 0, drawContext.getScaledWindowWidth(), drawContext.getScaledWindowHeight(),
-                    ((int)(alpha * 190) << 24) | 0xFFF09A // Gold color with alpha
+                    ((int)(alpha * 190) << 24) | 0x03FCFC
             );
         });
     }

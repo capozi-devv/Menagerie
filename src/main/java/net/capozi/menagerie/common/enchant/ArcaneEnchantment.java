@@ -2,9 +2,11 @@ package net.capozi.menagerie.common.enchant;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.RangedWeaponItem;
+import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolItem;
 
 public class ArcaneEnchantment extends Enchantment {
@@ -13,13 +15,12 @@ public class ArcaneEnchantment extends Enchantment {
     }
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
-        return stack.getItem() instanceof ToolItem || stack.getItem() instanceof RangedWeaponItem;
+        return stack.getItem() instanceof SwordItem || stack.getItem() instanceof RangedWeaponItem;
     }
     @Override
     public boolean isTreasure() {
         return true;
     }
-    // Optional: mark as incompatible with books if you want
     @Override
     public boolean isAvailableForEnchantedBookOffer() {
         return false;
@@ -27,6 +28,14 @@ public class ArcaneEnchantment extends Enchantment {
     @Override
     public boolean isAvailableForRandomSelection() {
         return false; // include in loot table/random selection
+    }
+    @Override
+    public int getMaxLevel() {
+        return 1;
+    }
+    @Override
+    protected boolean canAccept(Enchantment other) {
+        return other == Enchantments.MENDING || other == Enchantments.UNBREAKING;
     }
 }
 

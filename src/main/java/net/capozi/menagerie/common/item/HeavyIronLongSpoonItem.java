@@ -52,7 +52,7 @@ public class HeavyIronLongSpoonItem extends ShovelItem {
     }
     @Override
     public int getItemBarColor(ItemStack stack) {
-        return 65531;
+        return EnchantmentHelper.getLevel(EnchantInit.CONDENSED, stack) >= 1 ? 65531 : 16756224;
     }
     @Override
     public UseAction getUseAction(ItemStack stack) {

@@ -11,8 +11,7 @@ import net.minecraft.util.Identifier;
 
 public class EffectInit extends StatusEffects {
     public static final StatusEffect CHAINED_EFFECT = new ChainedEffect();
-    public static RegistryEntry<StatusEffect> IMMOBILIZED = registerStatusEffect("immobilize",
-            CHAINED_EFFECT);
+    public static RegistryEntry<StatusEffect> IMMOBILIZED = registerStatusEffect("immobilize", CHAINED_EFFECT);
     public static RegistryEntry<StatusEffect> registerStatusEffect(String name,StatusEffect statusEffect) {
         return Registry.registerReference(Registries.STATUS_EFFECT, Identifier.of(Menagerie.MOD_ID, name),statusEffect);
     }

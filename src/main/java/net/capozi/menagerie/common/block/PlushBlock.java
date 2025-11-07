@@ -19,8 +19,8 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
-public class CapoziPlushBlock extends Block {
-    public CapoziPlushBlock(Settings settings) {
+public class PlushBlock extends Block {
+    public PlushBlock(Settings settings) {
         super(settings);
     }
     public static final VoxelShape SHAPE = createCuboidShape((double)2.0F, (double)0.0F, (double)2.0F, (double)14.0F, (double)14.0F, (double)14.0F);
