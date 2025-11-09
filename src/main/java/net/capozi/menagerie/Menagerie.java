@@ -38,6 +38,7 @@ import org.slf4j.LoggerFactory;
 public class Menagerie implements ModInitializer {
 	public static final String MOD_ID = "menagerie";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    public static final Identifier CLIENTBOUND_ECLIPSE_PACKET = identifier("eclipse");
 	private static final Identifier WARDEN_LOOT_TABLE_ID = new Identifier("minecraft", "entities/warden");
 	public static ComponentKey<BoundArtifactComponent> BOUND_ARTIFACT;
 	public static ComponentKey<BoundAccursedComponent> BOUND_ACCURSED;

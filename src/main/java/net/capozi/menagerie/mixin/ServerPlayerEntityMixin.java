@@ -48,6 +48,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Tr
                 chains.setVelocity(Vec3d.ZERO);
                 if (!this.isTrapped()) {
                     this.setTrapped(true);
+                    Menagerie.LOGGER.info("Player " + this.getName().getString() + " is now trapped.");
                     Vec3d pos = this.getPos();
                     chains.refreshPositionAndAngles(pos.x, pos.y, pos.z, 0, 0);
                     chains.addStatusEffect(new StatusEffectInstance(EffectInit.CHAINED_EFFECT, 12000, 1, false, false, false));
@@ -67,7 +68,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Tr
     private void burnInDaylightIfAccursed(CallbackInfo ci) {
         if (this.isAlive() && !this.isSpectator() && !this.isCreative()) {
             if (Menagerie.getBoundAccursed().get(this).hasAccursed()) {
-                this.setAir(100);
+                setAir(100);
             }
             BlockPos pos = this.getBlockPos();
             if (this.getWorld().isDay() &&
@@ -77,13 +78,14 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Tr
                 BoundAccursedComponent accursed = Menagerie.getBoundAccursed().get(this);
                 World world = this.getWorld();
                 if (world.isRaining() && world.hasRain(pos)) return; // Don't burn in rain
-                ItemStack headStack = this.getEquippedStack(EquipmentSlot.HEAD);
-                boolean hasHelmet = !headStack.isEmpty();
-                if (!hasHelmet) {
-                    if(this.getFireTicks() <= 0 && accursed.hasAccursed()) {
-                        this.setOnFireFor(20);
+                    // Check if wearing a helmet (prevents burn)
+                    ItemStack headStack = this.getEquippedStack(EquipmentSlot.HEAD);
+                    boolean hasHelmet = !headStack.isEmpty();
+                    if (!hasHelmet) {
+                        if(this.getFireTicks() <= 0 && accursed.hasAccursed()) {
+                            this.setOnFireFor(20);
+                        }
                     }
-                }
             }
         }
     }

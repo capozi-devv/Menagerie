@@ -25,8 +25,7 @@ public abstract class ItemRendererMixin {
     @Shadow @Final private ItemModels models;
     @Shadow public abstract BakedModel getModel(ItemStack stack, @Nullable World world, @Nullable LivingEntity entity, int seed);
     @ModifyVariable(method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V", at = @At("HEAD"), argsOnly = true)
-    public BakedModel onRenderItem(BakedModel value, ItemStack stack, ModelTransformationMode mode)
-    {
+    public BakedModel onRenderItem(BakedModel value, ItemStack stack, ModelTransformationMode mode) {
         if(stack.isOf(ItemInit.CAMERA_OF_THE_OTHERSIDE) && !mode.equals(ModelTransformationMode.GUI))
             return models.getModelManager().getModel(CAMERA_ACTIVE);
         if(stack.isOf(ItemInit.MARK_OF_DISSONANCE) && !mode.equals(ModelTransformationMode.GUI))

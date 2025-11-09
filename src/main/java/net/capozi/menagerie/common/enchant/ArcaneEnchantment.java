@@ -15,7 +15,7 @@ public class ArcaneEnchantment extends Enchantment {
     }
     @Override
     public boolean isAcceptableItem(ItemStack stack) {
-        return stack.getItem() instanceof SwordItem || stack.getItem() instanceof RangedWeaponItem;
+        return stack.getItem() instanceof SwordItem;
     }
     @Override
     public boolean isTreasure() {

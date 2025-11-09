@@ -13,6 +13,7 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.render.RenderLayer;
@@ -29,6 +30,7 @@ import java.util.List;
 import static net.capozi.menagerie.foundation.BlockInit.*;
 
 public class MenagerieClient implements ClientModInitializer {
+    MinecraftClient minecraftClient = MinecraftClient.getInstance();
     public static void registerModelPredicateProviders() {
         ModelPredicateProviderRegistry.register(ItemInit.HEAVYIRON_LONGSPOON, new Identifier("pull"), (itemStack, clientWorld, livingEntity, seed) -> {
             if (livingEntity == null || EnchantmentHelper.getLevel(EnchantInit.POGO, itemStack) > 0) {
@@ -61,7 +63,6 @@ public class MenagerieClient implements ClientModInitializer {
                 DecimalFormat df = new DecimalFormat("#.##");
                 String totl = " " + df.format(f) + " Magic Damage";
                 lines.add(5, Text.literal(totl).formatted(Formatting.DARK_GREEN));
-
             }
         });
     }

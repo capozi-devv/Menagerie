@@ -24,15 +24,24 @@ public class SimulacrumVesselItem extends Item {
         BlockPos pos = player.getBlockPos();
         if (copyTarget instanceof SimulacrumVesselItem) {
             player.sendMessage(Text.literal("Simulacra cannot self-replicate"), true);
-            return TypedActionResult.fail(copyTargetStack);
-        } else if (copyTargetStack.getCount() > 1 || copyTargetStack.isOf(Items.BUNDLE) || copyTargetStack.isOf(Items.SHULKER_BOX) || copyTargetStack.isOf(Items.ELYTRA) || copyTargetStack.isIn(ItemTags.TRIMMABLE_ARMOR) || copyTargetStack.isIn(ItemTags.TRIM_MATERIALS) || copyTargetStack.isIn(ItemTags.TOOLS)) {
-            player.sendMessage(Text.literal("Simulacra cannot produce this"), true);
-            return TypedActionResult.fail(copyTargetStack);
-        } else {
-            player.getMainHandStack().decrement(1);
-            world.spawnEntity(new ItemEntity(world, player.getX(), player.getY() + 1.0, player.getZ(), copyTargetStack));
-            player.getWorld().playSound(null, pos, SoundInit.SIMULACRA, SoundCategory.PLAYERS, 1f, 1f);
-            return TypedActionResult.consume(copyTargetStack);
+            return TypedActionResult.fail(player.getStackInHand(hand));
         }
+        if (copyTargetStack.getCount() > 1
+                || copyTargetStack.isOf(Items.BUNDLE)
+                || copyTargetStack.isOf(Items.SHULKER_BOX)
+                || copyTargetStack.isOf(Items.ELYTRA)
+                || copyTargetStack.isIn(ItemTags.TRIMMABLE_ARMOR)
+                || copyTargetStack.isIn(ItemTags.TRIM_MATERIALS)
+                || copyTargetStack.isIn(ItemTags.TOOLS)) {
+            player.sendMessage(Text.literal("Simulacra cannot produce this"), true);
+            return TypedActionResult.fail(player.getStackInHand(hand));
+        }
+        if (!world.isClient()){
+            world.spawnEntity(new ItemEntity(world, player.getX(), player.getY() + 1.0, player.getZ(), copyTargetStack.copy()));
+            world.playSound(null, pos, SoundInit.SIMULACRA, SoundCategory.PLAYERS, 1f, 1f);
+            player.getMainHandStack().decrement(1);
+            return TypedActionResult.consume(player.getMainHandStack());
+        }
+        return TypedActionResult.pass(player.getStackInHand(hand));
     }
 }
