@@ -56,7 +56,6 @@ public class MenagerieClient implements ClientModInitializer {
         FlashOverlayRenderer.init();
         registerModelPredicateProviders();
         ItemTooltipCallback.EVENT.register((ItemStack stack, TooltipContext context, List<Text> lines) -> {
-            // Check if it has your enchant
             int level = EnchantmentHelper.getLevel(EnchantInit.ARCANE_DAMAGE, stack);
             if (level > 0) {
                 float f = stack.getItem() instanceof SwordItem sword ? (sword.getAttackDamage() / 4) + 0.25f : 0f;

@@ -14,7 +14,7 @@
   "enchantment.menagerie.pogo": "Pogo",
   "enchantment.menagerie.condensed": "Condensed",
   "enchantment.menagerie.condensed.desc": "Doubles the knockback of the Spoon's charge attack",
-  "enchantment.menagerie.arcane.desc": "Coverts all weapon damage into Magic damage",
+  "enchantment.menagerie.arcane.desc": "Adds magic damage to the weapon proportional to the weapon's attack damage",
   "enchantment.menagerie.pogo.desc": "Replaces the Spoon's charge attack with a pogo ability. Throws you the opposite direction of where you're looking",
   "item.menagerie.camera_of_the_otherside" : "Camera of the Otherside",
   "effect.menagerie.immobilized": "Chained"

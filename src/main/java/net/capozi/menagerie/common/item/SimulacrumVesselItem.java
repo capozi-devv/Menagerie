@@ -26,8 +26,11 @@ public class SimulacrumVesselItem extends Item {
             player.sendMessage(Text.literal("Simulacra cannot self-replicate"), true);
             return TypedActionResult.fail(player.getStackInHand(hand));
         }
-        if (copyTargetStack.getCount() > 1
-                || copyTargetStack.isOf(Items.BUNDLE)
+        if (copyTargetStack.getCount() > 1) {
+            player.sendMessage(Text.literal("Simulacra cannot produce more than one object"), true);
+            return TypedActionResult.fail(player.getStackInHand(hand));
+        }
+        if (copyTargetStack.isOf(Items.BUNDLE)
                 || copyTargetStack.isOf(Items.SHULKER_BOX)
                 || copyTargetStack.isOf(Items.ELYTRA)
                 || copyTargetStack.isIn(ItemTags.TRIMMABLE_ARMOR)
