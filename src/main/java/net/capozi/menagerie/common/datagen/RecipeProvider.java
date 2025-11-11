@@ -97,5 +97,14 @@ public class RecipeProvider extends FabricRecipeProvider {
                 .input('S', Items.NETHERITE_INGOT)
                 .criterion(hasItem(ItemInit.HEAVYIRON_INGOT), conditionsFromItem(ItemInit.HEAVYIRON_INGOT))
                 .offerTo(exporter, new Identifier(getRecipeName(ItemInit.HEAVYIRON_LONGSPOON)));
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ItemInit.REACH_OF_THE_VOID, 1)
+                .pattern("ENE")
+                .pattern("NDN")
+                .pattern("ENE")
+                .input('E', Items.ECHO_SHARD)
+                .input('N', Items.NETHER_STAR)
+                .input('D', Items.ENDER_EYE)
+                .criterion(hasItem(Items.ENDER_EYE), conditionsFromItem(Items.ENDER_EYE))
+                .offerTo(exporter, new Identifier(getRecipeName(ItemInit.REACH_OF_THE_VOID)));
     }
 }
