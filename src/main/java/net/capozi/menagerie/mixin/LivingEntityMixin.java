@@ -27,15 +27,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
-    @Inject(method = "applyDamage", at = @At("HEAD"), cancellable = true)
-    private void onLethalDamage(DamageSource source, float amount, CallbackInfo ci) {
+    @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
+    private void onLethalDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (!((Object) this instanceof ServerPlayerEntity killed)) return;
         float health = killed.getHealth();
-        if (health > amount) return;
         Entity attacker = source.getAttacker();
         if (!(attacker instanceof ServerPlayerEntity killer)) return;
         if (hasCameraItem(killer) && health <= amount) {
-            ci.cancel();
+            cir.cancel();
             triggerTotemEffect(killed); // heal and freeze logic
         }
     }

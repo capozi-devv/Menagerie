@@ -34,7 +34,7 @@ public class ChainsEntity extends AmbientEntity implements ChainsEntityOverrides
     }
     public static DefaultAttributeContainer.Builder createChainAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 2f)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 1f)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 100f);
     }
     private void SetupAnimationStates() {

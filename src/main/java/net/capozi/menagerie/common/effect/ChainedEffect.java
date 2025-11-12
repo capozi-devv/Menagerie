@@ -16,10 +16,6 @@ public class ChainedEffect extends StatusEffect {
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
         if ((entity instanceof PlayerEntity player)) {
-            if (hasCameraItem((ServerPlayerEntity)player)) {
-                player.removeStatusEffect(this);
-                return;
-            }
             if (amplifier >= 0) {
                 player.setVelocity(Vec3d.ZERO);
                 player.velocityModified = true;

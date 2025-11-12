@@ -1,8 +1,10 @@
 package net.capozi.menagerie.common.item;
 
+import net.capozi.menagerie.common.gui.ReachableEnderChestScreenHandler;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EnderChestInventory;
+import net.minecraft.inventory.Inventories;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.GenericContainerScreenHandler;
@@ -14,6 +16,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
 public class ReachOfTheVoidItem extends Item {
@@ -23,8 +26,14 @@ public class ReachOfTheVoidItem extends Item {
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
         if (user instanceof ServerPlayerEntity sUser) {
+            DefaultedList<ItemStack> prevInv = sUser.getInventory().main;
             if (entity instanceof ServerPlayerEntity target) {
                 EnderChestInventory targetEnder = new EnderChestInventory() {
+                    @Override
+                    public void onClose(PlayerEntity player) {
+                        super.onClose(player);
+                        user.getWorld().playSound(null, user.getBlockPos(), SoundEvents.BLOCK_ENDER_CHEST_CLOSE, SoundCategory.BLOCKS);
+                    }
                     @Override
                     public int size() {
                         return target.getEnderChestInventory().size();
@@ -39,20 +48,11 @@ public class ReachOfTheVoidItem extends Item {
                     }
                     @Override
                     public ItemStack removeStack(int slot, int amount) {
-                        ItemStack result = target.getEnderChestInventory().removeStack(slot, amount);
-                        if (!result.isEmpty()) {
-                            sUser.closeHandledScreen();
-                        }
-                        return result;
+                       return super.removeStack(slot, amount);
                     }
                     @Override
                     public ItemStack removeStack(int slot) {
-                        ItemStack result = target.getEnderChestInventory().removeStack(slot);
-                        if (!result.isEmpty()) {
-                            sUser.closeHandledScreen();
-                            user.getWorld().playSound(null, user.getBlockPos(), SoundEvents.BLOCK_ENDER_CHEST_CLOSE, SoundCategory.BLOCKS);
-                        }
-                        return result;
+                        return super.removeStack(slot);
                     }
                     @Override
                     public void setStack(int slot, ItemStack stack) {
@@ -72,7 +72,15 @@ public class ReachOfTheVoidItem extends Item {
                     }
                 };
                 user.getWorld().playSound(null, user.getBlockPos(), SoundEvents.BLOCK_ENDER_CHEST_OPEN, SoundCategory.BLOCKS);
-                sUser.openHandledScreen(new SimpleNamedScreenHandlerFactory((syncId, playerInventory, player) -> GenericContainerScreenHandler.createGeneric9x3(syncId, playerInventory, targetEnder), Text.translatable("container.enderchest")));
+                sUser.openHandledScreen(new SimpleNamedScreenHandlerFactory((syncId, playerInventory, player) -> new ReachableEnderChestScreenHandler(syncId, playerInventory, targetEnder) {
+                    @Override
+                    public void sendContentUpdates() {
+                        super.sendContentUpdates();
+                        if (sUser.getInventory().main != prevInv) {
+                            sUser.closeHandledScreen();
+                        }
+                    }
+                }, Text.literal(target.getName().getString() + "'s Ender Chest")));
                 return ActionResult.SUCCESS;
             }
         }
