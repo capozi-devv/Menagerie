@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "D": {
+      "item": "minecraft:ender_eye"
+    },
+    "E": {
+      "item": "minecraft:echo_shard"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "pattern": [
+    "ENE",
+    "NDN",
+    "ENE"
+  ],
+  "result": {
+    "item": "menagerie:reach_of_the_void"
+  },
+  "show_notification": true
+}

@@ -1,4 +1,4 @@
-// 1.20.1	2025-11-01T01:20:14.37681	Menagerie/Recipes
+// 1.20.1	2025-11-12T16:44:29.26268	Menagerie/Recipes
 5d7b1e8bc40075afc905d9b24224d4d384744916 data\menagerie\recipes\cosmo_plush.json
 f7aa22458562e80596ed797ebce24f1053e40429 data\menagerie\recipes\heavyiron_longspoon.json
 5928c29575fbd23dec087a7c0088995a26212b26 data\menagerie\advancements\recipes\misc\gilded_blackstone.json
@@ -9,6 +9,8 @@ f7aa22458562e80596ed797ebce24f1053e40429 data\menagerie\recipes\heavyiron_longsp
 c7dfc1f3a16a6fb5bfd2e17492b236cb76b00709 data\menagerie\recipes\capozi_plush.json
 7b61fd82683e03e871d758bd14c0db2c522d4157 data\menagerie\recipes\simulacrum_vessel.json
 116913cbf744d6eb9fa273c39058d3a2b9c3ea3f data\menagerie\recipes\eya_plush.json
+de504e2c2aa8ebefe4779a5212af5753d6f3fdd9 data\menagerie\advancements\recipes\tools\reach_of_the_void.json
+09d99b02fd0fbc3a060119641ecaa083eaf8499f data\menagerie\recipes\reach_of_the_void.json
 7e73d287648ffbbd0b39a5d270678cd03d129194 data\menagerie\advancements\recipes\misc\simulacrum_vessel.json
 2af3bb7b282cedb4bb941f13f7e16220e58f9612 data\menagerie\recipes\gilded_blackstone.json
 b3cb7d86c6bf716c1211da1b40122a46c5624b4d data\menagerie\advancements\recipes\combat\heavyiron_longspoon.json
