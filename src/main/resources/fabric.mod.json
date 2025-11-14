@@ -12,7 +12,8 @@
 	"custom": {
 		"cardinal-components": [
 			"menagerie:bound_artifact",
-			"menagerie:bound_accursed"
+			"menagerie:bound_accursed",
+            "menagerie:bound_aqueous"
 		]
 	},
 	"contact": {

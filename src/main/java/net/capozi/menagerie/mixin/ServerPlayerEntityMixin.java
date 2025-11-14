@@ -3,6 +3,7 @@ package net.capozi.menagerie.mixin;
 import com.mojang.authlib.GameProfile;
 import net.capozi.menagerie.Menagerie;
 import net.capozi.menagerie.common.network.BoundAccursedComponent;
+import net.capozi.menagerie.common.network.BoundAqueousComponent;
 import net.capozi.menagerie.common.network.BoundArtifactComponent;
 import net.capozi.menagerie.foundation.EffectInit;
 import net.capozi.menagerie.foundation.EntityInit;
@@ -71,14 +72,10 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Tr
                 setAir(100);
             }
             BlockPos pos = this.getBlockPos();
-            if (this.getWorld().isDay() &&
-                    this.getWorld().isSkyVisible(this.getBlockPos()) &&
-                    !this.isSubmergedInWater() &&
-                    this.getBrightnessAtEyes() > 0.5F) {
+            if (this.getWorld().isDay() && this.getWorld().isSkyVisible(this.getBlockPos()) && !this.isSubmergedInWater() && this.getBrightnessAtEyes() > 0.5F) {
                 BoundAccursedComponent accursed = Menagerie.getBoundAccursed().get(this);
                 World world = this.getWorld();
                 if (world.isRaining() && world.hasRain(pos)) return; // Don't burn in rain
-                    // Check if wearing a helmet (prevents burn)
                     ItemStack headStack = this.getEquippedStack(EquipmentSlot.HEAD);
                     boolean hasHelmet = !headStack.isEmpty();
                     if (!hasHelmet) {
@@ -94,6 +91,8 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Tr
         ServerPlayerEntity player = (ServerPlayerEntity)(Object)this;
         BoundAccursedComponent accursed = Menagerie.getBoundAccursed().get(player);
         BoundArtifactComponent artifact = Menagerie.getBoundArtifact().get(player);
+        BoundAqueousComponent aqueous = Menagerie.getBoundAqueous().get(player);
+        aqueous.tickAqueous(player);
         accursed.tickAccursed(player);
         artifact.tickArtifact(player);
     }

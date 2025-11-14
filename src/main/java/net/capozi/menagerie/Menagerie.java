@@ -3,6 +3,7 @@ package net.capozi.menagerie;
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import net.capozi.menagerie.common.datagen.LootTableModifiers;
 import net.capozi.menagerie.common.network.BoundAccursedComponent;
+import net.capozi.menagerie.common.network.BoundAqueousComponent;
 import net.capozi.menagerie.common.network.BoundArtifactComponent;
 import net.capozi.menagerie.foundation.*;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
@@ -41,8 +42,10 @@ public class Menagerie implements ModInitializer {
 	private static final Identifier WARDEN_LOOT_TABLE_ID = new Identifier("minecraft", "entities/warden");
 	public static ComponentKey<BoundArtifactComponent> BOUND_ARTIFACT;
 	public static ComponentKey<BoundAccursedComponent> BOUND_ACCURSED;
+    public static ComponentKey<BoundAqueousComponent> BOUND_AQUEOUS;
 	public static ComponentKey<BoundArtifactComponent> getBoundArtifact() { return BOUND_ARTIFACT; }
 	public static ComponentKey<BoundAccursedComponent> getBoundAccursed() { return BOUND_ACCURSED; }
+    public static ComponentKey<BoundAqueousComponent> getBoundAqueous() { return BOUND_AQUEOUS; }
 	@Override
 	public void onInitialize() {
 		ItemInit.itemsRegistry();

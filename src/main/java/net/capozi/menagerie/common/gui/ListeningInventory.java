@@ -1,14 +1,16 @@
 package net.capozi.menagerie.common.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 
-public class ListeningInventory implements Inventory {
+public class ListeningInventory extends PlayerInventory implements Inventory {
     private final Inventory delegate;
     private final Runnable onChange;
 
     public ListeningInventory(Inventory delegate, Runnable onChange) {
+        super(null);
         this.delegate = delegate;
         this.onChange = onChange;
     }

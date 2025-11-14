@@ -28,12 +28,12 @@ public class ReachOfTheVoidItem extends Item {
             DefaultedList<ItemStack> prevInv = sUser.getInventory().main;
             if (entity instanceof ServerPlayerEntity target) {
                 EnderChestInventory targetEnder = target.getEnderChestInventory();
-                Inventory listening = new ListeningInventory(targetEnder, () -> {
+                PlayerInventory listening = new ListeningInventory(user.getInventory(), () -> {
                     sUser.closeHandledScreen();
                     sUser.getWorld().playSound(null, sUser.getBlockPos(), SoundEvents.BLOCK_ENDER_CHEST_CLOSE, SoundCategory.BLOCKS);
                 });
                 user.getWorld().playSound(null, user.getBlockPos(), SoundEvents.BLOCK_ENDER_CHEST_OPEN, SoundCategory.BLOCKS);
-                sUser.openHandledScreen(new SimpleNamedScreenHandlerFactory((syncId, playerInventory, player) -> GenericContainerScreenHandler.createGeneric9x3(syncId, playerInventory, listening), Text.literal(target.getName().getString() + "'s Ender Chest")));
+                sUser.openHandledScreen(new SimpleNamedScreenHandlerFactory((syncId, playerInventory, player) -> GenericContainerScreenHandler.createGeneric9x3(syncId, listening, targetEnder), Text.literal(target.getName().getString() + "'s Ender Chest")));
                 return ActionResult.SUCCESS;
             }
         }

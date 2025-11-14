@@ -7,6 +7,5 @@ public interface BoundArtifactComponent extends Component {
     boolean hasArtifact();
     void setHasArtifact(boolean value);
     void tickArtifact(PlayerEntity player);
-
 }
 

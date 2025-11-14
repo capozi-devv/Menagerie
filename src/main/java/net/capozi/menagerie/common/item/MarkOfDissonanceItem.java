@@ -23,7 +23,7 @@ public class MarkOfDissonanceItem extends Item {
                 player.sendMessage(Text.literal("Thy soul cannot split in twain."), true);
                 return TypedActionResult.fail(player.getStackInHand(hand));
             }
-            artifact.setHasArtifact(true); // This should set internal boolean true
+            artifact.setHasArtifact(true);
             player.getItemCooldownManager().set(this, 20);
             if (!player.getAbilities().creativeMode) {
                 player.getStackInHand(hand).decrement(1);
