@@ -95,16 +95,16 @@ public class RecipeProvider extends FabricRecipeProvider {
                 .input('B', Items.IRON_BLOCK)
                 .input('N', Items.IRON_NUGGET)
                 .input('S', Items.NETHERITE_INGOT)
-                .criterion(hasItem(ItemInit.HEAVYIRON_INGOT), conditionsFromItem(ItemInit.HEAVYIRON_INGOT))
+                .criterion(hasItem(Items.IRON_BLOCK), conditionsFromItem(Items.IRON_BLOCK))
                 .offerTo(exporter, new Identifier(getRecipeName(ItemInit.HEAVYIRON_LONGSPOON)));
-        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ItemInit.REACH_OF_THE_VOID, 1)
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ItemInit.INCOMPLETE_CONSTRUCT, 1)
                 .pattern("ENE")
                 .pattern("NDN")
                 .pattern("ENE")
                 .input('E', Items.ECHO_SHARD)
-                .input('N', Items.NETHER_STAR)
-                .input('D', Items.ENDER_EYE)
-                .criterion(hasItem(Items.ENDER_EYE), conditionsFromItem(Items.ENDER_EYE))
-                .offerTo(exporter, new Identifier(getRecipeName(ItemInit.REACH_OF_THE_VOID)));
+                .input('N', Items.OBSIDIAN)
+                .input('D', Items.DIAMOND)
+                .criterion(hasItem(Items.ENDER_EYE), conditionsFromItem(Items.DIAMOND))
+                .offerTo(exporter, new Identifier(getRecipeName(ItemInit.INCOMPLETE_CONSTRUCT)));
     }
 }

@@ -2,6 +2,7 @@ package net.capozi.menagerie.common.item;
 
 import net.capozi.menagerie.Menagerie;
 import net.capozi.menagerie.common.network.BoundAccursedComponent;
+import net.capozi.menagerie.common.network.BoundAqueousComponent;
 import net.capozi.menagerie.common.network.BoundArtifactComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -19,11 +20,12 @@ public class MarkOfTheAccursedItem extends Item {
         if (!world.isClient) {
             BoundArtifactComponent artifact = Menagerie.getBoundArtifact().get(player);
             BoundAccursedComponent accursed = Menagerie.getBoundAccursed().get(player);
-            if (artifact.hasArtifact() || accursed.hasAccursed()) {
+            BoundAqueousComponent aqueous = Menagerie.getBoundAqueous().get(player);
+            if (artifact.hasArtifact() || accursed.hasAccursed() || aqueous.hasAqueous()) {
                 player.sendMessage(Text.literal("Thy soul cannot split in twain."), true);
                 return TypedActionResult.fail(player.getStackInHand(hand));
             }
-            accursed.setHasAccursed(true); // This should set internal boolean true
+            accursed.setHasAccursed(true);
             player.getItemCooldownManager().set(this, 20);
             if (!player.getAbilities().creativeMode) {
                 player.getStackInHand(hand).decrement(1);
