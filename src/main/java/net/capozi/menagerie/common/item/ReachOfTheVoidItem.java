@@ -1,6 +1,7 @@
 package net.capozi.menagerie.common.item;
 
 import net.capozi.menagerie.common.gui.ListeningInventory;
+import net.capozi.menagerie.foundation.ItemInit;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -32,6 +33,12 @@ public class ReachOfTheVoidItem extends Item {
                     sUser.closeHandledScreen();
                     sUser.getWorld().playSound(null, sUser.getBlockPos(), SoundEvents.BLOCK_ENDER_CHEST_CLOSE, SoundCategory.BLOCKS);
                 });
+                for (int i = 0; i < targetEnder.size(); i++) {
+                    ItemStack stack1 = targetEnder.getStack(i);
+                    if (stack1.isOf(ItemInit.REACH_OF_THE_VOID)) {
+                        return ActionResult.FAIL;
+                    }
+                }
                 user.getWorld().playSound(null, user.getBlockPos(), SoundEvents.BLOCK_ENDER_CHEST_OPEN, SoundCategory.BLOCKS);
                 sUser.openHandledScreen(new SimpleNamedScreenHandlerFactory((syncId, playerInventory, player) -> GenericContainerScreenHandler.createGeneric9x3(syncId, listening, targetEnder), Text.literal(target.getName().getString() + "'s Ender Chest")));
                 return ActionResult.SUCCESS;

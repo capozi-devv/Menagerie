@@ -9,9 +9,11 @@ import net.capozi.menagerie.foundation.EffectInit;
 import net.capozi.menagerie.foundation.EntityInit;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
 import net.capozi.menagerie.common.item.TrappedState;
+import net.capozi.menagerie.foundation.ItemInit;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -76,13 +78,27 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Tr
                 BoundAccursedComponent accursed = Menagerie.getBoundAccursed().get(this);
                 World world = this.getWorld();
                 if (world.isRaining() && world.hasRain(pos)) return; // Don't burn in rain
-                    ItemStack headStack = this.getEquippedStack(EquipmentSlot.HEAD);
-                    boolean hasHelmet = !headStack.isEmpty();
-                    if (!hasHelmet) {
-                        if(this.getFireTicks() <= 0 && accursed.hasAccursed()) {
-                            this.setOnFireFor(20);
-                        }
+                ItemStack headStack = this.getEquippedStack(EquipmentSlot.HEAD);
+                boolean hasHelmet = !headStack.isEmpty();
+                if (!hasHelmet) {
+                    if(this.getFireTicks() <= 0 && accursed.hasAccursed()) {
+                        this.setOnFireFor(20);
                     }
+                }
+            }
+        }
+    }
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void tickEnderChest(CallbackInfo ci) {
+        ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
+        EnderChestInventory ender = player.getEnderChestInventory();
+        for (int i = 0; i < ender.size(); i++) {
+            ItemStack stack = ender.getStack(i);
+            if (stack.isOf(ItemInit.INCOMPLETE_CONSTRUCT)) {
+                if (player.getWorld().random.nextFloat() < 0.0001f) {
+                    ender.setStack(i, new ItemStack(ItemInit.REACH_OF_THE_VOID));
+                    ender.markDirty();
+                }
             }
         }
     }

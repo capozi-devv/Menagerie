@@ -3,13 +3,13 @@
   "category": "equipment",
   "key": {
     "D": {
-      "item": "minecraft:ender_eye"
+      "item": "minecraft:diamond"
     },
     "E": {
       "item": "minecraft:echo_shard"
     },
     "N": {
-      "item": "minecraft:nether_star"
+      "item": "minecraft:obsidian"
     }
   },
   "pattern": [
@@ -18,7 +18,7 @@
     "ENE"
   ],
   "result": {
-    "item": "menagerie:reach_of_the_void"
+    "item": "menagerie:incomplete_construct"
   },
   "show_notification": true
 }

@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "minecraft:ender_eye"
+              "minecraft:diamond"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:reach_of_the_void"
+        "recipe": "minecraft:incomplete_construct"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:reach_of_the_void"
+      "minecraft:incomplete_construct"
     ]
   },
   "sends_telemetry_event": false

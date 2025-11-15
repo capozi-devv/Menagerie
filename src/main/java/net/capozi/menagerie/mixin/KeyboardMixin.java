@@ -15,10 +15,10 @@ public class KeyboardMixin {
     @Inject(method = "onKey", at = @At("HEAD"), cancellable = true)
     public void onKey(long window, int key, int scancode, int action, int modifiers, CallbackInfo callbackInfo) {
         if (MinecraftClient.getInstance().player != null) {
-            if (MinecraftClient.getInstance().player.hasStatusEffect(EffectInit.CHAINED_EFFECT) && !MinecraftClient.getInstance().isPaused()) {
-                if (key != GLFW.GLFW_KEY_ESCAPE) {
-                    KeyBinding.unpressAll();
-                }
+            var client = MinecraftClient.getInstance();
+            if (client.player != null && client.player.hasStatusEffect(EffectInit.CHAINED_EFFECT)) {
+                if (key == GLFW.GLFW_KEY_ESCAPE) return;
+                if (action == GLFW.GLFW_RELEASE) return;
                 callbackInfo.cancel();
             }
         }

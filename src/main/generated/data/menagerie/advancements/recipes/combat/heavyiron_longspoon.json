@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_heavyiron_ingot": {
+    "has_iron_block": {
       "conditions": {
         "items": [
           {
             "items": [
-              "menagerie:heavyiron_ingot"
+              "minecraft:iron_block"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_heavyiron_ingot",
+      "has_iron_block",
       "has_the_recipe"
     ]
   ],
