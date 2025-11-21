@@ -1,5 +1,7 @@
 package net.capozi.menagerie.common.item;
 
+import net.capozi.menagerie.Menagerie;
+import net.capozi.menagerie.common.network.UsageTickComponent;
 import net.capozi.menagerie.foundation.EnchantInit;
 import net.capozi.menagerie.foundation.ItemInit;
 import net.capozi.menagerie.foundation.SoundInit;
@@ -15,6 +17,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.*;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundCategory;
@@ -44,7 +47,9 @@ public class HeavyIronLongSpoonItem extends ShovelItem {
     }
     @Override
     public int getItemBarStep(ItemStack stack) {
-        return MathHelper.clamp(Math.round(13f * usageTicks / 140f), 0, 13);
+        UsageTickComponent comp = Menagerie.USAGE_TICKS.get(stack);
+        int usage = comp == null ? 0 : comp.getTicks();
+        return MathHelper.clamp(Math.round(13f * usage / 140f), 0, 13);
     }
     @Override
     public boolean isItemBarVisible(ItemStack stack) {
@@ -120,6 +125,10 @@ public class HeavyIronLongSpoonItem extends ShovelItem {
             }
         }
         usageTicks = 0;
+    }
+    @Override
+    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+        super.inventoryTick(stack, world, entity, slot, selected);
     }
     public int getMaxUseTime(ItemStack stack) {
         return 76000;

@@ -5,6 +5,7 @@ import net.capozi.menagerie.common.datagen.LootTableModifiers;
 import net.capozi.menagerie.common.network.BoundAccursedComponent;
 import net.capozi.menagerie.common.network.BoundAqueousComponent;
 import net.capozi.menagerie.common.network.BoundArtifactComponent;
+import net.capozi.menagerie.common.network.UsageTickComponent;
 import net.capozi.menagerie.foundation.*;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
 import net.fabricmc.api.ModInitializer;
@@ -49,6 +50,7 @@ public class Menagerie implements ModInitializer {
 	public static ComponentKey<BoundArtifactComponent> BOUND_ARTIFACT;
 	public static ComponentKey<BoundAccursedComponent> BOUND_ACCURSED;
     public static ComponentKey<BoundAqueousComponent> BOUND_AQUEOUS;
+    public static ComponentKey<UsageTickComponent> USAGE_TICKS;
 	public static ComponentKey<BoundArtifactComponent> getBoundArtifact() { return BOUND_ARTIFACT; }
 	public static ComponentKey<BoundAccursedComponent> getBoundAccursed() { return BOUND_ACCURSED; }
     public static ComponentKey<BoundAqueousComponent> getBoundAqueous() { return BOUND_AQUEOUS; }
