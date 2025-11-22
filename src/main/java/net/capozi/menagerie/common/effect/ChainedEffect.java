@@ -1,6 +1,7 @@
 package net.capozi.menagerie.common.effect;
 
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
+import net.capozi.menagerie.common.item.TrappedState;
 import net.capozi.menagerie.foundation.ItemInit;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.AttributeContainer;
@@ -33,12 +34,14 @@ public class ChainedEffect extends StatusEffect {
     public boolean canApplyUpdateEffect(int duration, int amplifier) {
         return true;
     }
-
     @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
         List<ChainsEntity> chainsNearby = entity.getWorld().getEntitiesByClass(ChainsEntity.class, entity.getBoundingBox().expand(10.0), chains -> chains.isAlive());
         for (ChainsEntity chains : chainsNearby) {
             chains.discard();
+        }
+        if ((PlayerEntity)entity instanceof TrappedState state) {
+            state.setTrapped(false);
         }
     }
 }

@@ -42,17 +42,16 @@ public class CameraOfTheOthersideItem extends Item {
                             SoundCategory.MASTER, 1f, 1f);
                 }
                 target.removeStatusEffect(EffectInit.CHAINED_EFFECT);
-                target.kill();
-                ban(user, target);
                 List<ChainsEntity> chainsNearby = user.getWorld().getEntitiesByClass(
                         ChainsEntity.class,
                         targetPlayer.getBoundingBox().expand(10.0), // Adjust radius as needed
                         chains -> chains.isAlive()
                 );
+                target.kill();
+                ban(user, target);
                 for (ChainsEntity chains : chainsNearby) {
                     chains.discard();
                 }
-                // Broadcast message and reset trapped state
                 MinecraftServer server = ((ServerWorld) user.getWorld()).getServer();
                 GameProfile profile = targetPlayer.getGameProfile();
                 Text deathMessage = Text.literal(profile.getName() + " was banished to the Otherside");
