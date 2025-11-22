@@ -13,13 +13,14 @@
 		"cardinal-components": [
 			"menagerie:bound_artifact",
 			"menagerie:bound_accursed",
-            "menagerie:bound_aqueous"
+            "menagerie:bound_aqueous",
+            "menagerie:usageTicks"
 		]
 	},
 	"contact": {
 
 	},
-	"license": "ARR",
+	"license": "MIT",
 	"icon": "assets/menagerie/icon.png",
 	"environment": "*",
 	"entrypoints": {
