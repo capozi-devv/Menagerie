@@ -2,9 +2,9 @@ package net.capozi.menagerie.mixin;
 
 import com.mojang.authlib.GameProfile;
 import net.capozi.menagerie.Menagerie;
-import net.capozi.menagerie.common.network.BoundAccursedComponent;
-import net.capozi.menagerie.common.network.BoundAqueousComponent;
-import net.capozi.menagerie.common.network.BoundArtifactComponent;
+import net.capozi.menagerie.server.network.BoundAccursedComponent;
+import net.capozi.menagerie.server.network.BoundAqueousComponent;
+import net.capozi.menagerie.server.network.BoundArtifactComponent;
 import net.capozi.menagerie.foundation.EffectInit;
 import net.capozi.menagerie.foundation.EntityInit;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
@@ -67,27 +67,6 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Tr
             this.setTrapped(false);
         }
     }
-    @Inject(method = "tick", at = @At("TAIL"))
-    private void burnInDaylightIfAccursed(CallbackInfo ci) {
-        if (this.isAlive() && !this.isSpectator() && !this.isCreative()) {
-            if (Menagerie.getBoundAccursed().get(this).hasAccursed()) {
-                setAir(100);
-            }
-            BlockPos pos = this.getBlockPos();
-            if (this.getWorld().isDay() && this.getWorld().isSkyVisible(this.getBlockPos()) && !this.isSubmergedInWater() && this.getBrightnessAtEyes() > 0.5F) {
-                BoundAccursedComponent accursed = Menagerie.getBoundAccursed().get(this);
-                World world = this.getWorld();
-                if (world.isRaining() && world.hasRain(pos)) return; // Don't burn in rain
-                ItemStack headStack = this.getEquippedStack(EquipmentSlot.HEAD);
-                boolean hasHelmet = !headStack.isEmpty();
-                if (!hasHelmet) {
-                    if(this.getFireTicks() <= 0 && accursed.hasAccursed()) {
-                        this.setOnFireFor(20);
-                    }
-                }
-            }
-        }
-    }
     @Inject(method = "tick", at = @At("HEAD"))
     private void tickEnderChest(CallbackInfo ci) {
         ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
@@ -101,15 +80,5 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Tr
                 }
             }
         }
-    }
-    @Inject(method = "tick", at = @At("HEAD"))
-    private void tickCustomTimer(CallbackInfo ci) {
-        ServerPlayerEntity player = (ServerPlayerEntity)(Object)this;
-        BoundAccursedComponent accursed = Menagerie.getBoundAccursed().get(player);
-        BoundArtifactComponent artifact = Menagerie.getBoundArtifact().get(player);
-        BoundAqueousComponent aqueous = Menagerie.getBoundAqueous().get(player);
-        aqueous.tickAqueous(player);
-        accursed.tickAccursed(player);
-        artifact.tickArtifact(player);
     }
 }

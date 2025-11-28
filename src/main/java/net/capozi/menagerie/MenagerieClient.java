@@ -1,11 +1,13 @@
 package net.capozi.menagerie;
 
-import net.capozi.menagerie.common.network.FlashPacket;
-import net.capozi.menagerie.common.render.FlashOverlayRenderer;
+import net.capozi.menagerie.common.item.TrickRoomItem;
+import net.capozi.menagerie.client.lodestone.vfx.AllVFX;
+import net.capozi.menagerie.server.network.FlashPacket;
+import net.capozi.menagerie.client.render.FlashOverlayRenderer;
 import net.capozi.menagerie.foundation.EnchantInit;
 import net.capozi.menagerie.foundation.EntityInit;
 import net.capozi.menagerie.common.entity.client.ChainsEntityModel;
-import net.capozi.menagerie.common.render.ModModelLayers;
+import net.capozi.menagerie.client.render.ModModelLayers;
 import net.capozi.menagerie.common.entity.client.ChainsRenderer;
 import net.capozi.menagerie.foundation.ItemInit;
 import net.fabricmc.api.ClientModInitializer;
@@ -13,6 +15,7 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -20,6 +23,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
@@ -64,11 +69,25 @@ public class MenagerieClient implements ClientModInitializer {
                 float f = stack.getItem() instanceof SwordItem sword ? (sword.getAttackDamage() / 4) + 0.25f : 0f;
                 DecimalFormat df = new DecimalFormat("#.##");
                 String totl = " " + df.format(f) + " Magic Damage";
-                lines.add(5, Text.literal(totl).formatted(Formatting.DARK_GREEN));
+                if (FabricLoader.getInstance().getModContainer("legendarytooltips").isPresent()) {
+                    lines.add(6, Text.literal(totl).formatted(Formatting.DARK_GREEN));
+                } else {
+                    lines.add(5, Text.literal(totl).formatted(Formatting.DARK_GREEN));
+                }
             }
         });
         FabricLoader.getInstance().getModContainer(Menagerie.MOD_ID).ifPresent(modContainer -> {
             ResourceManagerHelper.registerBuiltinResourcePack(new Identifier(Menagerie.MOD_ID, "spoon_accessibility"), modContainer, ResourcePackActivationType.NORMAL);
+        });
+        WorldRenderEvents.AFTER_ENTITIES.register((context) -> {
+            if (TrickRoomItem.CubeRenderHandler.renderCube && TrickRoomItem.CubeRenderHandler.renderedBox != null) {
+                MatrixStack matrixStack = context.matrixStack();
+                VertexConsumerProvider provider = context.consumers();
+                matrixStack.push();
+                matrixStack.translate(-context.camera().getPos().x, -context.camera().getPos().y, -context.camera().getPos().z);
+                AllVFX.renderCube(matrixStack, provider, TrickRoomItem.CubeRenderHandler.renderedBox, 1, 1, 1, 0.5f, 0xffffff);
+                matrixStack.pop();
+            }
         });
     }
 }

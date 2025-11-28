@@ -1,7 +1,7 @@
 package net.capozi.menagerie.mixin;
 
 import net.capozi.menagerie.Menagerie;
-import net.capozi.menagerie.common.network.BoundArtifactComponent;
+import net.capozi.menagerie.server.network.BoundArtifactComponent;
 import net.capozi.menagerie.foundation.EffectInit;
 import net.capozi.menagerie.foundation.EnchantInit;
 import net.capozi.menagerie.foundation.ItemInit;
@@ -54,19 +54,6 @@ public abstract class LivingEntityMixin {
                 SoundCategory.PLAYERS, 15.0F, 1.0F
         );
     }
-    @Inject(method = "canHaveStatusEffect", at = @At("HEAD"), cancellable = true)
-    public void canHaveStatusEffect(StatusEffectInstance effect, CallbackInfoReturnable<Boolean> cir) {
-        if((Object)this instanceof PlayerEntity player) {
-            BoundArtifactComponent component = Menagerie.getBoundArtifact().get(player);
-            if (component.hasArtifact()) {
-                cir.setReturnValue(effect.getEffectType() == StatusEffects.WITHER || effect.getEffectType() == StatusEffects.INSTANT_DAMAGE || effect.getEffectType() == StatusEffects.INSTANT_HEALTH || effect.getEffectType() == EffectInit.CHAINED_EFFECT);
-            } else if (Menagerie.getBoundAccursed().get(player).hasAccursed()) {
-                if (effect.getEffectType() == StatusEffects.REGENERATION || effect.getEffectType() == StatusEffects.POISON) {
-                    cir.setReturnValue(false); // Immune to these
-                }
-            }
-        }
-    }
     @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
     private void redirectToMagicDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (!(source.getAttacker() instanceof LivingEntity attacker)) return;
@@ -75,5 +62,6 @@ public abstract class LivingEntityMixin {
         LivingEntity target = (LivingEntity) (Object) this;
         DamageSources sources = target.getDamageSources();
         target.damage(sources.magic(), (amount / 4.0f) + 0.25f);
+        amount = amount * 0.75f;
     }
 }

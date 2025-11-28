@@ -2,10 +2,9 @@ package net.capozi.menagerie;
 
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import net.capozi.menagerie.common.datagen.LootTableModifiers;
-import net.capozi.menagerie.common.network.BoundAccursedComponent;
-import net.capozi.menagerie.common.network.BoundAqueousComponent;
-import net.capozi.menagerie.common.network.BoundArtifactComponent;
-import net.capozi.menagerie.common.network.UsageTickComponent;
+import net.capozi.menagerie.server.network.BoundAccursedComponent;
+import net.capozi.menagerie.server.network.BoundAqueousComponent;
+import net.capozi.menagerie.server.network.BoundArtifactComponent;
 import net.capozi.menagerie.foundation.*;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
 import net.fabricmc.api.ModInitializer;
@@ -14,8 +13,6 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -32,8 +29,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.resource.ResourceType;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.EntityHitResult;
@@ -41,19 +36,10 @@ import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.InputStream;
-
 public class Menagerie implements ModInitializer {
 	public static final String MOD_ID = "menagerie";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	private static final Identifier WARDEN_LOOT_TABLE_ID = new Identifier("minecraft", "entities/warden");
-	public static ComponentKey<BoundArtifactComponent> BOUND_ARTIFACT;
-	public static ComponentKey<BoundAccursedComponent> BOUND_ACCURSED;
-    public static ComponentKey<BoundAqueousComponent> BOUND_AQUEOUS;
-    public static ComponentKey<UsageTickComponent> USAGE_TICKS;
-	public static ComponentKey<BoundArtifactComponent> getBoundArtifact() { return BOUND_ARTIFACT; }
-	public static ComponentKey<BoundAccursedComponent> getBoundAccursed() { return BOUND_ACCURSED; }
-    public static ComponentKey<BoundAqueousComponent> getBoundAqueous() { return BOUND_AQUEOUS; }
 	@Override
 	public void onInitialize() {
 		ItemInit.itemsRegistry();

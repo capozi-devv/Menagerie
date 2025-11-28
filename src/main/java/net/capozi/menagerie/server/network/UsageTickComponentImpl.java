@@ -1,4 +1,4 @@
-package net.capozi.menagerie.common.network;
+package net.capozi.menagerie.server.network;
 
 import net.minecraft.nbt.NbtCompound;
 

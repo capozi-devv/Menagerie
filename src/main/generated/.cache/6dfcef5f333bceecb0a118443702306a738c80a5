@@ -1,4 +1,4 @@
-// 1.20.1	2025-11-15T01:17:56.8279753	Menagerie/Recipes
+// 1.20.1	2025-11-22T21:42:05.8234144	Menagerie/Recipes
 5d7b1e8bc40075afc905d9b24224d4d384744916 data\menagerie\recipes\cosmo_plush.json
 f7aa22458562e80596ed797ebce24f1053e40429 data\menagerie\recipes\heavyiron_longspoon.json
 3e9a5b17238b64c6bf805061eebd6034ea6733b8 data\menagerie\recipes\incomplete_construct.json
@@ -14,6 +14,6 @@ c7dfc1f3a16a6fb5bfd2e17492b236cb76b00709 data\menagerie\recipes\capozi_plush.jso
 7e73d287648ffbbd0b39a5d270678cd03d129194 data\menagerie\advancements\recipes\misc\simulacrum_vessel.json
 2af3bb7b282cedb4bb941f13f7e16220e58f9612 data\menagerie\recipes\gilded_blackstone.json
 8b51bb8ed2f4d895dac0b2fb2871fc7277f5adca data\menagerie\advancements\recipes\combat\heavyiron_longspoon.json
-a361b80edefc08f37541f9f17963058dc418f002 data\menagerie\advancements\recipes\misc\mark_of_dissonance.json
 a82876f22151f4e7dd24a9f75a9df551f72fb631 data\menagerie\recipes\mark_of_the_accursed.json
+a361b80edefc08f37541f9f17963058dc418f002 data\menagerie\advancements\recipes\misc\mark_of_dissonance.json
 4102888a20f9c68159f466bf6aad5c66b196ba20 data\menagerie\recipes\mark_of_dissonance.json

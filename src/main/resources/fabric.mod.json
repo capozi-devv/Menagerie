@@ -7,16 +7,9 @@
 	"authors": [
 		"Capozi",
 		"Cosmo_Leveling",
-		"Eyalego"
+		"Eyalego",
+        "Everest"
 	],
-	"custom": {
-		"cardinal-components": [
-			"menagerie:bound_artifact",
-			"menagerie:bound_accursed",
-            "menagerie:bound_aqueous",
-            "menagerie:usageTicks"
-		]
-	},
 	"contact": {
 
 	},
@@ -32,9 +25,6 @@
 		],
 		"fabric-datagen": [
 			"net.capozi.menagerie.MenagerieDataGenerator"
-		],
-		"cardinal-components-entity": [
-			"net.capozi.menagerie.MenagerieComponents"
 		]
 	},
 	"mixins": [

@@ -1,9 +1,9 @@
 package net.capozi.menagerie.common.item;
 
 import net.capozi.menagerie.Menagerie;
-import net.capozi.menagerie.common.network.BoundAccursedComponent;
-import net.capozi.menagerie.common.network.BoundAqueousComponent;
-import net.capozi.menagerie.common.network.BoundArtifactComponent;
+import net.capozi.menagerie.server.network.BoundAccursedComponent;
+import net.capozi.menagerie.server.network.BoundAqueousComponent;
+import net.capozi.menagerie.server.network.BoundArtifactComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

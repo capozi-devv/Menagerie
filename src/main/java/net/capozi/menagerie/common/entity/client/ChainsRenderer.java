@@ -2,7 +2,7 @@ package net.capozi.menagerie.common.entity.client;
 
 import net.capozi.menagerie.Menagerie;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
-import net.capozi.menagerie.common.render.ModModelLayers;
+import net.capozi.menagerie.client.render.ModModelLayers;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;

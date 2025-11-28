@@ -4,9 +4,7 @@
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
 		"LivingEntityMixin",
-		"PlayerEntityMixin",
-		"ServerPlayerEntityMixin",
-		"VillagerEntityMixin"
+		"ServerPlayerEntityMixin"
 	],
 	"client": [
 		"ItemRendererMixin",

@@ -1,35 +1,23 @@
 package net.capozi.menagerie.common.item;
 
-import net.capozi.menagerie.Menagerie;
-import net.capozi.menagerie.common.network.UsageTickComponent;
 import net.capozi.menagerie.foundation.EnchantInit;
 import net.capozi.menagerie.foundation.ItemInit;
 import net.capozi.menagerie.foundation.SoundInit;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageSources;
-import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.*;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -46,20 +34,6 @@ public class HeavyIronLongSpoonItem extends ShovelItem {
         return TypedActionResult.consume(itemStack);
     }
     @Override
-    public int getItemBarStep(ItemStack stack) {
-        UsageTickComponent comp = Menagerie.USAGE_TICKS.get(stack);
-        int usage = comp == null ? 0 : comp.getTicks();
-        return MathHelper.clamp(Math.round(13f * usage / 140f), 0, 13);
-    }
-    @Override
-    public boolean isItemBarVisible(ItemStack stack) {
-        return EnchantmentHelper.getLevel(EnchantInit.POGO, stack) <= 0;
-    }
-    @Override
-    public int getItemBarColor(ItemStack stack) {
-        return EnchantmentHelper.getLevel(EnchantInit.CONDENSED, stack) != 1 ? 65531 : 16756224;
-    }
-    @Override
     public UseAction getUseAction(ItemStack stack) {
         return UseAction.BOW;
     }
@@ -71,7 +45,6 @@ public class HeavyIronLongSpoonItem extends ShovelItem {
         }
         return f;
     }
-
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         if (EnchantmentHelper.getLevel(EnchantInit.POGO, context.getStack()) != 0) {
@@ -120,6 +93,7 @@ public class HeavyIronLongSpoonItem extends ShovelItem {
                             }
                             world.playSound((PlayerEntity)null, playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), SoundInit.SPOON_BONK, SoundCategory.PLAYERS, 1.0F, 1.0F / (world.getRandom().nextFloat() * 0.4F + 1.2F) + f * 0.5F);
                         }
+                        playerEntity.getItemCooldownManager().set(this, 60);
                     }
                 }
             }

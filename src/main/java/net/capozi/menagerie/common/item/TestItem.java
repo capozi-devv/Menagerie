@@ -1,6 +1,6 @@
 package net.capozi.menagerie.common.item;
 
-import net.capozi.menagerie.common.render.FlashOverlayRenderer;
+import net.capozi.menagerie.client.render.FlashOverlayRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;

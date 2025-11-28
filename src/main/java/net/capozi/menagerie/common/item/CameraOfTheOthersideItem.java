@@ -2,7 +2,7 @@ package net.capozi.menagerie.common.item;
 
 import com.mojang.authlib.GameProfile;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
-import net.capozi.menagerie.common.network.FlashPacket;
+import net.capozi.menagerie.server.network.FlashPacket;
 import net.capozi.menagerie.foundation.EffectInit;
 import net.capozi.menagerie.foundation.SoundInit;
 import net.minecraft.entity.LivingEntity;

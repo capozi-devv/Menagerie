@@ -39,7 +39,6 @@ public class HealthUtils {
         if (existing != null) {
             attr.removeModifier(REDUCED_HEALTH_UUID);
         }
-        // Apply new modifier
         EntityAttributeModifier modifier = new EntityAttributeModifier(
                 REDUCED_HEALTH_UUID,
                 "Reduced max health",

@@ -1,4 +1,4 @@
-package net.capozi.menagerie.common.network;
+package net.capozi.menagerie.server.network;
 
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;

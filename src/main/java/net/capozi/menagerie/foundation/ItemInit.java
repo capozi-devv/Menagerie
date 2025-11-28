@@ -26,10 +26,7 @@ public class ItemInit {
     public static void registerItemToToolsTabItemGroup(FabricItemGroupEntries entries) {
         entries.addAfter(Items.MUSIC_DISC_RELIC, DAMNATIO_MEMORIAE_MUSIC_DISC);
         entries.addAfter(DAMNATIO_MEMORIAE_MUSIC_DISC, CAMERA_OF_THE_OTHERSIDE);
-        entries.addAfter(CAMERA_OF_THE_OTHERSIDE, MARK_OF_DISSONANCE);
-        entries.addAfter(MARK_OF_DISSONANCE, MARK_OF_THE_ACCURSED);
-        entries.addAfter(MARK_OF_THE_ACCURSED, MARK_OF_AQUEOUSNESS);
-        entries.addAfter(MARK_OF_AQUEOUSNESS, SIMULACRUM_VESSEL);
+        entries.addAfter(CAMERA_OF_THE_OTHERSIDE, SIMULACRUM_VESSEL);
         entries.addAfter(SIMULACRUM_VESSEL, REACH_OF_THE_VOID);
     }
     public static void registerBlocksToBuildingTab(FabricItemGroupEntries entries) {
@@ -37,14 +34,12 @@ public class ItemInit {
         entries.add(EYA_PLUSH);
         entries.add(COSMO_PLUSH);
     }
-    public static final Item MARK_OF_DISSONANCE = registerItems("mark_of_dissonance", new MarkOfDissonanceItem(new FabricItemSettings().maxCount(1)));
-    public static final Item MARK_OF_AQUEOUSNESS = registerItems("mark_of_aqueousness", new MarkOfAqueousnessItem(new FabricItemSettings().maxCount(1)));
     public static final Item CAMERA_OF_THE_OTHERSIDE = registerItems("camera_of_the_otherside",new CameraOfTheOthersideItem(new FabricItemSettings().maxCount(1)));
-    public static final Item MARK_OF_THE_ACCURSED = registerItems("mark_of_the_accursed", new MarkOfTheAccursedItem(new FabricItemSettings().maxCount(1)));
     public static final Item SIMULACRUM_VESSEL = registerItems("simulacrum_vessel", new SimulacrumVesselItem(new FabricItemSettings().maxCount(1)));
     public static final Item TEST_ITEM = registerItems("test_item", new TestItem(new FabricItemSettings()));
     public static final Item DAMNATIO_MEMORIAE_MUSIC_DISC = registerItems("damnatio_memoriae", new MusicDiscItem(7, SoundInit.DAMNATIO_MEMORIAE, new FabricItemSettings().maxCount(1), 83));
     public static final Item HEAVYIRON_LONGSPOON = registerItems("heavyiron_longspoon", new HeavyIronLongSpoonItem(ToolMaterials.NETHERITE, 6, -3.2F, new Item.Settings().maxCount(1).fireproof()));
     public static final Item REACH_OF_THE_VOID = registerItems("reach_of_the_void", new ReachOfTheVoidItem(new Item.Settings().maxCount(1)));
     public static final Item INCOMPLETE_CONSTRUCT = registerItems("incomplete_construct", new Item(new Item.Settings()));
+    public static final Item TRICK_ROOM = registerItems("trick_room", new TrickRoomItem(new Item.Settings()));
 }

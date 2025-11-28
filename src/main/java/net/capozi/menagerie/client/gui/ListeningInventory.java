@@ -1,4 +1,4 @@
-package net.capozi.menagerie.common.gui;
+package net.capozi.menagerie.client.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
