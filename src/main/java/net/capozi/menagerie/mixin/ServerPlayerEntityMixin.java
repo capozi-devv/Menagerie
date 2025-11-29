@@ -81,4 +81,14 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Tr
             }
         }
     }
+//    @Inject(method = "tick", at = @At("HEAD"))
+//    private void tickCustomTimer(CallbackInfo ci) {
+//        ServerPlayerEntity player = (ServerPlayerEntity)(Object)this;
+//        BoundAccursedComponent accursed = Menagerie.getBoundAccursed().get(player);
+//        BoundArtifactComponent artifact = Menagerie.getBoundArtifact().get(player);
+//        BoundAqueousComponent aqueous = Menagerie.getBoundAqueous().get(player);
+//        aqueous.tickAqueous(player);
+//        accursed.tickAccursed(player);
+//        artifact.tickArtifact(player);
+//    }
 }
