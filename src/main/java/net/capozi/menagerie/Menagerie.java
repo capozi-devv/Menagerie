@@ -7,6 +7,7 @@ import net.capozi.menagerie.server.network.BoundAqueousComponent;
 import net.capozi.menagerie.server.network.BoundArtifactComponent;
 import net.capozi.menagerie.foundation.*;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
+import net.capozi.menagerie.server.network.UsageTickComponent;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
@@ -40,6 +41,12 @@ public class Menagerie implements ModInitializer {
 	public static final String MOD_ID = "menagerie";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	private static final Identifier WARDEN_LOOT_TABLE_ID = new Identifier("minecraft", "entities/warden");
+//    public static ComponentKey<BoundArtifactComponent> BOUND_ARTIFACT;
+//    public static ComponentKey<BoundAccursedComponent> BOUND_ACCURSED;
+//    public static ComponentKey<BoundAqueousComponent> BOUND_AQUEOUS;
+//    public static ComponentKey<BoundArtifactComponent> getBoundArtifact() { return BOUND_ARTIFACT; }
+//    public static ComponentKey<BoundAccursedComponent> getBoundAccursed() { return BOUND_ACCURSED; }
+//    public static ComponentKey<BoundAqueousComponent> getBoundAqueous() { return BOUND_AQUEOUS; }
 	@Override
 	public void onInitialize() {
 		ItemInit.itemsRegistry();
