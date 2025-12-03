@@ -66,7 +66,7 @@ public class MenagerieClient implements ClientModInitializer {
         ItemTooltipCallback.EVENT.register((ItemStack stack, TooltipContext context, List<Text> lines) -> {
             int level = EnchantmentHelper.getLevel(EnchantInit.ARCANE_DAMAGE, stack);
             if (level > 0) {
-                float f = stack.getItem() instanceof SwordItem sword ? (sword.getAttackDamage() / 4) + 0.25f : 0f;
+                float f = stack.getItem() instanceof SwordItem sword ? (sword.getAttackDamage() / 5) : 0f;
                 DecimalFormat df = new DecimalFormat("#.##");
                 String totl = " " + df.format(f) + " Magic Damage";
                 if (FabricLoader.getInstance().getModContainer("legendarytooltips").isPresent()) {
@@ -80,13 +80,13 @@ public class MenagerieClient implements ClientModInitializer {
             ResourceManagerHelper.registerBuiltinResourcePack(new Identifier(Menagerie.MOD_ID, "spoon_accessibility"), modContainer, ResourcePackActivationType.NORMAL);
         });
         WorldRenderEvents.AFTER_ENTITIES.register((context) -> {
-            if (TrickRoomItem.CubeRenderHandler.renderCube && TrickRoomItem.CubeRenderHandler.renderedBox != null) {
-                MatrixStack matrixStack = context.matrixStack();
-                VertexConsumerProvider provider = context.consumers();
-                matrixStack.push();
-                matrixStack.translate(-context.camera().getPos().x, -context.camera().getPos().y, -context.camera().getPos().z);
-                AllVFX.renderCube(matrixStack, provider, TrickRoomItem.CubeRenderHandler.renderedBox, 1, 1, 1, 0.5f, 0xffffff);
-                matrixStack.pop();
+            if (AllVFX.shouldRenderCube) {
+                MatrixStack matrices = context.matrixStack();
+                VertexConsumerProvider.Immediate vertexConsumers = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
+                matrices.push();
+                AllVFX.renderSolidPurpleCube(matrices, vertexConsumers, AllVFX.cubePosition, 1.0f);
+                matrices.pop();
+                vertexConsumers.draw();
             }
         });
     }

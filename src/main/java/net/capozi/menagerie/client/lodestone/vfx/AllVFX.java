@@ -1,101 +1,63 @@
 package net.capozi.menagerie.client.lodestone.vfx;
 
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
 
 public class AllVFX {
-    public static void renderCube(MatrixStack matrices, VertexConsumerProvider provider, Box box,float r, float g, float b, float a, int light) {
-        VertexConsumer consumer = provider.getBuffer(RenderLayer.getTranslucent());
-        MatrixStack.Entry entry = matrices.peek();
-        float minX = (float) box.minX;
-        float minY = (float) box.minY;
-        float minZ = (float) box.minZ;
-        float maxX = (float) box.maxX;
-        float maxY = (float) box.maxY;
-        float maxZ = (float) box.maxZ;
-        addDoubleSidedQuad(consumer, entry,
-                minX, minY, maxZ,
-                maxX, minY, maxZ,
-                maxX, maxY, maxZ,
-                minX, maxY, maxZ,
-                r, g, b, a, light);
-        addDoubleSidedQuad(consumer, entry,
-                maxX, minY, minZ,
-                minX, minY, minZ,
-                minX, maxY, minZ,
-                maxX, maxY, minZ,
-                r, g, b, a, light);
-        addDoubleSidedQuad(consumer, entry,
-                minX, maxY, maxZ,
-                maxX, maxY, maxZ,
-                maxX, maxY, minZ,
-                minX, maxY, minZ,
-                r, g, b, a, light);
-        addDoubleSidedQuad(consumer, entry,
-                minX, minY, minZ,
-                maxX, minY, minZ,
-                maxX, minY, maxZ,
-                minX, minY, maxZ,
-                r, g, b, a, light);
-        addDoubleSidedQuad(consumer, entry,
-                maxX, minY, maxZ,
-                maxX, minY, minZ,
-                maxX, maxY, minZ,
-                maxX, maxY, maxZ,
-                r, g, b, a, light);
-        addDoubleSidedQuad(consumer, entry,
-                minX, minY, minZ,
-                minX, minY, maxZ,
-                minX, maxY, maxZ,
-                minX, maxY, minZ,
-                r, g, b, a, light);
+    public static void renderSolidPurpleCube(MatrixStack matrices,
+                                             VertexConsumerProvider vertexConsumers,
+                                             BlockPos position, float size) {
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(
+                RenderLayer.getSolid());
+
+        Matrix4f matrix = matrices.peek().getPositionMatrix();
+        Matrix3f normalMatrix = matrices.peek().getNormalMatrix();
+
+        float r = 0.5f, g = 0.0f, b = 0.8f, a = 0.7f; // Semi-transparent
+
+        float minX = position.getX() - size/2;
+        float minY = position.getY() - size/2;
+        float minZ = position.getZ() - size/2;
+        float maxX = position.getX() + size/2;
+        float maxY = position.getY() + size/2;
+        float maxZ = position.getZ() + size/2;
+
+        drawQuad(vertexConsumer, matrix, normalMatrix, minX, minY, minZ, maxX, minY, minZ, maxX, maxY, minZ, minX, maxY, minZ, // Front
+                r, g, b, a);
     }
-    private static void addQuad(VertexConsumer consumer, MatrixStack.Entry entry,
-                                float x1, float y1, float z1,
-                                float x2, float y2, float z2,
-                                float x3, float y3, float z3,
-                                float x4, float y4, float z4,
-                                float r, float g, float b, float a, int light) {
-        float nx = (y2 - y1) * (z3 - z2) - (z2 - z1) * (y3 - y2);
-        float ny = (z2 - z1) * (x3 - x2) - (x2 - x1) * (z3 - z2);
-        float nz = (x2 - x1) * (y3 - y2) - (y2 - y1) * (x3 - x2);
-        float len = (float)Math.sqrt(nx * nx + ny * ny + nz * nz);
-        nx /= len;
-        ny /= len;
-        nz /= len;
-        addVertex(consumer, entry, x1, y1, z1, r, g, b, a, 0, 0, nx, ny, nz, light);
-        addVertex(consumer, entry, x2, y2, z2, r, g, b, a, 1, 0, nx, ny, nz, light);
-        addVertex(consumer, entry, x3, y3, z3, r, g, b, a, 1, 1, nx, ny, nz, light);
-        addVertex(consumer, entry, x4, y4, z4, r, g, b, a, 0, 1, nx, ny, nz, light);
+
+    private static void drawQuad(VertexConsumer consumer, Matrix4f matrix, Matrix3f normalMatrix,
+                                 float x1, float y1, float z1,
+                                 float x2, float y2, float z2,
+                                 float x3, float y3, float z3,
+                                 float x4, float y4, float z4,
+                                 float r, float g, float b, float a) {
+
+        consumer.vertex(matrix, x1, y1, z1).color(r, g, b, a).normal(normalMatrix, 0, 0, 1).light(1).texture(0, 0).overlay(OverlayTexture.DEFAULT_UV).next();
+        consumer.vertex(matrix, x2, y2, z2).color(r, g, b, a).normal(normalMatrix, 0, 0, 1).light(1).texture(0, 0).overlay(OverlayTexture.DEFAULT_UV).next();
+        consumer.vertex(matrix, x3, y3, z3).color(r, g, b, a).normal(normalMatrix, 0, 0, 1).light(1).texture(0, 0).overlay(OverlayTexture.DEFAULT_UV).next();
+        consumer.vertex(matrix, x4, y4, z4).color(r, g, b, a).normal(normalMatrix, 0, 0, 1).light(1).texture(0, 0).overlay(OverlayTexture.DEFAULT_UV).next();
     }
-    private static void addVertex(VertexConsumer consumer, MatrixStack.Entry entry,
-                                  float x, float y, float z,
-                                  float r, float g, float b, float a,
-                                  float u, float v,
-                                  float nx, float ny, float nz,
-                                  int light) {
-        consumer.vertex(entry.getPositionMatrix(), x, y, z)
-                .color(r, g, b, a)
-                .texture(u, v)
-                .light(light)
-                .normal(entry.getNormalMatrix(), nx, ny, nz);
+    public static boolean shouldRenderCube = false;
+    public static BlockPos cubePosition = BlockPos.ORIGIN;
+
+    // Call this method when you want to show the cube
+    public static void showCubeAt(BlockPos pos) {
+        shouldRenderCube = true;
+        cubePosition = pos;
     }
-    private static void addDoubleSidedQuad(VertexConsumer consumer, MatrixStack.Entry entry, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3, float x4, float y4, float z4, float r, float g, float b, float a, int light) {
-        addQuad(consumer, entry,
-                x1, y1, z1,
-                x2, y2, z2,
-                x3, y3, z3,
-                x4, y4, z4,
-                r, g, b, a, light);
-        addQuad(consumer, entry,
-                x4, y4, z4,
-                x3, y3, z3,
-                x2, y2, z2,
-                x1, y1, z1,
-                r, g, b, a, light);
+
+    public static void hideCube() {
+        shouldRenderCube = false;
     }
 }

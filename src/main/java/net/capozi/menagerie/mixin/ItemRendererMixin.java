@@ -28,8 +28,8 @@ public abstract class ItemRendererMixin {
     public BakedModel onRenderItem(BakedModel value, ItemStack stack, ModelTransformationMode mode) {
         if(stack.isOf(ItemInit.CAMERA_OF_THE_OTHERSIDE) && !mode.equals(ModelTransformationMode.GUI))
             return models.getModelManager().getModel(CAMERA_ACTIVE);
-        if(stack.isOf(ItemInit.MARK_OF_DISSONANCE) && !mode.equals(ModelTransformationMode.GUI))
-            return models.getModelManager().getModel(MARK_ACTIVE);
+//        if(stack.isOf(ItemInit.MARK_OF_DISSONANCE) && !mode.equals(ModelTransformationMode.GUI))
+//            return models.getModelManager().getModel(MARK_ACTIVE);
         if (stack.isOf(ItemInit.HEAVYIRON_LONGSPOON) && !mode.equals(ModelTransformationMode.GUI))
             return models.getModelManager().getModel(HEAVYIRON_LONGSPOON_HANDHELD);
         return value;

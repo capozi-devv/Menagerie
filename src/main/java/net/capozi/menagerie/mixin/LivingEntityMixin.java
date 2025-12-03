@@ -54,14 +54,14 @@ public abstract class LivingEntityMixin {
                 SoundCategory.PLAYERS, 15.0F, 1.0F
         );
     }
-    @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "damage", at = @At("TAIL"), cancellable = true)
     private void redirectToMagicDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (!(source.getAttacker() instanceof LivingEntity attacker)) return;
         ItemStack stack = attacker.getMainHandStack();
         if (EnchantmentHelper.getLevel(EnchantInit.ARCANE_DAMAGE, stack) <= 0) return;
         LivingEntity target = (LivingEntity) (Object) this;
         DamageSources sources = target.getDamageSources();
-        target.damage(sources.magic(), (amount / 4.0f) + 0.25f);
-        amount = amount * 0.75f;
+        amount = amount * 0.2f;
+        target.damage(sources.magic(), amount);
     }
 }

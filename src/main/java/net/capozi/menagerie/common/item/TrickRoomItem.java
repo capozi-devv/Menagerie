@@ -1,5 +1,6 @@
 package net.capozi.menagerie.common.item;
 
+import net.capozi.menagerie.client.lodestone.vfx.AllVFX;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -16,16 +17,11 @@ public class TrickRoomItem extends Item {
     public TrickRoomItem(Settings settings) {
         super(settings);
     }
-    public static class CubeRenderHandler {
-        public static boolean renderCube = false;
-        public static Box renderedBox;
-    }
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if (user.isSneaking() && world.isClient()) {
             MinecraftClient client = MinecraftClient.getInstance();
-            CubeRenderHandler.renderCube = true;
-            CubeRenderHandler.renderedBox = new Box(user.getX() - 15, user.getY() - 15, user.getZ() - 15, user.getX() + 15, user.getY() + 15, user.getZ() + 15);
+            AllVFX.showCubeAt(user.getBlockPos());
             return TypedActionResult.success(user.getStackInHand(hand));
         }
         return TypedActionResult.pass(user.getStackInHand(hand));
