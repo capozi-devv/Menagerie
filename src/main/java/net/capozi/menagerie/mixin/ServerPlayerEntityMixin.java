@@ -49,22 +49,18 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Tr
             if (chained != null) {
                 this.setVelocity(Vec3d.ZERO);
                 chains.setVelocity(Vec3d.ZERO);
-                if (!this.isTrapped()) {
-                    this.setTrapped(true);
-                    Menagerie.LOGGER.info("Player " + this.getName().getString() + " is now trapped.");
-                    Vec3d pos = this.getPos();
-                    chains.refreshPositionAndAngles(pos.x, pos.y, pos.z, 0, 0);
-                    chains.addStatusEffect(new StatusEffectInstance(EffectInit.CHAINED_EFFECT, 12000, 1, false, false, false));
-                    this.addStatusEffect(new StatusEffectInstance(EffectInit.CHAINED_EFFECT, 12000, 1, false, false, false));
-                    serverWorld.spawnEntity(chains);
-                    chains.setPlayerUuid(this.getUuid());
-                    this.velocityModified = true;
-                    chains.velocityModified =true;
-                    this.trappedChains = chains;
-                }
+                this.setTrapped(true);
+                Menagerie.LOGGER.info("Player " + this.getName().getString() + " is now trapped.");
+                Vec3d pos = this.getPos();
+                chains.refreshPositionAndAngles(pos.x, pos.y, pos.z, 0, 0);
+                chains.addStatusEffect(new StatusEffectInstance(EffectInit.CHAINED_EFFECT, 12000, 1, false, false, false));
+                this.addStatusEffect(new StatusEffectInstance(EffectInit.CHAINED_EFFECT, 12000, 1, false, false, false));
+                serverWorld.spawnEntity(chains);
+                chains.setPlayerUuid(this.getUuid());
+                this.velocityModified = true;
+                chains.velocityModified =true;
+                this.trappedChains = chains;
             }
-        } else if (!this.hasStatusEffect(EffectInit.CHAINED_EFFECT)) {
-            this.setTrapped(false);
         }
     }
     @Inject(method = "tick", at = @At("HEAD"))
