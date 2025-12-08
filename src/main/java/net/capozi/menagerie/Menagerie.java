@@ -2,6 +2,7 @@ package net.capozi.menagerie;
 
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import net.capozi.menagerie.common.datagen.LootTableModifiers;
+import net.capozi.menagerie.common.entity.object.CircleBeamEntity;
 import net.capozi.menagerie.server.network.BoundAccursedComponent;
 import net.capozi.menagerie.server.network.BoundAqueousComponent;
 import net.capozi.menagerie.server.network.BoundArtifactComponent;
@@ -15,6 +16,7 @@ import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.decoration.painting.PaintingVariant;
@@ -53,8 +55,10 @@ public class Menagerie implements ModInitializer {
 		BlockInit.registerBlocks();
 		SoundInit.registerSounds();
 		EffectInit.registerEffects();
+        EntityInit.register();
 		EnchantInit.init();
 		LootTableModifiers.modifyLootTables();
+        ParticleInit.PARTICLES.register();
 		Registry.register(Registries.PAINTING_VARIANT, new Identifier(MOD_ID,"ether"), new PaintingVariant(64,48));
 		FabricDefaultAttributeRegistry.register(EntityInit.ABYSSAL_CHAINS, ChainsEntity.createChainAttributes());
 		AttackEntityCallback.EVENT.register((PlayerEntity player, World world, net.minecraft.util.Hand hand, Entity target, EntityHitResult hitResult) -> {

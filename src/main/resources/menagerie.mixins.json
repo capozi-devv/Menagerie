@@ -1,22 +1,22 @@
 {
-	"required": true,
-	"package": "net.capozi.menagerie.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"mixins": [
-		"LivingEntityMixin",
-		"ServerPlayerEntityMixin",
-        "PlayerEntityMixin",
-        "VillagerEntityMixin"
-	],
-	"client": [
-		"ItemRendererMixin",
-		"KeyboardMixin",
-        "MouseMixin",
-		"ModelLoaderMixin",
-		"PlayerEntityModelMixin",
-		"PlayerEntityRendererMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "package": "net.capozi.menagerie.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "LivingEntityMixin",
+    "PlayerEntityMixin",
+    "ServerPlayerEntityMixin",
+    "VillagerEntityMixin"
+  ],
+  "client": [
+    "ItemRendererMixin",
+    "KeyboardMixin",
+    "ModelLoaderMixin",
+    "MouseMixin",
+    "PlayerEntityModelMixin",
+    "PlayerEntityRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }

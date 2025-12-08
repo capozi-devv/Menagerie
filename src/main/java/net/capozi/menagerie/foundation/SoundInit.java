@@ -20,5 +20,6 @@ public class SoundInit {
     public static final SoundEvent SIMULACRA = registerSoundEvents("simulacra");
     public static final SoundEvent SPOON_BONK = registerSoundEvents("spoon_bonk");
     public static final SoundEvent POGO = registerSoundEvents("pogo");
+    public static final SoundEvent REVIVAL = registerSoundEvents("revival");
     public static final SoundEvent DAMNATIO_MEMORIAE = registerSoundEvents("damnatio_memoriae");
 }

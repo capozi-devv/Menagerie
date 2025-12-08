@@ -1,5 +1,6 @@
 package net.capozi.menagerie.client.lodestone.vfx;
 
+import net.capozi.menagerie.Menagerie;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -9,9 +10,17 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
+import team.lodestar.lodestone.handlers.RenderHandler;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.systems.rendering.LodestoneRenderType;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
+
+import java.awt.*;
 
 public class AllVFX {
     public static void renderSolidPurpleCube(MatrixStack matrices,
@@ -59,5 +68,37 @@ public class AllVFX {
 
     public static void hideCube() {
         shouldRenderCube = false;
+    }
+    private static RenderTypeToken getRenderTypeToken() {
+        return RenderTypeToken.createToken(new Identifier(Menagerie.MOD_ID, "textures/entity/beam3.png"));
+    }
+    private static long flashStartTime = 0;
+    private static final long FLASH_DURATION_MS = 13000;
+    public static void triggerFlash() {
+        flashStartTime = System.currentTimeMillis();
+    }
+    private static boolean isFlashing() {
+        return System.currentTimeMillis() - flashStartTime < 13000;
+    }
+    private static final LodestoneRenderType RENDER_LAYER = LodestoneRenderTypeRegistry.ADDITIVE_TEXTURE.applyAndCache(getRenderTypeToken());
+    public static void renderObelisk(MatrixStack matrixStack, Vec3d pos) {
+        matrixStack.scale(1f, 1f, 1f);
+        VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld();
+        triggerFlash();
+        float progress = (System.currentTimeMillis() - flashStartTime) / (float) FLASH_DURATION_MS;
+        float alpha = 1.0f - progress;
+        if (alpha < 0f) alpha = 0f;
+        matrixStack.push();
+        matrixStack.translate(-pos.getX(), -pos.getY(), -pos.getZ());
+        Matrix4f matrix4f = matrixStack.peek().getPositionMatrix();
+        if (isFlashing()) {
+            builder.replaceBufferSource(RenderHandler.DELAYED_RENDER.getTarget())
+                    .setRenderType(RENDER_LAYER)
+                    .setColor(new Color(0, 255, 244))
+                    .setAlpha(0.9f)
+                    .setLight(200)
+                    .renderBeam(matrix4f, pos.add(0.5, 0, 0.5), pos.add(0.5,300,0.5), 9);
+        }
+        matrixStack.pop();
     }
 }

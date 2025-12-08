@@ -21,18 +21,19 @@ import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
-    @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
-    private void onLethalDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method = "applyDamage", at = @At("TAIL"), cancellable = true)
+    private void onLethalDamage(DamageSource source, float amount, CallbackInfo ci) {
         if (!((Object) this instanceof ServerPlayerEntity killed)) return;
         float health = killed.getHealth();
         Entity attacker = source.getAttacker();
         if (!(attacker instanceof ServerPlayerEntity killer)) return;
         if (hasCameraItem(killer) && health <= amount) {
-            cir.cancel();
+            ci.cancel();
             triggerTotemEffect(killed); // heal and freeze logic
         }
     }

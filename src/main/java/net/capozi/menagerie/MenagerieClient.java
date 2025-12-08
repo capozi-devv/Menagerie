@@ -1,7 +1,9 @@
 package net.capozi.menagerie;
 
+import net.capozi.menagerie.common.entity.client.CircleBeamRenderer;
 import net.capozi.menagerie.common.item.TrickRoomItem;
 import net.capozi.menagerie.client.lodestone.vfx.AllVFX;
+import net.capozi.menagerie.foundation.ParticleInit;
 import net.capozi.menagerie.server.network.FlashPacket;
 import net.capozi.menagerie.client.render.FlashOverlayRenderer;
 import net.capozi.menagerie.foundation.EnchantInit;
@@ -59,10 +61,12 @@ public class MenagerieClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(EYA_PLUSH, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(COSMO_PLUSH, RenderLayer.getCutout());
         EntityRendererRegistry.register(EntityInit.ABYSSAL_CHAINS, ChainsRenderer::new);
+        EntityRendererRegistry.register(EntityInit.CIRCLE, CircleBeamRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.CHAINS, ChainsEntityModel::getTexturedModelData);
         FlashPacket.registerClientReceiver();
         FlashOverlayRenderer.init();
         registerModelPredicateProviders();
+        ParticleInit.init();
         ItemTooltipCallback.EVENT.register((ItemStack stack, TooltipContext context, List<Text> lines) -> {
             int level = EnchantmentHelper.getLevel(EnchantInit.ARCANE_DAMAGE, stack);
             if (level > 0) {
