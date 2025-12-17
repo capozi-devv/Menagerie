@@ -1,4 +1,4 @@
-package net.capozi.menagerie.server.network;
+package net.capozi.menagerie.server.cca;
 
 import dev.onyxstudios.cca.api.v3.component.Component;
 import net.minecraft.entity.player.PlayerEntity;

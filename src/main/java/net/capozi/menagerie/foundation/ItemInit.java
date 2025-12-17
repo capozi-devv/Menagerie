@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 import static net.capozi.menagerie.foundation.BlockInit.*;
 
 public class ItemInit {
-    public static void itemsRegistry() {
+    public static void registerItems() {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(ItemInit::registerItemToToolsTabItemGroup);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(ItemInit::registerBlocksToBuildingTab);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(ItemInit::registerItemsToWeaponGroup);
@@ -28,6 +28,7 @@ public class ItemInit {
         entries.addAfter(DAMNATIO_MEMORIAE_MUSIC_DISC, CAMERA_OF_THE_OTHERSIDE);
         entries.addAfter(CAMERA_OF_THE_OTHERSIDE, SIMULACRUM_VESSEL);
         entries.addAfter(SIMULACRUM_VESSEL, REACH_OF_THE_VOID);
+        entries.addAfter(REACH_OF_THE_VOID, TRICK_ROOM);
     }
     public static void registerBlocksToBuildingTab(FabricItemGroupEntries entries) {
         entries.add(CAPOZI_PLUSH);
@@ -35,11 +36,12 @@ public class ItemInit {
         entries.add(COSMO_PLUSH);
     }
     public static final Item CAMERA_OF_THE_OTHERSIDE = registerItems("camera_of_the_otherside",new CameraOfTheOthersideItem(new FabricItemSettings().maxCount(1)));
-    public static final Item SIMULACRUM_VESSEL = registerItems("simulacrum_vessel", new SimulacrumVesselItem(new FabricItemSettings().maxCount(1)));
+    public static final Item SIMULACRUM_VESSEL = registerItems("simulacrum_vessel", new SimulacrumVesselItem(new FabricItemSettings().maxCount(16)));
     public static final Item TEST_ITEM = registerItems("test_item", new TestItem(new FabricItemSettings()));
     public static final Item DAMNATIO_MEMORIAE_MUSIC_DISC = registerItems("damnatio_memoriae", new MusicDiscItem(7, SoundInit.DAMNATIO_MEMORIAE, new FabricItemSettings().maxCount(1), 83));
     public static final Item HEAVYIRON_LONGSPOON = registerItems("heavyiron_longspoon", new HeavyIronLongSpoonItem(ToolMaterials.NETHERITE, 6, -3.2F, new Item.Settings().maxCount(1).fireproof()));
     public static final Item REACH_OF_THE_VOID = registerItems("reach_of_the_void", new ReachOfTheVoidItem(new Item.Settings().maxCount(1)));
     public static final Item INCOMPLETE_CONSTRUCT = registerItems("incomplete_construct", new Item(new Item.Settings()));
-    public static final Item TRICK_ROOM = registerItems("trick_room", new TrickRoomItem(new Item.Settings()));
+    public static final Item TRICK_ROOM = registerItems("trick_room", new TrickRoomItem(new Item.Settings().maxCount(1)));
+    public static final Item ASTRAL_TEAR = registerItems("astral_tear", new AstralTearItem(new Item.Settings().maxCount(1)));
 }

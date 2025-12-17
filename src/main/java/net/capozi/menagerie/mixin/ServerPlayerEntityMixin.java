@@ -2,15 +2,11 @@ package net.capozi.menagerie.mixin;
 
 import com.mojang.authlib.GameProfile;
 import net.capozi.menagerie.Menagerie;
-import net.capozi.menagerie.server.network.BoundAccursedComponent;
-import net.capozi.menagerie.server.network.BoundAqueousComponent;
-import net.capozi.menagerie.server.network.BoundArtifactComponent;
 import net.capozi.menagerie.foundation.EffectInit;
 import net.capozi.menagerie.foundation.EntityInit;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
 import net.capozi.menagerie.common.item.TrappedState;
 import net.capozi.menagerie.foundation.ItemInit;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EnderChestInventory;

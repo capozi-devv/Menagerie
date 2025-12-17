@@ -10,4 +10,5 @@ public class AllItemTags {
         return TagKey.of(RegistryKeys.ITEM, new Identifier(id));
     }
     public static final TagKey<Item> CARNIVORE_EDIBLE = of("carnivore_edible");
+    public static final TagKey<Item> NONDUPLICATIVE = of("nonduplicative");
 }

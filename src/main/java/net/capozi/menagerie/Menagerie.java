@@ -1,14 +1,8 @@
 package net.capozi.menagerie;
 
-import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import net.capozi.menagerie.common.datagen.LootTableModifiers;
-import net.capozi.menagerie.common.entity.object.CircleBeamEntity;
-import net.capozi.menagerie.server.network.BoundAccursedComponent;
-import net.capozi.menagerie.server.network.BoundAqueousComponent;
-import net.capozi.menagerie.server.network.BoundArtifactComponent;
 import net.capozi.menagerie.foundation.*;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
-import net.capozi.menagerie.server.network.UsageTickComponent;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
@@ -16,7 +10,6 @@ import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.decoration.painting.PaintingVariant;
@@ -51,7 +44,7 @@ public class Menagerie implements ModInitializer {
 //    public static ComponentKey<BoundAqueousComponent> getBoundAqueous() { return BOUND_AQUEOUS; }
 	@Override
 	public void onInitialize() {
-		ItemInit.itemsRegistry();
+		ItemInit.registerItems();
 		BlockInit.registerBlocks();
 		SoundInit.registerSounds();
 		EffectInit.registerEffects();

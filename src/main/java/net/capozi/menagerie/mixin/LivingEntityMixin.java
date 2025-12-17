@@ -1,7 +1,5 @@
 package net.capozi.menagerie.mixin;
 
-import net.capozi.menagerie.Menagerie;
-import net.capozi.menagerie.server.network.BoundArtifactComponent;
 import net.capozi.menagerie.foundation.EffectInit;
 import net.capozi.menagerie.foundation.EnchantInit;
 import net.capozi.menagerie.foundation.ItemInit;
@@ -11,8 +9,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
@@ -50,19 +46,17 @@ public abstract class LivingEntityMixin {
         killed.addStatusEffect(new StatusEffectInstance(EffectInit.CHAINED_EFFECT, 600, 1, false, false, true));
         killed.setVelocity(Vec3d.ZERO);
         killed.velocityModified = true;
-        killed.getWorld().playSound(
-                null, killed.getBlockPos(), SoundEvents.BLOCK_BELL_RESONATE,
-                SoundCategory.PLAYERS, 15.0F, 1.0F
+        killed.getWorld().playSound(null, killed.getBlockPos(), SoundEvents.BLOCK_BELL_RESONATE, SoundCategory.PLAYERS, 15.0F, 1.0F
         );
     }
-    @Inject(method = "damage", at = @At("TAIL"), cancellable = true)
-    private void redirectToMagicDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method = "applyDamage", at = @At("TAIL"), cancellable = true)
+    private void redirectToMagicDamage(DamageSource source, float amount, CallbackInfo ci) {
         if (!(source.getAttacker() instanceof LivingEntity attacker)) return;
         ItemStack stack = attacker.getMainHandStack();
         if (EnchantmentHelper.getLevel(EnchantInit.ARCANE_DAMAGE, stack) <= 0) return;
         LivingEntity target = (LivingEntity) (Object) this;
         DamageSources sources = target.getDamageSources();
-        amount = amount * 0.2f;
+        amount *= 0.2f;
         target.damage(sources.magic(), amount);
     }
 }

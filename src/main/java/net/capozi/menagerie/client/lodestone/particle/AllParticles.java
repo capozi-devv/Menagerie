@@ -54,7 +54,7 @@ public class AllParticles {
                 .setScaleData(GenericParticleData.create(5f).setEasing(Easing.ELASTIC_IN_OUT).build())
                 .setTransparencyData(GenericParticleData.create(0.95f, 0.95f, 0).build())
                 .setColorData(ColorParticleData.create(startColour, endingColor).setCoefficient(1.4f).build())
-                .setLifetime(250)
+                .setLifetime(200)
                 .enableNoClip()
                 .setBehavior(new DirectionalBehaviorComponent(new Vec3d(0, 90, 0)))
                 .disableCull()

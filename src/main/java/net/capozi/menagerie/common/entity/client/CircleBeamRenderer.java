@@ -4,6 +4,7 @@ import net.capozi.menagerie.Menagerie;
 import net.capozi.menagerie.client.lodestone.vfx.AllVFX;
 import net.capozi.menagerie.client.lodestone.vfx.RenderOptions;
 import net.capozi.menagerie.client.lodestone.vfx.SkyBeamRenderer;
+import net.capozi.menagerie.client.render.FlashOverlayRenderer;
 import net.capozi.menagerie.common.entity.object.CircleBeamEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
@@ -35,9 +36,10 @@ public class CircleBeamRenderer extends EntityRenderer<CircleBeamEntity> {
     public void render(CircleBeamEntity mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
         RenderOptions options = new RenderOptions().animation(RenderOptions.AnimationStyle.WOBBLE, 1f).uvSpeed(-0.09f);
         float progress = (System.currentTimeMillis() - flashStartTime) / (float) FLASH_DURATION_MS;
-        if ( shouldRender) {
+        if (shouldRender) {
             //SkyBeamRenderer.render(matrixStack, vertexConsumerProvider, getTexture(mobEntity), 270, 300, 4f, options);
             AllVFX.renderObelisk(matrixStack, Vec3d.ofCenter(mobEntity.getBlockPos()));
+            FlashOverlayRenderer.triggerFlash();
             progress -= 20f;
         }
     }

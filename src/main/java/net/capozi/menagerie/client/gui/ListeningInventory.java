@@ -4,33 +4,35 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 
 public class ListeningInventory extends PlayerInventory implements Inventory {
     private final Inventory delegate;
     private final Runnable onChange;
-
     public ListeningInventory(Inventory delegate, Runnable onChange) {
         super(null);
         this.delegate = delegate;
         this.onChange = onChange;
     }
-
     @Override
     public int size() { return delegate.size(); }
-
+    @Override
+    public void onClose(PlayerEntity player) {
+        super.onClose(player);
+        player.getWorld().playSound(null, player.getBlockPos(), SoundEvents.BLOCK_ENDER_CHEST_CLOSE, SoundCategory.BLOCKS);
+    }
     @Override
     public boolean isEmpty() { return delegate.isEmpty(); }
-
     @Override
     public ItemStack getStack(int slot) { return delegate.getStack(slot); }
-
     @Override
     public ItemStack removeStack(int slot, int amount) {
         ItemStack result = delegate.removeStack(slot, amount);
         if (!result.isEmpty()) onChange.run();
         return result;
     }
-
     @Override
     public ItemStack removeStack(int slot) {
         ItemStack result = delegate.removeStack(slot);

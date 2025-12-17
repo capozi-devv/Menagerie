@@ -1,12 +1,13 @@
-package net.capozi.menagerie.server.network;
+package net.capozi.menagerie.server.cca;
 
 import net.capozi.menagerie.common.entity.HealthUtils;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 
-public class BoundAccursedComponentImpl implements BoundAccursedComponent{
+public class BoundAccursedComponentImpl implements BoundAccursedComponent {
     private boolean hasAccursed = false;
     @Override
     public boolean hasAccursed() {
@@ -19,7 +20,10 @@ public class BoundAccursedComponentImpl implements BoundAccursedComponent{
     @Override
     public void tickAccursed(PlayerEntity player) {
         if (hasAccursed()) {
-            HealthUtils.addExtraHearts(player, 10.0);
+            var attribute = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
+            if (attribute != null && attribute.getModifier(HealthUtils.EXTRA_HEARTS_UUID) == null) {
+                HealthUtils.addExtraHearts(player, 10.0);
+            }
             player.setAir(300);
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 70, 1, false, false, false));
         }

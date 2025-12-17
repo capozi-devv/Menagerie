@@ -1,5 +1,6 @@
 package net.capozi.menagerie.common.item;
 
+import net.capozi.menagerie.common.datagen.tags.AllItemTags;
 import net.capozi.menagerie.foundation.SoundInit;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -34,8 +35,11 @@ public class SimulacrumVesselItem extends Item {
                 || copyTargetStack.isOf(Items.SHULKER_BOX)
                 || copyTargetStack.isOf(Items.ELYTRA)
                 || copyTargetStack.isIn(ItemTags.TRIMMABLE_ARMOR)
+                || copyTargetStack.isIn(ItemTags.TRIM_TEMPLATES)
                 || copyTargetStack.isIn(ItemTags.TRIM_MATERIALS)
-                || copyTargetStack.isIn(ItemTags.TOOLS)) {
+                || copyTargetStack.isIn(AllItemTags.NONDUPLICATIVE)
+                || copyTargetStack.isIn(ItemTags.TOOLS)
+                || copyTargetStack.isOf(Items.ENCHANTED_BOOK)) {
             player.sendMessage(Text.literal("Simulacra cannot produce this"), true);
             return TypedActionResult.fail(player.getStackInHand(hand));
         }

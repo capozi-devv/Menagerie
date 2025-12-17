@@ -15,6 +15,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -29,9 +30,9 @@ public class CameraOfTheOthersideItem extends Item {
     }
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity target, Hand hand) {
-        if (target instanceof ServerPlayerEntity targetPlayer && target instanceof TrappedState trappedState) {
+        if (target instanceof ServerPlayerEntity targetPlayer) {
             BlockPos playerPos = target.getBlockPos();
-            if (trappedState.isTrapped()) {
+            if (targetPlayer.hasStatusEffect(EffectInit.CHAINED_EFFECT)) {
                 if (!user.getWorld().isClient && user instanceof ServerPlayerEntity serverPlayer) {
                     FlashPacket.sendToTracking((ServerWorld) user.getWorld(), serverPlayer);
                     user.getWorld().playSound(null, playerPos, SoundInit.BUTTON_CLICK,
@@ -49,6 +50,8 @@ public class CameraOfTheOthersideItem extends Item {
                 );
                 target.kill();
                 ban(user, target);
+                stack.decrement(1);
+                user.getWorld().playSound(null, user.getBlockPos(), SoundEvents.ENTITY_ITEM_BREAK, SoundCategory.PLAYERS, 1f, 1f);
                 for (ChainsEntity chains : chainsNearby) {
                     chains.discard();
                 }
@@ -56,7 +59,6 @@ public class CameraOfTheOthersideItem extends Item {
                 GameProfile profile = targetPlayer.getGameProfile();
                 Text deathMessage = Text.literal(profile.getName() + " was banished to the Otherside");
                 server.getPlayerManager().broadcast(deathMessage, false);
-                trappedState.setTrapped(false);
             }
             return ActionResult.CONSUME;
         }

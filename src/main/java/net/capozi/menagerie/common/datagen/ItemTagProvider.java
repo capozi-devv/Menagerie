@@ -37,5 +37,15 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(Items.SALMON)
                 .add(Items.ROTTEN_FLESH)
                 .add(Items.TROPICAL_FISH);
+        getOrCreateTagBuilder(AllItemTags.NONDUPLICATIVE)
+                .add(Items.EMERALD_BLOCK)
+                .add(Items.DIAMOND_BLOCK)
+                .add(Items.NETHERITE_BLOCK)
+                .add(Items.ANCIENT_DEBRIS)
+                .add(Items.GOLD_BLOCK)
+                .add(Items.IRON_BLOCK)
+                .add(Items.LAPIS_BLOCK)
+                .add(Items.RAW_GOLD_BLOCK)
+                .add(Items.RAW_IRON_BLOCK);
     }
 }

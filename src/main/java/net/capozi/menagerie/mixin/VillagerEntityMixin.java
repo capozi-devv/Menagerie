@@ -1,15 +1,7 @@
 package net.capozi.menagerie.mixin;
 
-import net.capozi.menagerie.Menagerie;
-import net.capozi.menagerie.server.network.BoundAccursedComponent;
 import net.minecraft.entity.passive.VillagerEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(VillagerEntity.class)
 public abstract class VillagerEntityMixin {

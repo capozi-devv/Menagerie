@@ -5,7 +5,7 @@ import net.minecraft.client.gui.DrawContext;
 
 public class FlashOverlayRenderer {
     private static long flashStartTime = 0;
-    private static final long FLASH_DURATION_MS = 5000;
+    private static final long FLASH_DURATION_MS = 2000;
     public static void init() {
         HudRenderCallback.EVENT.register((DrawContext drawContext, float tickDelta) -> {
             if (!isFlashing()) return;
@@ -22,6 +22,6 @@ public class FlashOverlayRenderer {
         flashStartTime = System.currentTimeMillis();
     }
     private static boolean isFlashing() {
-        return System.currentTimeMillis() - flashStartTime < 5000;
+        return System.currentTimeMillis() - flashStartTime < 2000;
     }
 }
