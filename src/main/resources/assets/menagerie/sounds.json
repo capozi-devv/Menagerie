@@ -1,4 +1,9 @@
 {
+  "spoon_hit": {
+    "sounds": [
+      "menagerie:item/spoon_hit"
+    ]
+  },
   "button_click": {
     "sounds": [
       "menagerie:item/button_click"

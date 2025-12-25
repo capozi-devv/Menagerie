@@ -20,7 +20,6 @@ public class AstralTearItem extends Item {
         CircleBeamEntity circleBeam = new CircleBeamEntity(CIRCLE, context.getWorld());
         context.getWorld().spawnEntity(circleBeam);
         circleBeam.setPos(context.getBlockPos().getX(), context.getBlockPos().getY(), context.getBlockPos().getZ());
-        AllParticles.executeGlowAura(context.getWorld(), Vec3d.ofCenter(context.getBlockPos()));
         AllParticles.circleParticle(context.getWorld(), Vec3d.ofCenter(context.getBlockPos()));
         AllParticles.circleLongParticle(context.getWorld(), Vec3d.ofCenter(context.getBlockPos()));
         context.getWorld().playSound(null, context.getBlockPos(), SoundInit.REVIVAL, SoundCategory.PLAYERS, 1f, 1f);

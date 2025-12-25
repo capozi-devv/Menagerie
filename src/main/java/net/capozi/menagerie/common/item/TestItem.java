@@ -1,5 +1,6 @@
 package net.capozi.menagerie.common.item;
 
+import net.capozi.menagerie.client.lodestone.particle.AllParticles;
 import net.capozi.menagerie.client.render.FlashOverlayRenderer;
 import net.capozi.menagerie.common.entity.HealthUtils;
 import net.minecraft.entity.LivingEntity;
@@ -10,6 +11,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
 public class TestItem extends Item {
@@ -26,10 +29,7 @@ public class TestItem extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        for (PlayerEntity player : world.getPlayers()) {
-            HealthUtils.removeExtraHearts(player);
-            return TypedActionResult.success(user.getStackInHand(hand));
-        }
+       // AllParticles.circleLongParticleSKY(world, Vec3d.ofCenter(new Vec3i(user.getBlockPos().getX(), user.getBlockPos().getY() + 50, user.getBlockPos().getZ())));
         return TypedActionResult.pass(user.getStackInHand(hand));
     }
 }

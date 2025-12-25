@@ -16,23 +16,17 @@ import team.lodestar.lodestone.systems.particle.world.behaviors.components.Direc
 import java.awt.*;
 
 public class AllParticles {
-    public static void glowAura(float scale, World world, Vec3d pos, float opacity) {
+    public static void glowAura(World world, Vec3d pos) {
         Color colour = new Color(0, 255, 244);
-        WorldParticleBuilder.create(LodestoneParticleRegistry.SMOKE_PARTICLE)
-                .setScaleData(GenericParticleData.create(scale).setEasing(Easing.ELASTIC_OUT).build())
-                .setTransparencyData(GenericParticleData.create(opacity, opacity, 0).build())
-                .setColorData(ColorParticleData.create(colour).setCoefficient(1.4f).build())
-                .setLifetime(250)
+        WorldParticleBuilder.create(LodestoneParticleRegistry.SPARK_PARTICLE)
+                .setScaleData(GenericParticleData.create(RandomHelper.randomBetween(Random.create(), 4, 6), 2).build())
+                .setTransparencyData(GenericParticleData.create(0.35f, 0f).build())
+                .setColorData(ColorParticleData.create(colour).build())
+                .setLifetime(20)
+                .addMotion(Random.create().nextBoolean() ? 0.12f : -0.12f, 0, Random.create().nextBoolean() ? 0.12f : -0.12f)
+                .setSpinData(SpinParticleData.create(RandomHelper.randomBetween(Random.create(), -0.2f, 0.2f)).build())
                 .enableNoClip()
-                .setLifeDelay(80)
-                .spawn(world, pos.x, pos.y, pos.z)
-                .repeat(world, pos.x, pos.y, pos.z, 2);
-    }
-    public static void executeGlowAura(World world, Vec3d pos) {
-        glowAura(3f, world, pos, 0.9f);
-        glowAura(5f, world, pos, 0.75f);
-        glowAura(7f, world, pos, 0.6f);
-        glowAura(9f, world, pos, 0.25f);
+                .spawn(world, pos.x, pos.y, pos.z);
     }
     public static void circleParticle(World world, Vec3d pos) {
         Color startColour = new Color(0, 255, 244);
@@ -51,7 +45,21 @@ public class AllParticles {
         Color startColour = new Color(0, 255, 244);
         Color endingColor = new Color(0, 234, 190);
         WorldParticleBuilder.create(ParticleInit.CIRCLE)
-                .setScaleData(GenericParticleData.create(5f).setEasing(Easing.ELASTIC_IN_OUT).build())
+                .setScaleData(GenericParticleData.create(5f, 6f).setEasing(Easing.BOUNCE_IN_OUT).build())
+                .setTransparencyData(GenericParticleData.create(0.95f, 0.95f, 0).build())
+                .setColorData(ColorParticleData.create(startColour, endingColor).setCoefficient(1.4f).build())
+                .setLifetime(200)
+                .enableNoClip()
+                .setBehavior(new DirectionalBehaviorComponent(new Vec3d(0, 90, 0)))
+                .disableCull()
+                .setLifeDelay(90)
+                .spawn(world, pos.x, pos.y + 0.51, pos.z);
+    }
+    public static void circleLongParticleSKY(World world, Vec3d pos) {
+        Color startColour = new Color(0, 255, 244);
+        Color endingColor = new Color(0, 234, 190);
+        WorldParticleBuilder.create(ParticleInit.CIRCLE)
+                .setScaleData(GenericParticleData.create(1f, 1000f).build())
                 .setTransparencyData(GenericParticleData.create(0.95f, 0.95f, 0).build())
                 .setColorData(ColorParticleData.create(startColour, endingColor).setCoefficient(1.4f).build())
                 .setLifetime(200)

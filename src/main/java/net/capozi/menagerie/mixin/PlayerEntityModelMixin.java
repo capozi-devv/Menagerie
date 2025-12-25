@@ -11,11 +11,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BipedEntityModel.class)
 public abstract class PlayerEntityModelMixin {
-
     @Inject(method = "positionRightArm",at = @At("HEAD"), cancellable = true)
     private void CustomArmPos(LivingEntity entity, CallbackInfo ci){
         if ((Object)this instanceof BipedEntityModel<?> model) {
-            if (entity.getMainHandStack().isOf(ItemInit.CAMERA_OF_THE_OTHERSIDE)) {
+            if (entity.getMainHandStack().isOf(ItemInit.CAMERA_OF_THE_OTHERSIDE) || entity.getMainHandStack().isOf(ItemInit.BONESAW)) {
                 CrossbowPosing.hold(model.rightArm, model.leftArm, model.head, true);
                 ci.cancel();
             }
@@ -24,7 +23,7 @@ public abstract class PlayerEntityModelMixin {
     @Inject(method = "positionLeftArm", at = @At("HEAD"), cancellable = true)
     private void CustomLeftArmPos(LivingEntity entity, CallbackInfo ci){
         if ((Object)this instanceof BipedEntityModel<?> model) {
-            if (entity.getOffHandStack().isOf(ItemInit.CAMERA_OF_THE_OTHERSIDE)){
+            if (entity.getOffHandStack().isOf(ItemInit.CAMERA_OF_THE_OTHERSIDE) || entity.getMainHandStack().isOf(ItemInit.BONESAW)){
                 CrossbowPosing.hold(model.rightArm, model.leftArm, model.head, false);
                 ci.cancel();
             }

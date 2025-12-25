@@ -33,6 +33,13 @@ public class HeavyIronLongSpoonItem extends ShovelItem {
         user.setCurrentHand(hand);
         return TypedActionResult.consume(itemStack);
     }
+
+    @Override
+    public boolean onLeftClickEntity(ItemStack stack, PlayerEntity player, Entity entity) {
+        player.getWorld().playSound(null, player.getBlockPos(), SoundInit.SPOON_HIT, SoundCategory.PLAYERS, 1f, 1f);
+        return super.onLeftClickEntity(stack, player, entity);
+    }
+
     @Override
     public UseAction getUseAction(ItemStack stack) {
         return UseAction.BOW;

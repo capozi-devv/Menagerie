@@ -7,6 +7,9 @@ import net.capozi.menagerie.foundation.EntityInit;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
 import net.capozi.menagerie.common.item.TrappedState;
 import net.capozi.menagerie.foundation.ItemInit;
+import net.capozi.menagerie.server.cca.BoundAccursedComponent;
+import net.capozi.menagerie.server.cca.BoundAqueousComponent;
+import net.capozi.menagerie.server.cca.BoundArtifactComponent;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EnderChestInventory;
@@ -73,14 +76,14 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Tr
             }
         }
     }
-//    @Inject(method = "tick", at = @At("HEAD"))
-//    private void tickCustomTimer(CallbackInfo ci) {
-//        ServerPlayerEntity player = (ServerPlayerEntity)(Object)this;
-//        BoundAccursedComponent accursed = Menagerie.getBoundAccursed().get(player);
-//        BoundArtifactComponent artifact = Menagerie.getBoundArtifact().get(player);
-//        BoundAqueousComponent aqueous = Menagerie.getBoundAqueous().get(player);
-//        aqueous.tickAqueous(player);
-//        accursed.tickAccursed(player);
-//        artifact.tickArtifact(player);
-//    }
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void tickCustomTimer(CallbackInfo ci) {
+        ServerPlayerEntity player = (ServerPlayerEntity)(Object)this;
+        BoundAccursedComponent accursed = Menagerie.getBoundAccursed().get(player);
+        BoundArtifactComponent artifact = Menagerie.getBoundArtifact().get(player);
+        BoundAqueousComponent aqueous = Menagerie.getBoundAqueous().get(player);
+        aqueous.tickAqueous(player);
+        accursed.tickAccursed(player);
+        artifact.tickArtifact(player);
+    }
 }

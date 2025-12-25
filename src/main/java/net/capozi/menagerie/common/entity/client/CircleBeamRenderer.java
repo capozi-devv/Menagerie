@@ -1,6 +1,7 @@
 package net.capozi.menagerie.common.entity.client;
 
 import net.capozi.menagerie.Menagerie;
+import net.capozi.menagerie.client.lodestone.particle.AllParticles;
 import net.capozi.menagerie.client.lodestone.vfx.AllVFX;
 import net.capozi.menagerie.client.lodestone.vfx.RenderOptions;
 import net.capozi.menagerie.client.lodestone.vfx.SkyBeamRenderer;
@@ -34,12 +35,15 @@ public class CircleBeamRenderer extends EntityRenderer<CircleBeamEntity> {
     }
     @Override
     public void render(CircleBeamEntity mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        RenderOptions options = new RenderOptions().animation(RenderOptions.AnimationStyle.WOBBLE, 1f).uvSpeed(-0.09f);
+        RenderOptions options = new RenderOptions().animation(RenderOptions.AnimationStyle.WOBBLE, 1f).uvSpeed(3f);
         float progress = (System.currentTimeMillis() - flashStartTime) / (float) FLASH_DURATION_MS;
         if (shouldRender) {
             //SkyBeamRenderer.render(matrixStack, vertexConsumerProvider, getTexture(mobEntity), 270, 300, 4f, options);
             AllVFX.renderObelisk(matrixStack, Vec3d.ofCenter(mobEntity.getBlockPos()));
-            FlashOverlayRenderer.triggerFlash();
+            if (!FlashOverlayRenderer.isFlashing()) {
+                FlashOverlayRenderer.triggerFlash();
+            }
+            AllParticles.glowAura(mobEntity.getWorld(), Vec3d.ofCenter(mobEntity.getBlockPos()));
             progress -= 20f;
         }
     }

@@ -1,0 +1,30 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:item/handheld",
+	"textures": {
+		"layer0": "menagerie:item/bonesaw"
+	},
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [50, 90, 0],
+			"translation": [0, 12.5, -0.75],
+			"scale": [2, 2, 1]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [50, -90, 0],
+			"translation": [0, 13, -0.75],
+			"scale": [2, 2, 1]
+		},
+		"firstperson_righthand": {
+			"rotation": [60, 82, 0],
+			"translation": [0, 6.25, 3.5],
+			"scale": [1.5, 1.5, 0.5]
+		},
+		"firstperson_lefthand": {
+			"rotation": [60, -82, 0],
+			"translation": [0, 6.25, 3.5],
+			"scale": [1.5, 1.5, 0.5]
+		}
+	}
+}

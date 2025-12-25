@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class PlayerEntityRendererMixin {
     @Inject(method = "getArmPose",at = @At("HEAD"), cancellable = true)
     private static void customPose(AbstractClientPlayerEntity player, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir){
-        if (player.getStackInHand(Hand.MAIN_HAND).isOf(ItemInit.CAMERA_OF_THE_OTHERSIDE)) {
+        if (player.getStackInHand(Hand.MAIN_HAND).isOf(ItemInit.CAMERA_OF_THE_OTHERSIDE) || player.getMainHandStack().isOf(ItemInit.BONESAW)) {
             cir.setReturnValue(BipedEntityModel.ArmPose.CROSSBOW_HOLD);
         }
     }

@@ -20,5 +20,6 @@ public abstract class ModelLoaderMixin {
         addModel(new ModelIdentifier(Menagerie.MOD_ID, "camera_active", "inventory"));
         addModel(new ModelIdentifier(Menagerie.MOD_ID,"mark_active", "inventory"));
         addModel(new ModelIdentifier(Menagerie.MOD_ID, "heavyiron_longspoon_handheld", "inventory"));
+        addModel(new ModelIdentifier(Menagerie.MOD_ID, "bonesaw_gui", "inventory"));
     }
 }

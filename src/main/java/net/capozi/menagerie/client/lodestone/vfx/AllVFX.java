@@ -69,9 +69,6 @@ public class AllVFX {
         matrixStack.scale(1f, 1f, 1f);
         VFXBuilders.WorldVFXBuilder builder = VFXBuilders.createWorld();
         triggerFlash();
-//        float progress = (System.currentTimeMillis() - flashStartTime) / (float) FLASH_DURATION_MS;
-//        float alpha = 1.0f - progress;
-//        if (alpha < 0f) alpha = 0f;
         matrixStack.push();
         matrixStack.translate(-pos.getX(), -pos.getY(), -pos.getZ());
         Matrix4f matrix4f = matrixStack.peek().getPositionMatrix();
@@ -81,7 +78,7 @@ public class AllVFX {
                     .setColor(new Color(0, 255, 244))
                     .setAlpha(0.9f)
                     .setLight(200)
-                    .renderBeam(matrix4f, pos.add(0.5, 0, 0.5), pos.add(0.5,300,0.5), 9);
+                    .renderBeam(matrix4f, pos.add(0.5, 0, 0.5), pos.add(0.5,300,0.5), 15);
         }
         matrixStack.pop();
     }

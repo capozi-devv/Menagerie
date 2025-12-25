@@ -13,6 +13,13 @@
 	"contact": {
 
 	},
+    "custom": {
+      "cardinal-components": [
+        "menagerie:bound_accursed",
+        "menagerie:bound_artifact",
+        "menagerie:bound_aqueous"
+      ]
+    },
 	"license": "MIT",
 	"icon": "assets/menagerie/icon.png",
 	"environment": "*",
@@ -25,7 +32,10 @@
 		],
 		"fabric-datagen": [
 			"net.capozi.menagerie.MenagerieDataGenerator"
-		]
+		],
+        "cardinal-components": [
+            "net.capozi.menagerie.MenagerieComponents"
+        ]
 	},
 	"mixins": [
 		"menagerie.mixins.json"

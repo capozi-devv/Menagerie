@@ -42,6 +42,10 @@ public class ItemInit {
     public static final Item HEAVYIRON_LONGSPOON = registerItems("heavyiron_longspoon", new HeavyIronLongSpoonItem(ToolMaterials.NETHERITE, 6, -3.2F, new Item.Settings().maxCount(1).fireproof()));
     public static final Item REACH_OF_THE_VOID = registerItems("reach_of_the_void", new ReachOfTheVoidItem(new Item.Settings().maxCount(1)));
     public static final Item INCOMPLETE_CONSTRUCT = registerItems("incomplete_construct", new Item(new Item.Settings()));
-    public static final Item TRICK_ROOM = registerItems("trick_room", new TrickRoomItem(new Item.Settings().maxCount(1)));
+    public static final Item TRICK_ROOM = registerItems("trick_room", new AstralTearItem(new Item.Settings().maxCount(1)));
+    public static final Item MARK_OF_DISSONANCE = registerItems("mark_of_dissonance", new MarkOfDissonanceItem(new Item.Settings().maxCount(1)));
+    public static final Item MARK_OF_THE_ACCURSED = registerItems("mark_of_the_accursed", new MarkOfDissonanceItem(new Item.Settings().maxCount(1)));
+    public static final Item MARK_OF_AQUEOUSNESS = registerItems("mark_of_aqueousness", new MarkOfDissonanceItem(new Item.Settings().maxCount(1)));
     public static final Item ASTRAL_TEAR = registerItems("astral_tear", new AstralTearItem(new Item.Settings().maxCount(1)));
+    public static final Item BONESAW = registerItems("bonesaw", new BonesawItem(ToolMaterials.NETHERITE, 5, -3f, new  Item.Settings().maxCount(1)));
 }
