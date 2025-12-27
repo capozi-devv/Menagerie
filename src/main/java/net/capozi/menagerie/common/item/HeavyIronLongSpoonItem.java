@@ -96,7 +96,7 @@ public class HeavyIronLongSpoonItem extends ShovelItem {
                             if (EnchantmentHelper.getLevel(EnchantInit.CONDENSED, stack) > 0) {
                                 target.addVelocity((lookVec.getX() * useTime) / 7.5, (lookVec.getY() * useTime) / 3.25, (lookVec.getZ() * useTime) / 7.5);
                             } else {
-                                target.addVelocity((lookVec.getX() * useTime) / 15, (lookVec.getY() * useTime) / 7.5, (lookVec.getZ() * useTime) / 15);
+                                target.addVelocity((lookVec.getX() * useTime) / 7.5, (lookVec.getY() * useTime) / 3.25, (lookVec.getZ() * useTime) / 7.5);
                             }
                             world.playSound((PlayerEntity)null, playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), SoundInit.SPOON_BONK, SoundCategory.PLAYERS, 1.0F, 1.0F / (world.getRandom().nextFloat() * 0.4F + 1.2F) + f * 0.5F);
                         }

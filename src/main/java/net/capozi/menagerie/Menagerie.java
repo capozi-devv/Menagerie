@@ -54,6 +54,7 @@ public class Menagerie implements ModInitializer {
 		EffectInit.registerEffects();
         EntityInit.register();
 		EnchantInit.init();
+        DamageTypeInit.init();
 		LootTableModifiers.modifyLootTables();
         ParticleInit.PARTICLES.register();
 		Registry.register(Registries.PAINTING_VARIANT, new Identifier(MOD_ID,"ether"), new PaintingVariant(64,48));

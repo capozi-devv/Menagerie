@@ -3,13 +3,14 @@
 	"credit": "Made with Blockbench",
 	"parent": "minecraft:item/handheld",
 	"textures": {
-		"layer0": "menagerie:item/bonesaw"
+		"layer0": "menagerie:item/bonesaw",
+		"particle": "menagerie:item/bonesaw"
 	},
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [50, 90, 0],
-			"translation": [0, 12.5, -0.75],
-			"scale": [2, 2, 1]
+			"translation": [0, 14.75, -1],
+			"scale": [2.3, 2.3, 1]
 		},
 		"thirdperson_lefthand": {
 			"rotation": [50, -90, 0],
