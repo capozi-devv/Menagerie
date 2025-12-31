@@ -45,7 +45,7 @@ public class ChainsEntityModel<T extends ChainsEntity> extends SinglePartEntityM
 	public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
 		this.getPart().traverse().forEach(ModelPart::resetTransform);
 
-		this.updateAnimation(entity.IdleAnimationState, ChainsEntityAnimation.Idle, animationProgress, 1f);
+		this.updateAnimation(entity.idleAnimationState, ChainsEntityAnimation.Idle, animationProgress, 1f);
 	}
 
 }

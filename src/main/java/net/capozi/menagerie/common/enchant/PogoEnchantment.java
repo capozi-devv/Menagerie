@@ -21,7 +21,7 @@ public class PogoEnchantment extends Enchantment {
     }
     @Override
     public boolean isAvailableForRandomSelection() {
-        return true;
+        return false;
     }
     @Override
     public int getMaxLevel() {

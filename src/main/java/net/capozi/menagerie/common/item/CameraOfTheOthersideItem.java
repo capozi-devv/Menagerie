@@ -50,7 +50,6 @@ public class CameraOfTheOthersideItem extends Item {
                 );
                 target.kill();
                 ban(user, target);
-                stack.decrement(1);
                 user.getWorld().playSound(null, user.getBlockPos(), SoundEvents.ENTITY_ITEM_BREAK, SoundCategory.PLAYERS, 1f, 1f);
                 for (ChainsEntity chains : chainsNearby) {
                     chains.discard();

@@ -42,10 +42,7 @@ public class BonesawItem extends SwordItem {
         if (user instanceof PlayerEntity playerEntity) {
             if (!stack.isEmpty() && stack.isOf(ItemInit.BONESAW)) {
                 if (remainingUseTicks > 1) {
-                    double range = 4.5;
-                    Vec3d eyePos = playerEntity.getCameraPosVec(1.0f);
-                    Vec3d lookVec = playerEntity.getRotationVec(1.0f);
-                    Box box = playerEntity.getBoundingBox(); //.stretch(lookVec.multiply(range)).expand(1.0)
+                    Box box = playerEntity.getBoundingBox();
                     List<PlayerEntity> livingEntities = world.getEntitiesByType(EntityType.PLAYER, box.expand(0.5), e -> e instanceof PlayerEntity)
                             .stream()
                             .map(e -> (PlayerEntity) e)
@@ -53,8 +50,10 @@ public class BonesawItem extends SwordItem {
                     System.out.println(livingEntities);
                     for (PlayerEntity player : livingEntities) {
                         if (player.getBoundingBox().intersects(box.expand(0.5))) {
-                            player.damage(new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(DamageTypeInit.BONESAW), playerEntity, playerEntity), 3);
-                            player.setVelocity(Vec3d.ZERO);
+                            if (!(player == playerEntity)) {
+                                player.damage(new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(DamageTypeInit.BONESAW), playerEntity, playerEntity), 3);
+                                player.setVelocity(Vec3d.ZERO);
+                            }
                         }
                     }
                     playerEntity.getItemCooldownManager().set(this, 120);

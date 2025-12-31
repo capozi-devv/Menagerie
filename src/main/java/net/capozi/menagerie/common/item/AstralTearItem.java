@@ -22,6 +22,7 @@ public class AstralTearItem extends Item {
         circleBeam.setPos(context.getBlockPos().getX(), context.getBlockPos().getY(), context.getBlockPos().getZ());
         AllParticles.circleParticle(context.getWorld(), Vec3d.ofCenter(context.getBlockPos()));
         AllParticles.circleLongParticle(context.getWorld(), Vec3d.ofCenter(context.getBlockPos()));
+        AllParticles.shockwaveParticles(context.getWorld(), new Vec3d(context.getBlockPos().getX(), context.getBlockPos().getY() + 1, context.getBlockPos().getZ()));
         context.getWorld().playSound(null, context.getBlockPos(), SoundInit.REVIVAL, SoundCategory.PLAYERS, 1f, 1f);
         return ActionResult.PASS;
     }

@@ -7,6 +7,7 @@ import net.capozi.menagerie.client.lodestone.vfx.RenderOptions;
 import net.capozi.menagerie.client.lodestone.vfx.SkyBeamRenderer;
 import net.capozi.menagerie.client.render.FlashOverlayRenderer;
 import net.capozi.menagerie.common.entity.object.CircleBeamEntity;
+import net.minecraft.client.render.Frustum;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -43,8 +44,6 @@ public class CircleBeamRenderer extends EntityRenderer<CircleBeamEntity> {
             if (!FlashOverlayRenderer.isFlashing()) {
                 FlashOverlayRenderer.triggerFlash();
             }
-            AllParticles.glowAura(mobEntity.getWorld(), Vec3d.ofCenter(mobEntity.getBlockPos()));
-            progress -= 20f;
         }
     }
 }

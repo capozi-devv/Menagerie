@@ -11,7 +11,9 @@ import team.lodestar.lodestone.systems.particle.world.type.LodestoneWorldParticl
 public class ParticleInit {
     public static LazyRegistrar<ParticleType<?>> PARTICLES = LazyRegistrar.create(Registries.PARTICLE_TYPE, Menagerie.MOD_ID);
     public static RegistryObject<LodestoneWorldParticleType> CIRCLE = PARTICLES.register("circle", LodestoneWorldParticleType::new);
+    public static RegistryObject<LodestoneWorldParticleType> SHOCKWAVE = PARTICLES.register("shockwave", LodestoneWorldParticleType::new);
     public static void init() {
         ParticleFactoryRegistry.getInstance().register(CIRCLE.get(), LodestoneWorldParticleType.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(SHOCKWAVE.get(), LodestoneWorldParticleType.Factory::new);
     }
 }

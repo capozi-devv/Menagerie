@@ -78,7 +78,9 @@ public class AllVFX {
                     .setColor(new Color(0, 255, 244))
                     .setAlpha(0.9f)
                     .setLight(200)
-                    .renderBeam(matrix4f, pos.add(0.5, 0, 0.5), pos.add(0.5,300,0.5), 15);
+                    .renderBeam(matrix4f, pos.add(0.5, 0, 0.5), pos.add(0.5,300,0.5), 15)
+                    .renderBeam(matrix4f, pos.add(0.5, 0, 0.5), pos.add(0.2,300,0.2), 15)
+                    .renderBeam(matrix4f, pos.add(0.5, 0, 0.5), pos.add(0.7,300,0.7), 15);
         }
         matrixStack.pop();
     }

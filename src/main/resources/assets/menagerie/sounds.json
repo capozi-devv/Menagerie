@@ -2,7 +2,8 @@
   "spoon_hit": {
     "sounds": [
       "menagerie:item/spoon_hit"
-    ]
+    ],
+    "subtitle": "Longspoon Hits"
   },
   "button_click": {
     "sounds": [
@@ -17,7 +18,8 @@
   "flash": {
     "sounds": [
       "menagerie:item/flash"
-    ]
+    ],
+    "subtitle": "Some poor fucker gets flashbanged into the Otherside"
   },
   "revival": {
     "sounds": [
@@ -40,16 +42,19 @@
   "simulacra": {
     "sounds": [
       "menagerie:item/simulacra"
-    ]
+    ],
+    "subtitle": "Simulacrum Vessel Duplicates an Item"
   },
   "spoon_bonk": {
     "sounds": [
       "menagerie:item/spoon_bonk"
-    ]
+    ],
+    "subtitle": "Longspoon Smashes"
   },
   "pogo": {
     "sounds": [
       "menagerie:item/pogo"
-    ]
+    ],
+    "subtitle": "Longspoon Pogos"
   }
 }

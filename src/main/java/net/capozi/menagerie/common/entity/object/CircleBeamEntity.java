@@ -1,5 +1,6 @@
 package net.capozi.menagerie.common.entity.object;
 
+import net.capozi.menagerie.client.lodestone.particle.AllParticles;
 import net.capozi.menagerie.client.render.FlashOverlayRenderer;
 import net.capozi.menagerie.common.entity.client.CircleBeamRenderer;
 import net.capozi.menagerie.foundation.EntityInit;
@@ -13,8 +14,10 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import team.lodestar.lodestone.handlers.ScreenshakeHandler;
+import team.lodestar.lodestone.helpers.RandomHelper;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.screenshake.PositionedScreenshakeInstance;
 
@@ -43,13 +46,12 @@ public class CircleBeamEntity extends Entity {
             this.discard();
         } else if (this.age >= 80){
             CircleBeamRenderer.shouldRender = true;
+            AllParticles.glowAura(this.getWorld(), Vec3d.ofCenter(this.getBlockPos()));
             DamageSource source = new DamageSource(this.getWorld().getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(DamageTypes.PLAYER_EXPLOSION));
-            if (!FlashOverlayRenderer.isFlashing() && !triggered) {
-                triggered = true;
-                FlashOverlayRenderer.triggerFlash();
-                //FlashPacket.sendToTracking((ServerWorld)this.getWorld(), this);
+            if (this.age % 2 == 0) {
+                this.getWorld().createExplosion(null, null, null, this.getPos().add(RandomHelper.randomBetween(Random.create(), -9f, 9f), RandomHelper.randomBetween(Random.create(), -9f, 9f), RandomHelper.randomBetween(Random.create(), -6f, 6f)), 8, true, World.ExplosionSourceType.MOB);
                 Vec3d center = this.getPos();
-                double radius = 8.0;
+                double radius = 20.0;
                 Box box = new Box(
                         center.x - radius, center.y - (radius/2), center.z - radius,
                         center.x + radius, center.y + (radius/2), center.z + radius
@@ -66,6 +68,11 @@ public class CircleBeamEntity extends Entity {
                     entity.damage(source, 6);
                     entity.takeKnockback(7, x, z);
                 }
+            }
+            if (!FlashOverlayRenderer.isFlashing() && !triggered) {
+                triggered = true;
+                FlashOverlayRenderer.triggerFlash();
+                //FlashPacket.sendToTracking((ServerWorld)this.getWorld(), this);
             }
         } else {
             CircleBeamRenderer.shouldRender = false;

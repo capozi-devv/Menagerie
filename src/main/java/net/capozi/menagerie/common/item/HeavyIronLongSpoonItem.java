@@ -58,9 +58,10 @@ public class HeavyIronLongSpoonItem extends ShovelItem {
             if(((PlayerEntity)context.getPlayer()).canModifyBlocks()) {
                 Vec3d lookVec = context.getPlayer().getRotationVec(1.0f);
                 if (!context.getPlayer().isOnGround()) {
-                    context.getPlayer().addVelocity(-lookVec.getX() * 1.15, -lookVec.getY() * 1.05, -lookVec.getZ() * 1.15);
+                    context.getPlayer().setVelocity(-lookVec.getX() * 2.45, -lookVec.getY() * 2.35, -lookVec.getZ() * 2.45);
+                } else {
+                    context.getPlayer().setVelocity(-lookVec.getX() * 1.25, -lookVec.getY() * 1.25, -lookVec.getZ() * 1.25);
                 }
-                context.getPlayer().addVelocity(-lookVec.getX(), -lookVec.getY(), -lookVec.getZ());
             }
             context.getWorld().playSound(null, context.getBlockPos(), SoundInit.POGO, SoundCategory.PLAYERS, 2f, 1f);
             context.getPlayer().getItemCooldownManager().set(this, 30);
@@ -92,11 +93,11 @@ public class HeavyIronLongSpoonItem extends ShovelItem {
                         if (hit != null && hit.getEntity() != null) {
                             Entity target = hit.getEntity();
                             int useTime = this.getMaxUseTime(stack) - remainingUseTicks;
-                            target.damage(new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(DamageTypes.PLAYER_ATTACK)), 10);
+                            target.damage(new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(DamageTypes.PLAYER_ATTACK), playerEntity, playerEntity), 10);
                             if (EnchantmentHelper.getLevel(EnchantInit.CONDENSED, stack) > 0) {
                                 target.addVelocity((lookVec.getX() * useTime) / 7.5, (lookVec.getY() * useTime) / 3.25, (lookVec.getZ() * useTime) / 7.5);
                             } else {
-                                target.addVelocity((lookVec.getX() * useTime) / 7.5, (lookVec.getY() * useTime) / 3.25, (lookVec.getZ() * useTime) / 7.5);
+                                target.addVelocity((lookVec.getX() * useTime) / 15, (lookVec.getY() * useTime) / 7.5, (lookVec.getZ() * useTime) / 15);
                             }
                             world.playSound((PlayerEntity)null, playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), SoundInit.SPOON_BONK, SoundCategory.PLAYERS, 1.0F, 1.0F / (world.getRandom().nextFloat() * 0.4F + 1.2F) + f * 0.5F);
                         }
