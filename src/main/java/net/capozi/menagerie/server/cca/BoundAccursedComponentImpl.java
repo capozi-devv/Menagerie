@@ -25,7 +25,7 @@ public class BoundAccursedComponentImpl implements BoundAccursedComponent {
                 HealthUtils.addExtraHearts(player, 10.0);
             }
             player.setAir(300);
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 70, 1, false, false, false));
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 70, 0, false, false, false));
         }
     }
     @Override

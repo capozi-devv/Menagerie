@@ -58,7 +58,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
             }
             BlockPos pos = this.getBlockPos();
             if (this.getWorld().isDay() && this.getWorld().isSkyVisible(this.getBlockPos()) && !this.isSubmergedInWater() && this.getBrightnessAtEyes() > 0.5F) {
-                BoundAccursedComponent accursed = Menagerie.getBoundAccursed().get(this);
+                BoundArtifactComponent accursed = Menagerie.getBoundArtifact().get(this);
                 World world = this.getWorld();
                 if (world.isRaining() && world.hasRain(pos)) return; // Don't burn in rain
                 ItemStack headStack = this.getEquippedStack(EquipmentSlot.HEAD);
@@ -66,11 +66,8 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
                 ItemStack legStack = this.getEquippedStack(EquipmentSlot.LEGS);
                 ItemStack footStack = this.getEquippedStack(EquipmentSlot.FEET);
                 boolean hasHelmet = !headStack.isEmpty();
-                boolean hasChest = !chestStack.isEmpty();
-                boolean hasLegs = !legStack.isEmpty();
-                boolean hasBoots = !footStack.isEmpty();
-                if (!hasHelmet || !hasChest || !hasLegs || !hasBoots ) {
-                    if(this.getFireTicks() <= 0 && accursed.hasAccursed()) {
+                if (!hasHelmet) {
+                    if(this.getFireTicks() <= 0 && accursed.hasArtifact()) {
                         this.setOnFireFor(20);
                     }
                 }

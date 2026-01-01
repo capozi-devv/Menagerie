@@ -1,5 +1,6 @@
 package net.capozi.menagerie;
 
+import net.capozi.menagerie.common.datagen.AdvancementProvider;
 import net.capozi.menagerie.common.datagen.ItemTagProvider;
 import net.capozi.menagerie.common.datagen.LootTableProvider;
 import net.capozi.menagerie.common.datagen.RecipeProvider;
@@ -13,5 +14,6 @@ public class MenagerieDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(RecipeProvider::new);
 		pack.addProvider(LootTableProvider::new);
 		pack.addProvider(ItemTagProvider::new);
+        pack.addProvider(AdvancementProvider::new);
 	}
 }

@@ -18,10 +18,7 @@ public class BoundArtifactComponentImpl implements BoundArtifactComponent, AutoS
 
     @Override
     public void tickArtifact(PlayerEntity player) {
-        if (hasArtifact()) {
-            player.setFireTicks(0);
-            player.extinguish();
-        }
+
     }
     @Override
     public void readFromNbt(NbtCompound tag) {

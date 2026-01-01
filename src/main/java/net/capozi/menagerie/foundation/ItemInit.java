@@ -9,6 +9,9 @@ import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+
+import java.util.List;
+
 import static net.capozi.menagerie.foundation.BlockInit.*;
 
 public class ItemInit {
@@ -48,8 +51,9 @@ public class ItemInit {
     public static final Item INCOMPLETE_CONSTRUCT = registerItems("incomplete_construct", new Item(new Item.Settings()));
     public static final Item TRICK_ROOM = registerItems("trick_room", new TrickRoomItem(new Item.Settings().maxCount(1)));
     public static final Item MARK_OF_DISSONANCE = registerItems("mark_of_dissonance", new MarkOfDissonanceItem(new Item.Settings().maxCount(1)));
-    public static final Item MARK_OF_THE_ACCURSED = registerItems("mark_of_the_accursed", new MarkOfDissonanceItem(new Item.Settings().maxCount(1)));
-    public static final Item MARK_OF_AQUEOUSNESS = registerItems("mark_of_aqueousness", new MarkOfDissonanceItem(new Item.Settings().maxCount(1)));
+    public static final Item MARK_OF_THE_ACCURSED = registerItems("mark_of_the_accursed", new MarkOfTheAccursedItem(new Item.Settings().maxCount(1)));
+    public static final Item MARK_OF_AQUEOUSNESS = registerItems("mark_of_aqueousness", new MarkOfAqueousnessItem(new Item.Settings().maxCount(1)));
     public static final Item ASTRAL_TEAR = registerItems("astral_tear", new AstralTearItem(new Item.Settings().maxCount(1)));
     public static final Item BONESAW = registerItems("bonesaw", new BonesawItem(ToolMaterials.NETHERITE, 4, -2.8f, new  Item.Settings().maxCount(1)));
+    public static final List<Item> MENAGERIE_ITEMS = List.of(CAMERA_OF_THE_OTHERSIDE, SIMULACRUM_VESSEL, DAMNATIO_MEMORIAE_MUSIC_DISC, HEAVYIRON_LONGSPOON, REACH_OF_THE_VOID, INCOMPLETE_CONSTRUCT, TRICK_ROOM, MARK_OF_DISSONANCE, MARK_OF_THE_ACCURSED, MARK_OF_AQUEOUSNESS, BONESAW, ASTRAL_TEAR);
 }

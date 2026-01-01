@@ -1,6 +1,8 @@
 package net.capozi.menagerie.mixin;
 
 import net.capozi.menagerie.Menagerie;
+import net.capozi.menagerie.server.cca.BoundAccursedComponent;
+import net.capozi.menagerie.server.cca.BoundAccursedComponentImpl;
 import net.capozi.menagerie.server.cca.BoundArtifactComponent;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
@@ -45,8 +47,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     private void menagerie$onDamaged(Args args) {
         DamageSource source = (DamageSource) args.get(0);
         float value = (Float) args.get(1);
-        BoundArtifactComponent component = Menagerie.getBoundArtifact().get(this);
-        if (component.hasArtifact() && (this.isSubmergedInWater() || isInFlowingFluid(FluidTags.WATER)) && !this.isDead() && this.random.nextInt(6) == 1) {
+        BoundAccursedComponent component = Menagerie.getBoundAccursed().get(this);
+        if (component.hasAccursed() && (this.isSubmergedInWater() || isInFlowingFluid(FluidTags.WATER)) && !this.isDead() && this.random.nextInt(6) == 1) {
             args.set(1, value * 2.0F);
         }
     }
@@ -62,8 +64,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     }
     @Override
     public boolean hurtByWater() {
-        BoundArtifactComponent component = Menagerie.getBoundArtifact().get(this);
-        return component.hasArtifact() ? true : super.hurtByWater();
+        BoundAccursedComponent component = Menagerie.getBoundAccursed().get(this);
+        return component.hasAccursed() ? true : super.hurtByWater();
     }
     private boolean isInFlowingFluid(TagKey<Fluid> tag) {
         if (this.isRegionUnloaded()) {

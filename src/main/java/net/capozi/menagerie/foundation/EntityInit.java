@@ -18,8 +18,9 @@ public class EntityInit {
             FabricEntityTypeBuilder.create(SpawnGroup.MISC, CircleBeamEntity::new)
                     .dimensions(EntityDimensions.fixed(0.6f, 0.5f))
                     .fireImmune()
-                    .trackedUpdateRate(10)
-                    .trackRangeBlocks(64)
+                    .trackedUpdateRate(1)
+                    .trackRangeChunks(32)
+                    .trackRangeBlocks(1024)
                     .build());
     public static void register() {}
 }
