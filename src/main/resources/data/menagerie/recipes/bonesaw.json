@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    " NI",
+    "G I",
+    "GB "
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:raw_gold_block"
+    },
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "B": {
+      "item": "minecraft:bone"
+    }
+  },
+  "result": {
+    "item": "menagerie:bonesaw"
+  }
+}

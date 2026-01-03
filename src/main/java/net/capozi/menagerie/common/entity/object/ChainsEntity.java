@@ -77,9 +77,10 @@ public class ChainsEntity extends AmbientEntity {
     public void onDeath(DamageSource damageSource) {
         if (!this.getWorld().isClient && this.getWorld() instanceof ServerWorld serverWorld) {
             List<PlayerEntity> players = this.getWorld().getEntitiesByClass(PlayerEntity.class, this.getBoundingBox().expand(10.0), entity -> entity.isAlive());
-            for (PlayerEntity player : players)
-            if (player != null) {
-                player.removeStatusEffect(EffectInit.CHAINED_EFFECT);
+            for (PlayerEntity player : players){
+                if (player != null) {
+                    player.removeStatusEffect(EffectInit.CHAINED_EFFECT);
+                }
             }
         }
         setDespawnCounter(despawnCounter=0);

@@ -42,9 +42,11 @@ public class ChainsRenderer extends MobEntityRenderer<ChainsEntity, ChainsEntity
                            float animationProgress, float headYaw, float headPitch) {
 
             VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEyes(EMISSIVE_TEXTURE));
-
+            matrices.push();
+            matrices.translate(0, 1.5, 0);
             this.getContextModel().render(matrices, vertexConsumer, 15728880, OverlayTexture.DEFAULT_UV,
                     1.0F, 1.0F, 1.0F, 1.0F);
+            matrices.pop();
         }
     }
 }

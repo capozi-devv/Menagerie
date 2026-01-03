@@ -22,6 +22,7 @@
   "enchantment.menagerie.arcane.desc": "Adds magic damage to the weapon proportional to the weapon's attack damage",
   "enchantment.menagerie.pogo.desc": "Replaces the Spoon's charge attack with a pogo ability. Throws you the opposite direction of where you're looking",
   "item.menagerie.camera_of_the_otherside" : "Camera of the Otherside",
+  "item.menagerie.bonesaw": "Bonesaw",
   "effect.menagerie.immobilized": "Chained",
   "death.attack.bonesaw": "%1$s was ripped to pieces by %2$s",
   "death.attack.bonesaw.item": "%1$s was ripped to pieces by %2$s weilding %3$s"

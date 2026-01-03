@@ -8,6 +8,8 @@ import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
@@ -50,6 +52,15 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         BoundAccursedComponent component = Menagerie.getBoundAccursed().get(this);
         if (component.hasAccursed() && (this.isSubmergedInWater() || isInFlowingFluid(FluidTags.WATER)) && !this.isDead() && this.random.nextInt(6) == 1) {
             args.set(1, value * 2.0F);
+        }
+    }
+    @Override
+    public boolean canHaveStatusEffect(StatusEffectInstance effect) {
+        BoundArtifactComponent component = Menagerie.getBoundArtifact().get(this);
+        if (!component.hasArtifact()) {
+            return super.canHaveStatusEffect(effect);
+        } else {
+            return effect.getEffectType() == StatusEffects.INSTANT_DAMAGE || effect.getEffectType() == StatusEffects.WITHER || effect.getEffectType() == StatusEffects.INSTANT_HEALTH;
         }
     }
     @Override

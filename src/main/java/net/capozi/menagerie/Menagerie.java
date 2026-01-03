@@ -58,7 +58,7 @@ public class Menagerie implements ModInitializer {
 		LootTableModifiers.modifyLootTables();
         ParticleInit.PARTICLES.register();
 		Registry.register(Registries.PAINTING_VARIANT, new Identifier(MOD_ID,"ether"), new PaintingVariant(64,48));
-		FabricDefaultAttributeRegistry.register(EntityInit.ABYSSAL_CHAINS, ChainsEntity.createChainAttributes());
+		FabricDefaultAttributeRegistry.register(EntityInit.BLUE_CHAINS, ChainsEntity.createChainAttributes());
 		AttackEntityCallback.EVENT.register((PlayerEntity player, World world, net.minecraft.util.Hand hand, Entity target, EntityHitResult hitResult) -> {
 			StatusEffectInstance effect = player.getStatusEffect(EffectInit.CHAINED_EFFECT);
 			if (effect != null && effect.getAmplifier() >= 0) {

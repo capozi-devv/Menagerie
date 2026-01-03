@@ -19,7 +19,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -37,7 +36,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
             StatusEffectInstance chained = this.getStatusEffect(EffectInit.CHAINED_EFFECT);
             World serverWorld = this.getWorld();
             List<ChainsEntity> chainsNearby = this.getWorld().getEntitiesByClass(ChainsEntity.class, this.getBoundingBox().expand(10.0), entity -> entity.isAlive());
-            ChainsEntity chains = chainsNearby.isEmpty() ? new ChainsEntity(EntityInit.ABYSSAL_CHAINS, serverWorld) : null;
+            ChainsEntity chains = chainsNearby.isEmpty() ? new ChainsEntity(EntityInit.BLUE_CHAINS, serverWorld) : null;
             if (chained == null) {
                 chains.addStatusEffect(new StatusEffectInstance(EffectInit.CHAINED_EFFECT, 12000, 1, false, false, false));
                 this.addStatusEffect(new StatusEffectInstance(EffectInit.CHAINED_EFFECT, 12000, 1, false, false, false));

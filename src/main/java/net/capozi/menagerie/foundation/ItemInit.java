@@ -25,6 +25,7 @@ public class ItemInit {
     }
     public static void registerItemsToWeaponGroup(FabricItemGroupEntries entries) {
         entries.addAfter(Items.TRIDENT, HEAVYIRON_LONGSPOON);
+        entries.addAfter(HEAVYIRON_LONGSPOON, BONESAW);
     }
     public static void registerItemToToolsTabItemGroup(FabricItemGroupEntries entries) {
         entries.addAfter(Items.MUSIC_DISC_RELIC, DAMNATIO_MEMORIAE_MUSIC_DISC);

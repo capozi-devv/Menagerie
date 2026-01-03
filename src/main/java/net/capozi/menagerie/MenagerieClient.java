@@ -1,7 +1,6 @@
 package net.capozi.menagerie;
 
 import net.capozi.menagerie.common.entity.client.CircleBeamRenderer;
-import net.capozi.menagerie.common.item.TrickRoomItem;
 import net.capozi.menagerie.client.lodestone.vfx.AllVFX;
 import net.capozi.menagerie.foundation.ParticleInit;
 import net.capozi.menagerie.server.network.FlashPacket;
@@ -60,7 +59,7 @@ public class MenagerieClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(CAPOZI_PLUSH, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(EYA_PLUSH, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(COSMO_PLUSH, RenderLayer.getCutout());
-        EntityRendererRegistry.register(EntityInit.ABYSSAL_CHAINS, ChainsRenderer::new);
+        EntityRendererRegistry.register(EntityInit.BLUE_CHAINS, ChainsRenderer::new);
         EntityRendererRegistry.register(EntityInit.CIRCLE, CircleBeamRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.CHAINS, ChainsEntityModel::getTexturedModelData);
         FlashPacket.registerClientReceiver();

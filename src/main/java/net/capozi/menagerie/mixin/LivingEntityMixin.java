@@ -20,6 +20,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -27,21 +28,24 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
+    @Shadow
+    public abstract boolean teleport(double x, double y, double z, boolean particleEffects);
+
     @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
-    private void onLethalDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    private void onDemiseDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (!((LivingEntity)(Object) this instanceof ServerPlayerEntity killed)) return;
         Entity attacker = source.getAttacker();
         if (!(attacker instanceof ServerPlayerEntity killer)) return;
 
     }
     @Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;onDeath(Lnet/minecraft/entity/damage/DamageSource;)V"), cancellable = true)
-    private void onDeathDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    private void onDieDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity thisEntity = (LivingEntity)(Object)this;
         if (thisEntity instanceof PlayerEntity victimPlayer && source.getAttacker() instanceof ServerPlayerEntity killerPlayer) {
             if (victimPlayer.getWorld() == null) return;
             if (hasCameraItem(killerPlayer)) {
                 cir.cancel();
-                triggerChainEffect(killerPlayer, victimPlayer);
+                triggerMenagerieChainsEffect(killerPlayer, victimPlayer);
             }
         }
     }
@@ -53,15 +57,16 @@ public abstract class LivingEntityMixin {
         }
         return false;
     }
-    private void triggerChainEffect(ServerPlayerEntity attacker, LivingEntity killed) {
+    private void triggerMenagerieChainsEffect(ServerPlayerEntity attacker, LivingEntity killed) {
         ServerWorld world = attacker.getServerWorld();
-        ChainsEntity chains = new ChainsEntity(EntityInit.ABYSSAL_CHAINS, killed.getWorld());
-        BlockPos pos = killed.getBlockPos();
-        chains.refreshPositionAndAngles(pos, 0, 0);
-        world.spawnEntity(chains);
-        killed.startRiding(chains, true);
-        killed.setHealth(20);
+        ChainsEntity chains = new ChainsEntity(EntityInit.BLUE_CHAINS, killed.getWorld());
         killed.addStatusEffect(new StatusEffectInstance(EffectInit.CHAINED_EFFECT, 600, 1, false, false, true));
+        Vec3d pos = killed.getPos();
+        chains.refreshPositionAndAngles(BlockPos.ofFloored(pos), 0, 0);
+        world.spawnEntity(chains);
+        chains.setPos(pos.x, pos.y, pos.z);
+        chains.startRiding(killed);
+        killed.setHealth(20);
         killed.getWorld().playSound(null, killed.getBlockPos(), SoundEvents.BLOCK_BELL_RESONATE, SoundCategory.PLAYERS, 15.0F, 1.0F);
     }
     @Inject(method = "applyDamage", at = @At("TAIL"), cancellable = true)

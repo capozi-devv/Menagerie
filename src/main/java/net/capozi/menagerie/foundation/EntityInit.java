@@ -12,7 +12,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class EntityInit {
-    public static final EntityType<ChainsEntity> ABYSSAL_CHAINS = Registry.register(Registries.ENTITY_TYPE, new Identifier(Menagerie.MOD_ID, "chains"), FabricEntityTypeBuilder.create(SpawnGroup.MISC, ChainsEntity::new).dimensions(EntityDimensions.fixed(0.7f, 1f)).build());
+    public static final EntityType<ChainsEntity> BLUE_CHAINS = Registry.register(Registries.ENTITY_TYPE, new Identifier(Menagerie.MOD_ID, "chains"), FabricEntityTypeBuilder.create(SpawnGroup.MISC, ChainsEntity::new).dimensions(EntityDimensions.fixed(0.7f, 1f)).build());
     public static final EntityType<CircleBeamEntity> CIRCLE = Registry.register(Registries.ENTITY_TYPE,
             new Identifier(Menagerie.MOD_ID, "circle"),
             FabricEntityTypeBuilder.create(SpawnGroup.MISC, CircleBeamEntity::new)
