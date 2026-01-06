@@ -41,6 +41,7 @@ public class CircleBeamRenderer extends EntityRenderer<CircleBeamEntity> {
         if (shouldRender) {
             //SkyBeamRenderer.render(matrixStack, vertexConsumerProvider, getTexture(mobEntity), 270, 300, 4f, options);
             AllVFX.renderObelisk(matrixStack, Vec3d.ofCenter(mobEntity.getBlockPos()));
+            AllParticles.glowAura(mobEntity.getWorld(), Vec3d.ofCenter(mobEntity.getBlockPos()));
             if (!FlashOverlayRenderer.isFlashing()) {
                 FlashOverlayRenderer.triggerFlash();
             }

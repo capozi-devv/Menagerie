@@ -2,7 +2,9 @@ package net.capozi.menagerie.common.entity.object;
 
 import net.capozi.menagerie.foundation.EffectInit;
 import net.capozi.menagerie.foundation.ItemInit;
-import net.minecraft.entity.*;
+import net.minecraft.entity.AnimationState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -13,11 +15,8 @@ import net.minecraft.entity.mob.AmbientEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.ServerConfigHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -25,8 +24,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 public class ChainsEntity extends AmbientEntity {
     private int i;
@@ -71,6 +68,18 @@ public class ChainsEntity extends AmbientEntity {
             } else {
                 super.applyDamage(source, 0f);
             }
+        }
+    }
+    @Override
+    public boolean canTakeDamage() {
+        return true;
+    }
+    @Override
+    public boolean damage(DamageSource source, float amount) {
+        if (source.getAttacker() instanceof PlayerEntity player) {
+            return hasCameraItem((ServerPlayerEntity)player);
+        } else {
+           return false;
         }
     }
     @Override

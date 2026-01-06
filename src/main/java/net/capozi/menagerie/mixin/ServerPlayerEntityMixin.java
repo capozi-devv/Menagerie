@@ -45,8 +45,6 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
                 chains.velocityModified = true;
             }
             this.setVelocity(Vec3d.ZERO);
-            chains.setVelocity(Vec3d.ZERO);
-            chains.setPos(this.getX(), this.getY(), this.getZ());
         }
     }
     @Inject(method = "tick", at = @At("TAIL"))
@@ -93,6 +91,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
             }
         }
     }
+
     @Inject(method = "tick", at = @At("HEAD"))
     private void tickCustomTimer(CallbackInfo ci) {
         ServerPlayerEntity player = (ServerPlayerEntity)(Object)this;

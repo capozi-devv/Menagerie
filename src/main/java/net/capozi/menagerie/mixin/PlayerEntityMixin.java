@@ -32,12 +32,10 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
     protected boolean isSubmergedInWater;
-    @Shadow
-    public abstract PlayerInventory getInventory();
     @Shadow public abstract boolean isPushedByFluids();
-   protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
+    protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
        super(entityType, world);
-   }
+    }
     public boolean isTrapped = false;
     public boolean isTrapped() {
         return isTrapped;

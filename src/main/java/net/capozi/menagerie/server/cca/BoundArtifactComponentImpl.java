@@ -15,7 +15,6 @@ public class BoundArtifactComponentImpl implements BoundArtifactComponent, AutoS
     public void setHasArtifact(boolean value) {
         this.hasArtifact = value;
     }
-
     @Override
     public void tickArtifact(PlayerEntity player) {
 

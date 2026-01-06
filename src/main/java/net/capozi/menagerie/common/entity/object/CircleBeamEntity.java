@@ -3,23 +3,16 @@ package net.capozi.menagerie.common.entity.object;
 import net.capozi.menagerie.client.lodestone.particle.AllParticles;
 import net.capozi.menagerie.client.render.FlashOverlayRenderer;
 import net.capozi.menagerie.common.entity.client.CircleBeamRenderer;
-import net.capozi.menagerie.foundation.EntityInit;
-import net.capozi.menagerie.server.network.FlashPacket;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-import team.lodestar.lodestone.handlers.ScreenshakeHandler;
 import team.lodestar.lodestone.helpers.RandomHelper;
-import team.lodestar.lodestone.systems.easing.Easing;
-import team.lodestar.lodestone.systems.screenshake.PositionedScreenshakeInstance;
 
 import java.util.List;
 
@@ -46,7 +39,6 @@ public class CircleBeamEntity extends Entity {
             this.discard();
         } else if (this.age >= 80){
             CircleBeamRenderer.shouldRender = true;
-            AllParticles.glowAura(this.getWorld(), Vec3d.ofCenter(this.getBlockPos()));
             DamageSource source = new DamageSource(this.getWorld().getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(DamageTypes.PLAYER_EXPLOSION));
             if (this.age % 2 == 0) {
                 this.getWorld().createExplosion(null, null, null, this.getPos().add(RandomHelper.randomBetween(Random.create(), -9f, 9f), RandomHelper.randomBetween(Random.create(), -9f, 9f), RandomHelper.randomBetween(Random.create(), -6f, 6f)), 8, true, World.ExplosionSourceType.MOB);

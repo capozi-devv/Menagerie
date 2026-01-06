@@ -1,24 +1,34 @@
 package net.capozi.menagerie.mixin;
 
+import com.mojang.authlib.GameProfile;
+import net.capozi.menagerie.Menagerie;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
 import net.capozi.menagerie.foundation.EffectInit;
 import net.capozi.menagerie.foundation.EnchantInit;
 import net.capozi.menagerie.foundation.EntityInit;
 import net.capozi.menagerie.foundation.ItemInit;
+import net.capozi.menagerie.server.cca.BoundAccursedComponent;
+import net.capozi.menagerie.server.cca.BoundArtifactComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,11 +36,16 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.UUID;
+
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
     @Shadow
     public abstract boolean teleport(double x, double y, double z, boolean particleEffects);
 
+    @Shadow
+    public float sidewaysSpeed;
+    private static final UUID SOUL_SPEED_BOOST_ID = UUID.fromString("87f46a96-686f-4796-b035-22e16ee9e038");
     @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
     private void onDemiseDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         if (!((LivingEntity)(Object) this instanceof ServerPlayerEntity killed)) return;
@@ -79,4 +94,24 @@ public abstract class LivingEntityMixin {
         amount *= 0.2f;
         target.damage(sources.magic(), amount);
     }
+//    private boolean isOnSoulSpeedBlockForDissonance(LivingEntity marked) {
+//        return marked.getWorld().getBlockState(marked.getBlockPos().down()).isIn(BlockTags.SOUL_SPEED_BLOCKS);
+//    }
+//    @Inject(method = "addSoulSpeedBoostIfNeeded", at = @At("HEAD"), cancellable = true)
+//    private void addSoulSpeedIfUsingMarkOfDissonance(CallbackInfo ci) {
+//        BoundArtifactComponent component = Menagerie.getBoundArtifact().get((Object)this);
+//        if (component != null)
+//        if (component.hasArtifact()) {
+//            if (((Object)this instanceof LivingEntity marked)) {
+//                if (isOnSoulSpeedBlockForDissonance(marked)) {
+//                    EntityAttributeInstance entityAttributeInstance = (marked.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED));
+//                    if (entityAttributeInstance == null) {
+//                        return;
+//                    }
+//                    entityAttributeInstance.addTemporaryModifier(new EntityAttributeModifier(SOUL_SPEED_BOOST_ID, "Soul speed boost", (double) (0.03F * (1.0F + (float) 3 * 0.35F)), EntityAttributeModifier.Operation.ADDITION));
+//                    return;
+//                }
+//            }
+//        }
+//    }
 }

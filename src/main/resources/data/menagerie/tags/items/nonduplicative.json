@@ -1,5 +1,5 @@
 {
-  "replace": false,
+  "replace": "false",
   "values": [
     "#minecraft:coal_ores",
     "#minecraft:copper_ores",
@@ -10,6 +10,7 @@
     "#minecraft:lapis_ores",
     "#minecraft:redstone_ores",
     "minecraft:ancient_debris",
+    "minecraft:netherite_block",
     "minecraft:coal_block",
     "minecraft:copper_block",
     "minecraft:raw_copper_block",
@@ -26,6 +27,24 @@
     "#minecraft:trim_templates",
     "#minecraft:tools",
     "minecraft:nether_star",
-    "minecraft:beacon"
+    "minecraft:beacon",
+    "minecraft:raw_gold",
+    "minecraft:raw_iron",
+    "minecraft:golden_apple",
+    "minecraft:enchanted_golden_apple",
+    "spelunkery:rough_diamond",
+    "spelunkery:rough_diamond_block",
+    "spelunkery:rough_diamond_shard",
+    "spelunkery:rough_lazurite",
+    "spelunkery:rough_lazurite_block",
+    "spelunkery:rough_cinnabar",
+    "spelunkery:rough_cinnabar_block",
+    "spelunkery:rough_lazurite_shard",
+    "spelunkery:raw_gold_nugget",
+    "spelunkery:raw_iron_nugget",
+    "amarite:amarite_shard",
+    "amarite:amarite_block",
+    "amarite:amarite_disc",
+    "supplementaries:sack"
   ]
 }

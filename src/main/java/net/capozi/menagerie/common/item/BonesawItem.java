@@ -40,16 +40,11 @@ public class BonesawItem extends AxeItem {
             if (!stack.isEmpty() && stack.isOf(ItemInit.BONESAW)) {
                 if (remainingUseTicks > 1) {
                     Box box = playerEntity.getBoundingBox();
-                    List<PlayerEntity> livingEntities = world.getEntitiesByType(EntityType.PLAYER, box.expand(0.5), e -> e instanceof PlayerEntity)
-                            .stream()
-                            .map(e -> (PlayerEntity) e)
-                            .toList();
-                    System.out.println(livingEntities);
-                    for (PlayerEntity player : livingEntities) {
-                        if (player.getBoundingBox().intersects(box.expand(0.5))) {
-                            if (!(player == playerEntity)) {
-                                player.damage(new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(DamageTypeInit.BONESAW), playerEntity, playerEntity), 3);
-                                player.setVelocity(Vec3d.ZERO);
+                    List<LivingEntity> livingEntities = world.getEntitiesByClass(LivingEntity.class, box.expand(0.5), e -> e instanceof LivingEntity);
+                    for (LivingEntity entity : livingEntities) {
+                        if (user.getBoundingBox().intersects(box.expand(0.5))) {
+                            if (!(entity == playerEntity)) {
+                                entity.damage(new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(DamageTypeInit.BONESAW), playerEntity, playerEntity), 2);
                             }
                         }
                     }
