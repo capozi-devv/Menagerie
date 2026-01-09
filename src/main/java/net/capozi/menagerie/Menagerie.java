@@ -80,10 +80,8 @@ public class Menagerie implements ModInitializer {
 				enchantment.putString("id", "menagerie:arcane");
 				enchantment.putInt("lvl", 1);
 				enchantments.add(enchantment);
-
 				NbtCompound nbt = new NbtCompound();
 				nbt.put("StoredEnchantments", enchantments);
-
 				// Create loot pool entry for enchanted book
 				LootPool.Builder pool = LootPool.builder()
 						.rolls(ConstantLootNumberProvider.create(1))
