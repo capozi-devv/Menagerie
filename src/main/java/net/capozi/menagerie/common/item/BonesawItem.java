@@ -45,6 +45,7 @@ public class BonesawItem extends AxeItem {
                         if (user.getBoundingBox().intersects(box.expand(0.5))) {
                             if (!(entity == playerEntity)) {
                                 entity.damage(new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(DamageTypeInit.BONESAW), playerEntity, playerEntity), 2);
+                                entity.setVelocity(Vec3d.ZERO);
                             }
                         }
                     }

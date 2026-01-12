@@ -9,6 +9,7 @@
     "VillagerEntityMixin"
   ],
   "client": [
+    "ClientPlayerEntityMixin",
     "ItemRendererMixin",
     "KeyboardMixin",
     "ModelLoaderMixin",

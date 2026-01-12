@@ -94,24 +94,31 @@ public abstract class LivingEntityMixin {
         amount *= 0.2f;
         target.damage(sources.magic(), amount);
     }
-//    private boolean isOnSoulSpeedBlockForDissonance(LivingEntity marked) {
-//        return marked.getWorld().getBlockState(marked.getBlockPos().down()).isIn(BlockTags.SOUL_SPEED_BLOCKS);
-//    }
-//    @Inject(method = "addSoulSpeedBoostIfNeeded", at = @At("HEAD"), cancellable = true)
-//    private void addSoulSpeedIfUsingMarkOfDissonance(CallbackInfo ci) {
-//        BoundArtifactComponent component = Menagerie.getBoundArtifact().get((Object)this);
-//        if (component != null)
-//        if (component.hasArtifact()) {
-//            if (((Object)this instanceof LivingEntity marked)) {
-//                if (isOnSoulSpeedBlockForDissonance(marked)) {
-//                    EntityAttributeInstance entityAttributeInstance = (marked.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED));
-//                    if (entityAttributeInstance == null) {
-//                        return;
-//                    }
-//                    entityAttributeInstance.addTemporaryModifier(new EntityAttributeModifier(SOUL_SPEED_BOOST_ID, "Soul speed boost", (double) (0.03F * (1.0F + (float) 3 * 0.35F)), EntityAttributeModifier.Operation.ADDITION));
-//                    return;
-//                }
-//            }
-//        }
-//    }
+    private boolean isOnSoulSpeedBlockForDissonance(LivingEntity marked) {
+        if (marked.getWorld().getBlockState(marked.getBlockPos()).isIn(BlockTags.SOUL_SPEED_BLOCKS)) {
+            return true;
+        } else if (marked.getWorld().getBlockState(marked.getBlockPos().down()).isIn(BlockTags.SOUL_SPEED_BLOCKS)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    @Inject(method = "addSoulSpeedBoostIfNeeded", at = @At("HEAD"), cancellable = true)
+    private void addSoulSpeedIfUsingMarkOfDissonance(CallbackInfo ci) {
+        if (((Object)this instanceof PlayerEntity marked)) {
+            BoundArtifactComponent component = Menagerie.getBoundArtifact().get(marked);
+            if (component != null) {
+                if (component.hasArtifact()) {
+                    if (isOnSoulSpeedBlockForDissonance(marked)) {
+                        EntityAttributeInstance entityAttributeInstance = (marked.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED));
+                        if (entityAttributeInstance == null) {
+                            return;
+                        }
+                        entityAttributeInstance.addTemporaryModifier(new EntityAttributeModifier(SOUL_SPEED_BOOST_ID, "Soul speed boost", (double) (0.03F * (1.0F + (float) 3 * 0.35F)), EntityAttributeModifier.Operation.ADDITION));
+                        return;
+                    }
+                }
+            }
+        }
+    }
 }

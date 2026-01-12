@@ -26,6 +26,8 @@
     "#minecraft:trimmable_armor",
     "#minecraft:trim_templates",
     "#minecraft:tools",
+    "#supplementaries:sacks",
+    "minecraft:netherite_upgrade_smithing_template",
     "minecraft:nether_star",
     "minecraft:beacon",
     "minecraft:raw_gold",
