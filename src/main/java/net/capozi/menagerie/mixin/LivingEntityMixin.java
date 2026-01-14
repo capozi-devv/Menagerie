@@ -42,9 +42,6 @@ import java.util.UUID;
 public abstract class LivingEntityMixin {
     @Shadow
     public abstract boolean teleport(double x, double y, double z, boolean particleEffects);
-
-    @Shadow
-    public float sidewaysSpeed;
     private static final UUID SOUL_SPEED_BOOST_ID = UUID.fromString("87f46a96-686f-4796-b035-22e16ee9e038");
     @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
     private void onDemiseDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
@@ -95,13 +92,8 @@ public abstract class LivingEntityMixin {
         target.damage(sources.magic(), amount);
     }
     private boolean isOnSoulSpeedBlockForDissonance(LivingEntity marked) {
-        if (marked.getWorld().getBlockState(marked.getBlockPos()).isIn(BlockTags.SOUL_SPEED_BLOCKS)) {
-            return true;
-        } else if (marked.getWorld().getBlockState(marked.getBlockPos().down()).isIn(BlockTags.SOUL_SPEED_BLOCKS)) {
-            return true;
-        } else {
-            return false;
-        }
+        if (marked.getWorld().getBlockState(marked.getBlockPos()).isIn(BlockTags.SOUL_SPEED_BLOCKS)) return true;
+        else return marked.getWorld().getBlockState(marked.getBlockPos().down()).isIn(BlockTags.SOUL_SPEED_BLOCKS);
     }
     @Inject(method = "addSoulSpeedBoostIfNeeded", at = @At("HEAD"), cancellable = true)
     private void addSoulSpeedIfUsingMarkOfDissonance(CallbackInfo ci) {
@@ -109,7 +101,7 @@ public abstract class LivingEntityMixin {
             BoundArtifactComponent component = Menagerie.getBoundArtifact().get(marked);
             if (component != null) {
                 if (component.hasArtifact()) {
-                    if (isOnSoulSpeedBlockForDissonance(marked)) {
+                    if (isOnSoulSpeedBlockForDissonance(marked) || marked.getWorld().isNight()) {
                         EntityAttributeInstance entityAttributeInstance = (marked.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED));
                         if (entityAttributeInstance == null) {
                             return;
