@@ -36,8 +36,8 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
             StatusEffectInstance chained = this.getStatusEffect(EffectInit.CHAINED_EFFECT);
             World serverWorld = this.getWorld();
             List<ChainsEntity> chainsNearby = this.getWorld().getEntitiesByClass(ChainsEntity.class, this.getBoundingBox().expand(10.0), entity -> entity.isAlive());
-            ChainsEntity chains = chainsNearby.isEmpty() ? new ChainsEntity(EntityInit.BLUE_CHAINS, serverWorld) : null;
-            if (chained == null) {
+            if (chained == null && chainsNearby.isEmpty()) {
+                ChainsEntity chains = new ChainsEntity(EntityInit.BLUE_CHAINS, serverWorld);
                 chains.addStatusEffect(new StatusEffectInstance(EffectInit.CHAINED_EFFECT, 12000, 1, false, false, false));
                 this.addStatusEffect(new StatusEffectInstance(EffectInit.CHAINED_EFFECT, 12000, 1, false, false, false));
                 serverWorld.spawnEntity(chains);

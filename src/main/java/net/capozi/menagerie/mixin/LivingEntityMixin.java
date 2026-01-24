@@ -91,23 +91,20 @@ public abstract class LivingEntityMixin {
         amount *= 0.2f;
         target.damage(sources.magic(), amount);
     }
-    private boolean isOnSoulSpeedBlockForDissonance(LivingEntity marked) {
-        if (marked.getWorld().getBlockState(marked.getBlockPos()).isIn(BlockTags.SOUL_SPEED_BLOCKS)) return true;
-        else return marked.getWorld().getBlockState(marked.getBlockPos().down()).isIn(BlockTags.SOUL_SPEED_BLOCKS);
-    }
     @Inject(method = "addSoulSpeedBoostIfNeeded", at = @At("HEAD"), cancellable = true)
     private void addSoulSpeedIfUsingMarkOfDissonance(CallbackInfo ci) {
         if (((Object)this instanceof PlayerEntity marked)) {
             BoundArtifactComponent component = Menagerie.getBoundArtifact().get(marked);
             if (component != null) {
                 if (component.hasArtifact()) {
-                    if (isOnSoulSpeedBlockForDissonance(marked) || marked.getWorld().isNight()) {
+                    if (((LivingEntity)(Object)this).isOnSoulSpeedBlock() || marked.getWorld().isNight()) {
                         EntityAttributeInstance entityAttributeInstance = (marked.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED));
                         if (entityAttributeInstance == null) {
                             return;
                         }
+                        ((LivingEntity)(Object)this).displaySoulSpeedEffects();
                         entityAttributeInstance.addTemporaryModifier(new EntityAttributeModifier(SOUL_SPEED_BOOST_ID, "Soul speed boost", (double) (0.03F * (1.0F + (float) 3 * 0.35F)), EntityAttributeModifier.Operation.ADDITION));
-                        return;
+                        ci.cancel();
                     }
                 }
             }
