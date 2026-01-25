@@ -2,7 +2,6 @@
 	"schemaVersion": 1,
 	"id": "menagerie",
 	"version": "${version}",
-    "accessWidener": "menagerie.accesswidener",
 	"name": "Menagerie",
 	"description": "I have three spoons and eight ways to kill God himself with them",
 	"authors": [

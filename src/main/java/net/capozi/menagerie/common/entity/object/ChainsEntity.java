@@ -77,7 +77,7 @@ public class ChainsEntity extends AmbientEntity {
     @Override
     public boolean damage(DamageSource source, float amount) {
         if (source.getAttacker() instanceof PlayerEntity player) {
-            return hasCameraItem((ServerPlayerEntity)player);
+            return hasCameraItem(player);
         } else {
            return false;
         }
@@ -94,7 +94,7 @@ public class ChainsEntity extends AmbientEntity {
         }
         setDespawnCounter(despawnCounter=0);
     }
-    private boolean hasCameraItem(ServerPlayerEntity player) {
+    private boolean hasCameraItem(PlayerEntity player) {
         for (ItemStack stack : player.getInventory().main) {
             if (stack.isOf(ItemInit.CAMERA_OF_THE_OTHERSIDE)) {
                 return true;

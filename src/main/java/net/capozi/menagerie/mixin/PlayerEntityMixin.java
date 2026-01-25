@@ -1,12 +1,14 @@
 package net.capozi.menagerie.mixin;
 
+import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import net.capozi.menagerie.Menagerie;
 import net.capozi.menagerie.server.cca.BoundAccursedComponent;
 import net.capozi.menagerie.server.cca.BoundAccursedComponentImpl;
+import net.capozi.menagerie.server.cca.BoundAqueousComponent;
 import net.capozi.menagerie.server.cca.BoundArtifactComponent;
-import net.minecraft.entity.EntityGroup;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -27,21 +29,38 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
     protected boolean isSubmergedInWater;
     @Shadow public abstract boolean isPushedByFluids();
+
+    @Shadow
+    protected abstract boolean isOnSoulSpeedBlock();
+
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
        super(entityType, world);
     }
-    public boolean isTrapped = false;
-    public boolean isTrapped() {
-        return isTrapped;
-    }
-    public void setTrapped(boolean trapped) {
-        this.isTrapped = trapped;
+    @Inject(
+            method = "attack",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void menagerie$reduceAttackRange(Entity target, CallbackInfo ci) {
+        if ((Object)this instanceof PlayerEntity marked) {
+            BoundAqueousComponent component = Menagerie.getBoundAqueous().get(marked);
+            if (component.hasAqueous()) {
+                if (!isSubmergedInWater) {
+                    double maxReach = 4.0D + marked.getAttributes().getValue(ReachEntityAttributes.ATTACK_RANGE); // reduced reach
+                    double maxReachSq = maxReach * maxReach;
+                    if (marked.squaredDistanceTo(target) > maxReachSq) {
+                        ci.cancel(); // prevents the attack entirely
+                    }
+                }
+            }
+        }
     }
     @ModifyArgs(method = {"damage"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"))
     private void menagerie$onDamaged(Args args) {

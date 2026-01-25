@@ -7,6 +7,8 @@ import net.capozi.menagerie.foundation.EffectInit;
 import net.capozi.menagerie.foundation.EnchantInit;
 import net.capozi.menagerie.foundation.EntityInit;
 import net.capozi.menagerie.foundation.ItemInit;
+import net.capozi.menagerie.mixin.access.EntityAccessor;
+import net.capozi.menagerie.mixin.access.LivingEntityAccessor;
 import net.capozi.menagerie.server.cca.BoundAccursedComponent;
 import net.capozi.menagerie.server.cca.BoundArtifactComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -94,17 +96,19 @@ public abstract class LivingEntityMixin {
     @Inject(method = "addSoulSpeedBoostIfNeeded", at = @At("HEAD"), cancellable = true)
     private void addSoulSpeedIfUsingMarkOfDissonance(CallbackInfo ci) {
         if (((Object)this instanceof PlayerEntity marked)) {
-            BoundArtifactComponent component = Menagerie.getBoundArtifact().get(marked);
-            if (component != null) {
-                if (component.hasArtifact()) {
-                    if (((LivingEntity)(Object)this).isOnSoulSpeedBlock() || marked.getWorld().isNight()) {
-                        EntityAttributeInstance entityAttributeInstance = (marked.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED));
-                        if (entityAttributeInstance == null) {
-                            return;
+            if (!((EntityAccessor)this).invokeGetLandingBlockState().isAir()) {
+                BoundArtifactComponent component = Menagerie.getBoundArtifact().get(marked);
+                if (component != null) {
+                    if (component.hasArtifact()) {
+                        if (((LivingEntityAccessor)this).invokeIsOnSoulSpeedBlock() || marked.getWorld().isNight()) {
+                            EntityAttributeInstance entityAttributeInstance = (marked.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED));
+                            if (entityAttributeInstance == null) {
+                                return;
+                            }
+                            ((LivingEntityAccessor)this).invokeDisplaySoulSpeedEffects();
+                            entityAttributeInstance.addTemporaryModifier(new EntityAttributeModifier(SOUL_SPEED_BOOST_ID, "Soul speed boost", (double) (0.03F * (1.0F + (float) 3 * 0.35F)), EntityAttributeModifier.Operation.ADDITION));
+                            ci.cancel();
                         }
-                        ((LivingEntity)(Object)this).displaySoulSpeedEffects();
-                        entityAttributeInstance.addTemporaryModifier(new EntityAttributeModifier(SOUL_SPEED_BOOST_ID, "Soul speed boost", (double) (0.03F * (1.0F + (float) 3 * 0.35F)), EntityAttributeModifier.Operation.ADDITION));
-                        ci.cancel();
                     }
                 }
             }

@@ -6,7 +6,9 @@
     "LivingEntityMixin",
     "PlayerEntityMixin",
     "ServerPlayerEntityMixin",
-    "VillagerEntityMixin"
+    "VillagerEntityMixin",
+    "access.LivingEntityAccessor",
+    "access.EntityAccessor"
   ],
   "client": [
     "ClientPlayerEntityMixin",
