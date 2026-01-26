@@ -17,7 +17,7 @@ import static net.capozi.menagerie.foundation.BlockInit.*;
 public class ItemInit {
     public static void registerItems() {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(ItemInit::registerItemToToolsTabItemGroup);
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(ItemInit::registerBlocksToBuildingTab);
+        // ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(ItemInit::registerBlocksToBuildingTab);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(ItemInit::registerItemsToWeaponGroup);
     }
     private static Item registerItems(String name, Item item) {
@@ -38,11 +38,11 @@ public class ItemInit {
         entries.addAfter(MARK_OF_DISSONANCE, MARK_OF_THE_ACCURSED);
         entries.addAfter(MARK_OF_THE_ACCURSED, MARK_OF_AQUEOUSNESS);
     }
-    public static void registerBlocksToBuildingTab(FabricItemGroupEntries entries) {
-        entries.add(CAPOZI_PLUSH);
-        entries.add(EYA_PLUSH);
-        entries.add(COSMO_PLUSH);
-    }
+//    public static void registerBlocksToBuildingTab(FabricItemGroupEntries entries) {
+//        entries.add(CAPOZI_PLUSH);
+//        entries.add(EYA_PLUSH);
+//        entries.add(COSMO_PLUSH);
+//    }
     public static final Item CAMERA_OF_THE_OTHERSIDE = registerItems("camera_of_the_otherside",new CameraOfTheOthersideItem(new FabricItemSettings().maxCount(1)));
     public static final Item SIMULACRUM_VESSEL = registerItems("simulacrum_vessel", new SimulacrumVesselItem(new FabricItemSettings().maxCount(16)));
     public static final Item TEST_ITEM = registerItems("test_item", new TestItem(new FabricItemSettings()));

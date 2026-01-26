@@ -23,7 +23,7 @@ public class BlockInit {
                 new BlockItem(block, new FabricItemSettings()));
     }
     public static void registerBlocks() {}
-    public static final Block CAPOZI_PLUSH = registerBlock("capozi_plush", new PlushBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).nonOpaque()));
-    public static final Block EYA_PLUSH = registerBlock("eya_plush", new PlushBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).nonOpaque()));
-    public static final Block COSMO_PLUSH = registerBlock("cosmo_plush",new PlushBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).nonOpaque()));
+//    public static final Block CAPOZI_PLUSH = registerBlock("capozi_plush", new PlushBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).nonOpaque()));
+//    public static final Block EYA_PLUSH = registerBlock("eya_plush", new PlushBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).nonOpaque()));
+//    public static final Block COSMO_PLUSH = registerBlock("cosmo_plush",new PlushBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).nonOpaque()));
 }
