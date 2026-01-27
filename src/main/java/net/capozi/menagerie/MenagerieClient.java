@@ -36,8 +36,6 @@ import net.minecraft.util.Identifier;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import static net.capozi.menagerie.foundation.BlockInit.*;
-
 public class MenagerieClient implements ClientModInitializer {
     MinecraftClient minecraftClient = MinecraftClient.getInstance();
     public static void registerModelPredicateProviders() {
@@ -56,9 +54,6 @@ public class MenagerieClient implements ClientModInitializer {
     }
     @Override
     public void onInitializeClient() {
-        BlockRenderLayerMap.INSTANCE.putBlock(CAPOZI_PLUSH, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(EYA_PLUSH, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(COSMO_PLUSH, RenderLayer.getCutout());
         EntityRendererRegistry.register(EntityInit.BLUE_CHAINS, ChainsRenderer::new);
         EntityRendererRegistry.register(EntityInit.CIRCLE, CircleBeamRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.CHAINS, ChainsEntityModel::getTexturedModelData);
