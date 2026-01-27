@@ -21,8 +21,5 @@ public class LootTableProvider extends FabricBlockLootTableProvider {
     }
     @Override
     public void generate() {
-        addDrop(BlockInit.CAPOZI_PLUSH);
-        addDrop(BlockInit.EYA_PLUSH);
-        addDrop(BlockInit.COSMO_PLUSH);
     }
 }

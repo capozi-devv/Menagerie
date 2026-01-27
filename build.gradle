@@ -41,6 +41,7 @@ dependencies {
 	modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-item:${project.cca_version}")
     modImplementation("team.lodestar.lodestone:lodestone:${project.minecraft_version}-${project.lodestone_version}-fabric")
 
+    modImplementation fileTree(dir: 'libs', include: ['*.jar'])
 
     include("team.lodestar.lodestone:lodestone:${project.minecraft_version}-${project.lodestone_version}-fabric")
 	include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}")
@@ -84,6 +85,10 @@ jar {
 	from("LICENSE") {
 		rename { "${it}_${inputs.properties.archivesName}"}
 	}
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 // configure the maven publication
 publishing {
