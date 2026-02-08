@@ -21,7 +21,6 @@ public class CircleBeamRenderer extends EntityRenderer<CircleBeamEntity> {
     public CircleBeamRenderer(EntityRendererFactory.Context ctx) {
         super(ctx);
     }
-
     @Override
     public Identifier getTexture(CircleBeamEntity entity) {
         return new Identifier(Menagerie.MOD_ID, "textures/entity/beam2.png");
@@ -46,5 +45,9 @@ public class CircleBeamRenderer extends EntityRenderer<CircleBeamEntity> {
                 FlashOverlayRenderer.triggerFlash();
             }
         }
+    }
+    @Override
+    public boolean shouldRender(CircleBeamEntity mobEntity, Frustum frustum, double d, double e, double f) {
+        return true;
     }
 }

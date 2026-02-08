@@ -27,6 +27,7 @@ public class AllParticles {
                 .setSpinData(SpinParticleData.create(RandomHelper.randomBetween(Random.create(), -0.2f, 0.2f)).build())
                 .enableNoClip()
                 .disableCull()
+                .setShouldCull(false)
                 .spawn(world, pos.x, pos.y, pos.z);
     }
     public static void circleParticle(World world, Vec3d pos) {
