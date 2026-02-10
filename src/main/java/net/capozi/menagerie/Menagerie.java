@@ -1,6 +1,7 @@
 package net.capozi.menagerie;
 
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
+import dev.onyxstudios.cca.internal.entity.CardinalComponentsEntity;
 import net.capozi.menagerie.common.datagen.LootTableModifiers;
 import net.capozi.menagerie.foundation.*;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
