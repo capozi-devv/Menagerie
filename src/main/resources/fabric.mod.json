@@ -42,16 +42,7 @@
 		"menagerie.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.16.10",
-		"minecraft": "~1.20.1",
-		"java": ">=17",
-		"fabric-api": "*",
-        "lodestone": ">=1.6.2.3f",
-        "cardinal-components": ">=5.2.3",
-        "port_lib": ">=2.3.4+1.20.1",
-        "rea": ">=2.4.0",
-        "trinkets": ">=3.7.1",
-        "dotzip": ">=1.1.3.1a"
+
 	},
 	"suggests": {
 		"maisonnette": "*",
