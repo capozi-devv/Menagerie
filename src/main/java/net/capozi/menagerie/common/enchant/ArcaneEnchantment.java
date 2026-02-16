@@ -27,7 +27,7 @@ public class ArcaneEnchantment extends Enchantment {
     }
     @Override
     public boolean isAvailableForRandomSelection() {
-        return false; // include in loot table/random selection
+        return false;
     }
     @Override
     public int getMaxLevel() {

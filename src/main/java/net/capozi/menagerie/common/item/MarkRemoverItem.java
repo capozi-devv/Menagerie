@@ -27,6 +27,8 @@ public class MarkRemoverItem extends Item {
             } else if (accursed.hasAccursed()) {
                 accursed.setHasAccursed(false);
                 HealthUtils.removeExtraHearts(player);
+            } else if(aqueous.hasAqueous()) {
+                aqueous.setHasAqueous(false);
             }
         }
         return TypedActionResult.pass(player.getStackInHand(hand));

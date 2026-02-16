@@ -61,11 +61,11 @@ public class AllParticles {
         Color startColour = new Color(0, 255, 244);
         Color endingColor = new Color(0, 255, 244);
         WorldParticleBuilder.create(ParticleInit.SHOCKWAVE)
-                .setScaleData(GenericParticleData.create(1f, 70f).build())
+                .setScaleData(GenericParticleData.create(1f, 30f).build())
                 .setTransparencyData(GenericParticleData.create(0.95f, 0).build())
                 .setColorData(ColorParticleData.create(startColour, endingColor).setCoefficient(1.4f).build())
                 .setSpinData(SpinParticleData.create(0f, 0f).build())
-                .setLifetime(155)
+                .setLifetime(80)
                 .setLifeDelay(240)
                 .enableNoClip()
                 .disableCull()

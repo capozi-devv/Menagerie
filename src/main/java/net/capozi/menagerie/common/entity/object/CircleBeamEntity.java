@@ -71,8 +71,6 @@ public class CircleBeamEntity extends Entity {
         }
         super.tick();
     }
-
-    // ! pass over to default entity logic
     @Override protected void initDataTracker() {}
     @Override protected void readCustomDataFromNbt(NbtCompound nbt) {}
     @Override protected void writeCustomDataToNbt(NbtCompound nbt) {}

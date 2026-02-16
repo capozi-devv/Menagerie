@@ -15,7 +15,7 @@ public class HealthUtils {
             attribute.addPersistentModifier(new EntityAttributeModifier(
                     EXTRA_HEARTS_UUID,
                     "Extra Hearts Modifier",
-                    extraHearts, // e.g. 2.0 = 1 heart, 10.0 = 5 hearts
+                    extraHearts, // 2.0 = 1 heart
                     EntityAttributeModifier.Operation.ADDITION
             ));
         }
@@ -31,8 +31,7 @@ public class HealthUtils {
             }
         }
     }
-    public static void reduceMaxHealth(PlayerEntity player, float heartsToRemove) {
-        double amount = heartsToRemove * 2.0; // 1 heart = 2 HP
+    public static void reduceMaxHealth(PlayerEntity player, double amount) {
         EntityAttributeInstance attr = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
         if (attr == null) return;
         EntityAttributeModifier existing = attr.getModifier(REDUCED_HEALTH_UUID);
