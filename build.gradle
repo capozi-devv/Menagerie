@@ -11,7 +11,6 @@ base {
 }
 
 repositories {
-	maven {url = 'https://jitpack.io' }
     maven {url = 'https://maven.blamejared.com/' }
     maven {url = "https://mvn.devos.one/releases/" }
     maven {url = "https://api.modrinth.com/maven" }
@@ -40,8 +39,8 @@ dependencies {
 	modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}")
 	modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-item:${project.cca_version}")
     modImplementation("team.lodestar.lodestone:lodestone:${project.minecraft_version}-${project.lodestone_version}-fabric")
-
-    modImplementation fileTree(dir: 'libs', include: ['*.jar'])
+    modImplementation "maven.modrinth:dotzip:${project.dotzip_version}"
+    include "maven.modrinth:dotzip:${project.dotzip_version}"
 
     modImplementation("dev.emi:trinkets:${project.trinkets_version}")
     for (String module in port_lib_modules.split(",")) {

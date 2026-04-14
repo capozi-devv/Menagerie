@@ -9,6 +9,7 @@
     "#minecraft:iron_ores",
     "#minecraft:lapis_ores",
     "#minecraft:redstone_ores",
+    "minecraft:experience_bottle",
     "minecraft:ancient_debris",
     "minecraft:netherite_block",
     "minecraft:coal_block",
@@ -47,6 +48,7 @@
     "amarite:amarite_shard",
     "amarite:amarite_block",
     "amarite:amarite_disc",
-    "supplementaries:sack"
+    "supplementaries:sack",
+    "armourbundles:armour_bundle"
   ]
 }

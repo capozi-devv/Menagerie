@@ -17,7 +17,7 @@ public class BoundArtifactComponentImpl implements BoundArtifactComponent, AutoS
     }
     @Override
     public void tickArtifact(PlayerEntity player) {
-
+        BoundArtifactComponent.sync(player);
     }
     @Override
     public void readFromNbt(NbtCompound tag) {

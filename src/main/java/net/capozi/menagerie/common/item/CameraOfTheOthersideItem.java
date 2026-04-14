@@ -21,6 +21,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.GameMode;
 
 import java.util.List;
 
@@ -35,21 +36,18 @@ public class CameraOfTheOthersideItem extends Item {
             if (targetPlayer.hasStatusEffect(EffectInit.CHAINED_EFFECT)) {
                 if (!user.getWorld().isClient && user instanceof ServerPlayerEntity serverPlayer) {
                     FlashPacket.sendToTracking((ServerWorld) user.getWorld(), serverPlayer);
-                    user.getWorld().playSound(null, playerPos, SoundInit.BUTTON_CLICK,
-                            SoundCategory.MASTER, 5f, 1f);
-                    user.getWorld().playSound(null, playerPos, SoundInit.FLASH,
-                            SoundCategory.MASTER, 10f, 1f);
-                    user.getWorld().playSound(null, playerPos, SoundInit.FILM_ADVANCE_LAST,
-                            SoundCategory.MASTER, 1f, 1f);
+                    user.getWorld().playSound(null, playerPos, SoundInit.BUTTON_CLICK, SoundCategory.MASTER, 5f, 1f);
+                    user.getWorld().playSound(null, playerPos, SoundInit.FLASH, SoundCategory.MASTER, 10f, 1f);
+                    user.getWorld().playSound(null, playerPos, SoundInit.FILM_ADVANCE_LAST, SoundCategory.MASTER, 1f, 1f);
                 }
-                target.removeStatusEffect(EffectInit.CHAINED_EFFECT);
+                targetPlayer.removeStatusEffect(EffectInit.CHAINED_EFFECT);
                 List<ChainsEntity> chainsNearby = user.getWorld().getEntitiesByClass(
                         ChainsEntity.class,
                         targetPlayer.getBoundingBox().expand(10.0), // Adjust radius as needed
                         chains -> chains.isAlive()
                 );
-                target.kill();
-                ban(user, target);
+                targetPlayer.kill();
+                targetPlayer.changeGameMode(GameMode.SPECTATOR);
                 user.getWorld().playSound(null, user.getBlockPos(), SoundEvents.ENTITY_ITEM_BREAK, SoundCategory.PLAYERS, 1f, 1f);
                 for (ChainsEntity chains : chainsNearby) {
                     chains.discard();
@@ -63,24 +61,24 @@ public class CameraOfTheOthersideItem extends Item {
         }
         return ActionResult.PASS;
     }
-    private void ban(PlayerEntity user, LivingEntity entity){
-        ServerPlayerEntity target = (ServerPlayerEntity) entity;
-        ServerPlayerEntity source = (ServerPlayerEntity) user;
-        MinecraftServer server = source.getServer();
-        if (server != null) {
-            GameProfile profile = target.getGameProfile();
-            BannedPlayerList banList = server.getPlayerManager().getUserBanList();
-            if (!banList.contains(profile)) {
-                BannedPlayerEntry entry = new BannedPlayerEntry(
-                        profile,
-                        null,
-                        source.getName().toString(),
-                        null,
-                        "Camera"
-                );
-                banList.add(entry);
-                target.networkHandler.disconnect(Text.literal("You have been sentenced to an eternity in the Otherside").formatted(Formatting.AQUA));
-            }
-        }
-    }
+//    private void ban(PlayerEntity user, LivingEntity entity){
+//        ServerPlayerEntity target = (ServerPlayerEntity) entity;
+//        ServerPlayerEntity source = (ServerPlayerEntity) user;
+//        MinecraftServer server = source.getServer();
+//        if (server != null) {
+//            GameProfile profile = target.getGameProfile();
+//            BannedPlayerList banList = server.getPlayerManager().getUserBanList();
+//            if (!banList.contains(profile)) {
+//                BannedPlayerEntry entry = new BannedPlayerEntry(
+//                        profile,
+//                        null,
+//                        source.getName().toString(),
+//                        null,
+//                        "Camera"
+//                );
+//                banList.add(entry);
+//                target.networkHandler.disconnect(Text.literal("You have been sentenced to an eternity in the Otherside").formatted(Formatting.AQUA));
+//            }
+//        }
+//    }
 }

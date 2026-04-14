@@ -1,12 +1,16 @@
 package net.capozi.menagerie.client.gui;
 
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 
 public class ListeningInventory extends PlayerInventory implements Inventory {
     private final Inventory delegate;
@@ -18,6 +22,7 @@ public class ListeningInventory extends PlayerInventory implements Inventory {
     }
     @Override
     public int size() { return delegate.size(); }
+
     @Override
     public void onClose(PlayerEntity player) {
         super.onClose(player);
@@ -50,6 +55,13 @@ public class ListeningInventory extends PlayerInventory implements Inventory {
     public void markDirty() {
         delegate.markDirty();
         onChange.run(); // Trigger whenever the inventory is marked dirty
+    }
+
+    @Override
+    public void offer(ItemStack stack, boolean notifiesClient) {
+        super.offer(stack, notifiesClient);
+        delegate.markDirty();
+        onChange.run();
     }
 
     @Override

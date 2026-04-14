@@ -22,7 +22,7 @@ public class BoundAqueousComponentImpl implements BoundAqueousComponent {
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 220, 0, false, false, false));
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.CONDUIT_POWER, 220, 0, false, false, false));
             if (player.isSubmergedInWater()) {
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 220, 1, false, false, false));
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 220, 1, false, false, false));
             }
         }
     }

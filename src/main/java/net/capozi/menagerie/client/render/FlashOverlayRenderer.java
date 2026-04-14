@@ -15,7 +15,7 @@ public class FlashOverlayRenderer {
             if (alpha < 0f) alpha = 0f;
             drawContext.fill(
                     0, 0, drawContext.getScaledWindowWidth(), drawContext.getScaledWindowHeight(),
-                    ((int)(alpha * 190) << 24) | 0x03FCFC
+                    ((int)(alpha * 255) << 24) | 0x03FCFC
             );
         });
     }

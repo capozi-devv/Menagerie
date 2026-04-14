@@ -33,15 +33,13 @@ public class CircleBeamEntity extends Entity {
         float progress = (System.currentTimeMillis() - flashStartTime) / (float) FLASH_DURATION_MS;
         ticksAlive++;
         if (this.age >= 260) {
-            CircleBeamRenderer.shouldRender = false;
+            CircleBeamRenderer.setShouldRender(false);
             ticksAlive = 0;
             triggered = false;
             this.discard();
         } else if (this.age >= 80){
-            CircleBeamRenderer.shouldRender = true;
-            DamageSource source = new DamageSource(this.getWorld().getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(DamageTypes.PLAYER_EXPLOSION));
-            if (this.age % 2 == 0) {
-                this.getWorld().createExplosion(null, null, null, this.getPos().add(RandomHelper.randomBetween(Random.create(), -9f, 9f), RandomHelper.randomBetween(Random.create(), -9f, 9f), RandomHelper.randomBetween(Random.create(), -6f, 6f)), 8, true, World.ExplosionSourceType.MOB);
+            if (this.age == 80) {
+                DamageSource source = new DamageSource(this.getWorld().getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(DamageTypes.PLAYER_EXPLOSION));
                 Vec3d center = this.getPos();
                 double radius = 20.0;
                 Box box = new Box(
@@ -61,13 +59,17 @@ public class CircleBeamEntity extends Entity {
                     entity.takeKnockback(7, x, z);
                 }
             }
+            CircleBeamRenderer.setShouldRender(true);
+            if (this.age % 2 == 0) {
+                this.getWorld().createExplosion(null, null, null, this.getPos().add(RandomHelper.randomBetween(Random.create(), -9f, 9f), RandomHelper.randomBetween(Random.create(), -9f, 9f), RandomHelper.randomBetween(Random.create(), -6f, 6f)), 8, true, World.ExplosionSourceType.MOB);
+            }
             if (!FlashOverlayRenderer.isFlashing() && !triggered) {
                 triggered = true;
                 FlashOverlayRenderer.triggerFlash();
                 //FlashPacket.sendToTracking((ServerWorld)this.getWorld(), this);
             }
         } else {
-            CircleBeamRenderer.shouldRender = false;
+            CircleBeamRenderer.setShouldRender(false);
         }
         super.tick();
     }

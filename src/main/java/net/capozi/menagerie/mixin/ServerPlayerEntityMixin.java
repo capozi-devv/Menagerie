@@ -9,6 +9,7 @@ import net.capozi.menagerie.foundation.ItemInit;
 import net.capozi.menagerie.server.cca.BoundAccursedComponent;
 import net.capozi.menagerie.server.cca.BoundAqueousComponent;
 import net.capozi.menagerie.server.cca.BoundArtifactComponent;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
@@ -50,18 +51,12 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     @Inject(method = "tick", at = @At("TAIL"))
     private void burnInDaylightIfAccursed(CallbackInfo ci) {
         if (this.isAlive() && !this.isSpectator() && !this.isCreative()) {
-            if (Menagerie.getBoundAccursed().get(this).hasAccursed()) {
-                setAir(100);
-            }
             BlockPos pos = this.getBlockPos();
             if (this.getWorld().isDay() && this.getWorld().isSkyVisible(this.getBlockPos()) && !this.isSubmergedInWater() && this.getBrightnessAtEyes() > 0.5F) {
                 BoundArtifactComponent accursed = Menagerie.getBoundArtifact().get(this);
                 World world = this.getWorld();
                 if (world.isRaining() && world.hasRain(pos)) return; // Don't burn in rain
                 ItemStack headStack = this.getEquippedStack(EquipmentSlot.HEAD);
-                ItemStack chestStack = this.getEquippedStack(EquipmentSlot.CHEST);
-                ItemStack legStack = this.getEquippedStack(EquipmentSlot.LEGS);
-                ItemStack footStack = this.getEquippedStack(EquipmentSlot.FEET);
                 boolean hasHelmet = !headStack.isEmpty();
                 if (!hasHelmet) {
                     if(this.getFireTicks() <= 0 && accursed.hasArtifact()) {
@@ -81,6 +76,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     private void tickEnderChest(CallbackInfo ci) {
         ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
         EnderChestInventory ender = player.getEnderChestInventory();
+
         for (int i = 0; i < ender.size(); i++) {
             ItemStack stack = ender.getStack(i);
             if (stack.isOf(ItemInit.INCOMPLETE_CONSTRUCT)) {
@@ -91,7 +87,6 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
             }
         }
     }
-
     @Inject(method = "tick", at = @At("HEAD"))
     private void tickCustomTimer(CallbackInfo ci) {
         ServerPlayerEntity player = (ServerPlayerEntity)(Object)this;

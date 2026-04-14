@@ -10,6 +10,8 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -77,7 +79,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         if (!component.hasArtifact()) {
             return super.canHaveStatusEffect(effect);
         } else {
-            return effect.getEffectType() == StatusEffects.INSTANT_DAMAGE || effect.getEffectType() == StatusEffects.WITHER || effect.getEffectType() == StatusEffects.INSTANT_HEALTH;
+            return effect.getEffectType().getCategory().equals(StatusEffectCategory.BENEFICIAL) || effect.getEffectType().getCategory().equals(StatusEffectCategory.NEUTRAL);
         }
     }
     @Override

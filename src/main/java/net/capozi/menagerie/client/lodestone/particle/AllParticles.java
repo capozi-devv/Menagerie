@@ -34,8 +34,17 @@ public class AllParticles {
         Color startColour = new Color(0, 255, 244);
         Color endingColor = new Color(0, 234, 190);
         WorldParticleBuilder.create(ParticleInit.CIRCLE)
-                .setScaleData(GenericParticleData.create(1f, 5f).setEasing(Easing.ELASTIC_IN_OUT).build())
-                .setTransparencyData(GenericParticleData.create(0.95f, 0).build())
+                .setScaleData(GenericParticleData.create(1f, 9f).setEasing(Easing.ELASTIC_IN_OUT).build())
+                .setTransparencyData(GenericParticleData.create(0.95f, 0.95f).build())
+                .setColorData(ColorParticleData.create(startColour, endingColor).setCoefficient(1.4f).build())
+                .setLifetime(120)
+                .enableNoClip()
+                .setBehavior(new DirectionalBehaviorComponent(new Vec3d(0, 90, 0)))
+                .disableCull()
+                .spawn(world, pos.x, pos.y + 0.71, pos.z);
+        WorldParticleBuilder.create(ParticleInit.CIRCLE_2)
+                .setScaleData(GenericParticleData.create(1f, 9f).setEasing(Easing.ELASTIC_IN_OUT).build())
+                .setTransparencyData(GenericParticleData.create(0.95f, 0.95f).build())
                 .setColorData(ColorParticleData.create(startColour, endingColor).setCoefficient(1.4f).build())
                 .setLifetime(120)
                 .enableNoClip()
@@ -47,7 +56,17 @@ public class AllParticles {
         Color startColour = new Color(0, 255, 244);
         Color endingColor = new Color(0, 234, 190);
         WorldParticleBuilder.create(ParticleInit.CIRCLE)
-                .setScaleData(GenericParticleData.create(5f, 6f).setEasing(Easing.BOUNCE_IN_OUT).build())
+                .setScaleData(GenericParticleData.create(9f, 10f).setEasing(Easing.BOUNCE_IN_OUT).build())
+                .setTransparencyData(GenericParticleData.create(0.95f, 0.95f, 0).build())
+                .setColorData(ColorParticleData.create(startColour, endingColor).setCoefficient(1.4f).build())
+                .setLifetime(200)
+                .enableNoClip()
+                .setBehavior(new DirectionalBehaviorComponent(new Vec3d(0, 90, 0)))
+                .disableCull()
+                .setLifeDelay(90)
+                .spawn(world, pos.x, pos.y + 0.71, pos.z);
+        WorldParticleBuilder.create(ParticleInit.CIRCLE)
+                .setScaleData(GenericParticleData.create(9f, 10f).setEasing(Easing.BOUNCE_IN_OUT).build())
                 .setTransparencyData(GenericParticleData.create(0.95f, 0.95f, 0).build())
                 .setColorData(ColorParticleData.create(startColour, endingColor).setCoefficient(1.4f).build())
                 .setLifetime(200)

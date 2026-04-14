@@ -18,6 +18,10 @@ import net.minecraft.util.math.Vec3d;
 
 public class CircleBeamRenderer extends EntityRenderer<CircleBeamEntity> {
     public static boolean shouldRender = false;
+    public static boolean setShouldRender(boolean value) {
+        shouldRender = value;
+        return shouldRender;
+    }
     public CircleBeamRenderer(EntityRendererFactory.Context ctx) {
         super(ctx);
     }
@@ -35,15 +39,10 @@ public class CircleBeamRenderer extends EntityRenderer<CircleBeamEntity> {
     }
     @Override
     public void render(CircleBeamEntity mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        RenderOptions options = new RenderOptions().animation(RenderOptions.AnimationStyle.WOBBLE, 1f).uvSpeed(3f);
-        float progress = (System.currentTimeMillis() - flashStartTime) / (float) FLASH_DURATION_MS;
-        if (shouldRender) {
-            //SkyBeamRenderer.render(matrixStack, vertexConsumerProvider, getTexture(mobEntity), 270, 300, 4f, options);
-            AllVFX.renderObelisk(matrixStack, Vec3d.ofCenter(mobEntity.getBlockPos()));
-            AllParticles.glowAura(mobEntity.getWorld(), Vec3d.ofCenter(mobEntity.getBlockPos()));
-            if (!FlashOverlayRenderer.isFlashing()) {
-                FlashOverlayRenderer.triggerFlash();
-            }
+        AllVFX.renderObelisk(matrixStack, Vec3d.ofCenter(mobEntity.getBlockPos()));
+        AllParticles.glowAura(mobEntity.getWorld(), Vec3d.ofCenter(mobEntity.getBlockPos()));
+        if (mobEntity.age == 80) {
+            FlashOverlayRenderer.triggerFlash();
         }
     }
     @Override
