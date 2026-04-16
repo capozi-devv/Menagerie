@@ -3,6 +3,7 @@ package net.capozi.menagerie.foundation;
 import devv.capozi.zip.common.index.Registrar;
 import net.capozi.menagerie.Menagerie;
 import net.capozi.menagerie.common.item.*;
+import net.capozi.menagerie.common.item.material.ReachOftheVoidMaterial;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -48,7 +49,7 @@ public class ItemInit {
     public static final Item TEST_ITEM = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "test_item"), new TestItem(new FabricItemSettings()));
     public static final Item DAMNATIO_MEMORIAE_MUSIC_DISC = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "damnatio_memoriae"), new MusicDiscItem(7, SoundInit.DAMNATIO_MEMORIAE, new FabricItemSettings().maxCount(1), 83));
     public static final Item HEAVYIRON_LONGSPOON = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "heavyiron_longspoon"), new HeavyIronLongSpoonItem(ToolMaterials.NETHERITE, 6, -3.2F, new Item.Settings().maxCount(1).fireproof()));
-    public static final Item REACH_OF_THE_VOID = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "reach_of_the_void"), new ReachOfTheVoidItem(new Item.Settings().maxCount(1)));
+    public static final Item REACH_OF_THE_VOID = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "reach_of_the_void"), new ReachOfTheVoidItem(new ReachOftheVoidMaterial(), new Item.Settings().maxCount(1)));
     public static final Item INCOMPLETE_CONSTRUCT = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "incomplete_construct"), new Item(new Item.Settings()));
     public static final Item TRICK_ROOM = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "trick_room"), new TrickRoomItem(new Item.Settings().maxCount(1)));
     public static final Item MARK_OF_DISSONANCE = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "mark_of_dissonance"), new MarkOfDissonanceItem(new Item.Settings().maxCount(1)));
