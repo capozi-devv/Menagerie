@@ -28,6 +28,7 @@ public class AllParticles {
                 .enableNoClip()
                 .disableCull()
                 .setShouldCull(false)
+                .enableForcedSpawn()
                 .spawn(world, pos.x, pos.y, pos.z);
     }
     public static void circleParticle(World world, Vec3d pos) {
@@ -40,6 +41,7 @@ public class AllParticles {
                 .setLifetime(120)
                 .enableNoClip()
                 .setBehavior(new DirectionalBehaviorComponent(new Vec3d(0, 90, 0)))
+                .enableForcedSpawn()
                 .disableCull()
                 .spawn(world, pos.x, pos.y + 0.71, pos.z);
         WorldParticleBuilder.create(ParticleInit.CIRCLE_2)
@@ -49,6 +51,7 @@ public class AllParticles {
                 .setLifetime(120)
                 .enableNoClip()
                 .setBehavior(new DirectionalBehaviorComponent(new Vec3d(0, 90, 0)))
+                .enableForcedSpawn()
                 .disableCull()
                 .spawn(world, pos.x, pos.y + 0.51, pos.z);
     }
@@ -63,6 +66,7 @@ public class AllParticles {
                 .enableNoClip()
                 .setBehavior(new DirectionalBehaviorComponent(new Vec3d(0, 90, 0)))
                 .disableCull()
+                .enableForcedSpawn()
                 .setLifeDelay(90)
                 .spawn(world, pos.x, pos.y + 0.71, pos.z);
         WorldParticleBuilder.create(ParticleInit.CIRCLE)
@@ -73,6 +77,7 @@ public class AllParticles {
                 .enableNoClip()
                 .setBehavior(new DirectionalBehaviorComponent(new Vec3d(0, 90, 0)))
                 .disableCull()
+                .enableForcedSpawn()
                 .setLifeDelay(90)
                 .spawn(world, pos.x, pos.y + 0.51, pos.z);
     }
@@ -88,6 +93,7 @@ public class AllParticles {
                 .setLifeDelay(240)
                 .enableNoClip()
                 .disableCull()
+                .enableForcedSpawn()
                 .setBehavior(new DirectionalBehaviorComponent(new Vec3d(0, 90, 0)))
                 .spawn(world, pos.x, pos.y, pos.z);
     }

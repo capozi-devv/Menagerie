@@ -38,27 +38,6 @@ public class CircleBeamEntity extends Entity {
             triggered = false;
             this.discard();
         } else if (this.age >= 80){
-            if (this.age == 80) {
-                DamageSource source = new DamageSource(this.getWorld().getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(DamageTypes.PLAYER_EXPLOSION));
-                Vec3d center = this.getPos();
-                double radius = 20.0;
-                Box box = new Box(
-                        center.x - radius, center.y - (radius/2), center.z - radius,
-                        center.x + radius, center.y + (radius/2), center.z + radius
-                );
-                List<LivingEntity> entities = this.getWorld().getEntitiesByClass(
-                        LivingEntity.class,
-                        box,
-                        e -> e.squaredDistanceTo(center) <= radius * radius
-                );
-                for (LivingEntity entity : entities) {
-                    double x = this.getX() - entity.getX();
-                    double z = this.getZ() - entity.getZ();
-                    if ((Entity)entity == this) return;
-                    entity.damage(source, 6);
-                    entity.takeKnockback(7, x, z);
-                }
-            }
             CircleBeamRenderer.setShouldRender(true);
             if (this.age % 2 == 0) {
                 this.getWorld().createExplosion(null, null, null, this.getPos().add(RandomHelper.randomBetween(Random.create(), -9f, 9f), RandomHelper.randomBetween(Random.create(), -9f, 9f), RandomHelper.randomBetween(Random.create(), -6f, 6f)), 8, true, World.ExplosionSourceType.MOB);

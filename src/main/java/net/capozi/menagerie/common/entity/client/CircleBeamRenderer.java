@@ -39,10 +39,12 @@ public class CircleBeamRenderer extends EntityRenderer<CircleBeamEntity> {
     }
     @Override
     public void render(CircleBeamEntity mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        AllVFX.renderObelisk(matrixStack, Vec3d.ofCenter(mobEntity.getBlockPos()));
-        AllParticles.glowAura(mobEntity.getWorld(), Vec3d.ofCenter(mobEntity.getBlockPos()));
         if (mobEntity.age == 80) {
             FlashOverlayRenderer.triggerFlash();
+        }
+        if (mobEntity.age >= 80) {
+            AllVFX.renderObelisk(matrixStack, Vec3d.ofCenter(mobEntity.getBlockPos()));
+            AllParticles.glowAura(mobEntity.getWorld(), Vec3d.ofCenter(mobEntity.getBlockPos()));
         }
     }
     @Override

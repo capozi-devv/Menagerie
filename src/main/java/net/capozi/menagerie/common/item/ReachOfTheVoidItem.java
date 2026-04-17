@@ -21,9 +21,10 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.random.Random;
 
 public class ReachOfTheVoidItem extends ToolItem {
-
+    private final ToolMaterial material;
     public ReachOfTheVoidItem(ToolMaterial material, Settings settings) {
         super(material, settings);
+        this.material = material;
     }
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
@@ -37,8 +38,14 @@ public class ReachOfTheVoidItem extends ToolItem {
                 for (int i = 0; i < targetEnder.size(); i++) {
                     ItemStack stack1 = targetEnder.getStack(i);
                     if (stack1.isOf(ItemInit.REACH_OF_THE_VOID)) {
-                        stack1.damage(1, Random.create(), null);
-                        user.getItemCooldownManager().set(ItemInit.REACH_OF_THE_VOID, 6000);
+                        stack1.damage(1, Random.create(), target);
+                        if (stack1.getDamage() >= 25) {
+                            stack1.decrement(1);
+                            target.getWorld().playSound(null, user.getBlockPos(), SoundEvents.BLOCK_BEACON_DEACTIVATE, SoundCategory.PLAYERS, 1f, 1f);
+                            user.getItemCooldownManager().set(ItemInit.REACH_OF_THE_VOID, 6000);
+                            return ActionResult.FAIL;
+                        }
+                        user.getItemCooldownManager().set(ItemInit.REACH_OF_THE_VOID, 900);
                         user.getWorld().playSound(null, user.getBlockPos(), SoundEvents.ENTITY_ENDER_EYE_DEATH, SoundCategory.PLAYERS);
                         return ActionResult.FAIL;
                     }
@@ -50,5 +57,17 @@ public class ReachOfTheVoidItem extends ToolItem {
             }
         }
         return ActionResult.PASS;
+    }
+    @Override
+    public boolean canRepair(ItemStack stack, ItemStack ingredient) {
+        return false;
+    }
+    @Override
+    public int getItemBarStep(ItemStack stack) {
+        return Math.round(13 * (material.getDurability() - stack.getDamage()) / 25f);
+    }
+    @Override
+    public int getItemBarColor(ItemStack stack) {
+        return 0x008B8B;
     }
 }
