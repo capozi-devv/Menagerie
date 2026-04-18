@@ -40,7 +40,6 @@ dependencies {
 	modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-item:${project.cca_version}")
     modImplementation("team.lodestar.lodestone:lodestone:${project.minecraft_version}-${project.lodestone_version}-fabric")
     modImplementation "maven.modrinth:dotzip:${project.dotzip_version}"
-    include "maven.modrinth:dotzip:${project.dotzip_version}"
 
     modImplementation("dev.emi:trinkets:${project.trinkets_version}")
     for (String module in port_lib_modules.split(",")) {
@@ -78,10 +77,6 @@ jar {
 	from("LICENSE") {
 		rename { "${it}_${inputs.properties.archivesName}"}
 	}
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 // configure the maven publication
 publishing {

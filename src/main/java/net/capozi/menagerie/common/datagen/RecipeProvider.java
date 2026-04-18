@@ -38,6 +38,16 @@ public class RecipeProvider extends FabricRecipeProvider {
                 .input('N', Items.NETHERITE_INGOT)
                 .criterion(hasItem(Items.NETHERITE_SCRAP), conditionsFromItem(Items.NETHERITE_SCRAP))
                 .offerTo(exporter, new Identifier(getRecipeName(ItemInit.MARK_OF_DISSONANCE)));
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ItemInit.MARK_OF_AQUEOUSNESS, 1)
+                        .pattern("SGS")
+                        .pattern("QAQ")
+                        .pattern("SGS")
+                        .input('S', Items.SOUL_SAND)
+                        .input('Q', Items.QUARTZ)
+                        .input('A', Items.NETHERITE_SCRAP)
+                        .input('G', Items.PRISMARINE_SHARD)
+                        .criterion(hasItem(Items.NETHERITE_SCRAP), conditionsFromItem(Items.NETHERITE_SCRAP))
+                        .offerTo(exporter, new Identifier(getRecipeName(ItemInit.MARK_OF_AQUEOUSNESS)));
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ItemInit.MARK_OF_THE_ACCURSED, 1)
                 .pattern("BAB")
                 .pattern("ALA")
