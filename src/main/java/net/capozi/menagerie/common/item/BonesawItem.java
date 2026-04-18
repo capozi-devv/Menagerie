@@ -37,6 +37,7 @@ public class BonesawItem extends AxeItem {
     public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
         if (world.isClient()) return;
         if (user instanceof PlayerEntity playerEntity) {
+
             if (!stack.isEmpty() && stack.isOf(ItemInit.BONESAW)) {
                 if (remainingUseTicks > 1) {
                     Box box = playerEntity.getBoundingBox();
