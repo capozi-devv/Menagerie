@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "G": {
+      "item": "minecraft:prismarine_shard"
+    },
+    "Q": {
+      "item": "minecraft:quartz"
+    },
+    "S": {
+      "item": "minecraft:soul_sand"
+    }
+  },
+  "pattern": [
+    "SGS",
+    "QAQ",
+    "SGS"
+  ],
+  "result": {
+    "item": "menagerie:mark_of_aqueousness"
+  },
+  "show_notification": true
+}

@@ -11,6 +11,7 @@ import dev.onyxstudios.cca.api.v3.item.ItemComponentInitializer;
 import net.capozi.menagerie.foundation.ItemInit;
 import net.capozi.menagerie.server.cca.*;
 import net.capozi.menagerie.server.network.*;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.util.Identifier;
 
 public class MenagerieComponents implements EntityComponentInitializer {
