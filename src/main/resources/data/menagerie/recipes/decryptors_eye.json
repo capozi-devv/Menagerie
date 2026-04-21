@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "show_notification": true,
+  "category": "equipment",
+  "pattern": [
+    "UG ",
+    "PNB",
+    " IU"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gunpowder"
+    },
+    "P": {
+      "item": "minecraft:glow_ink_sac"
+    },
+    "B": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    },
+    "U": {
+      "item": "minecraft:gold_block"
+    },
+    "I": {
+      "item": "minecraft:phantom_membrane"
+    }
+  },
+  "result": {
+    "id": "menagerie:decryptors_eye"
+  }
+}

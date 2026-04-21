@@ -8,6 +8,7 @@ import net.capozi.menagerie.common.entity.object.ChainsEntity;
 import net.capozi.menagerie.server.cca.BoundAccursedComponent;
 import net.capozi.menagerie.server.cca.BoundAqueousComponent;
 import net.capozi.menagerie.server.cca.BoundArtifactComponent;
+import net.capozi.menagerie.server.cca.DecryptorsEyeSenseAbilityComponent;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
@@ -44,10 +45,12 @@ public class Menagerie implements ModInitializer {
     public static ComponentKey<BoundArtifactComponent> BOUND_ARTIFACT;
     public static ComponentKey<BoundAccursedComponent> BOUND_ACCURSED;
     public static ComponentKey<BoundAqueousComponent> BOUND_AQUEOUS;
+    public static ComponentKey<DecryptorsEyeSenseAbilityComponent> DECRYPTORS_EYE;
     public static ComponentKey<BoundArtifactComponent> getBoundArtifact() { return BOUND_ARTIFACT; }
     public static ComponentKey<BoundAccursedComponent> getBoundAccursed() { return BOUND_ACCURSED; }
     public static ComponentKey<BoundAqueousComponent> getBoundAqueous() { return BOUND_AQUEOUS; }
-	@Override
+    public static ComponentKey<DecryptorsEyeSenseAbilityComponent> getDecryptorsEye() { return DECRYPTORS_EYE; }
+    @Override
 	public void onInitialize() {
 		ItemInit.registerItems();
 		BlockInit.registerBlocks();

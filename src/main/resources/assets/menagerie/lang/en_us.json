@@ -6,6 +6,7 @@
   "item.menagerie.damnatio_memoriae": "§3Forgotten Disc",
   "item.menagerie.damnatio_memoriae.desc": "§kThe Architect§r - Damnatio Memoriae",
   "item.menagerie.heavyiron_longspoon": "Heavyiron Longspoon",
+  "item.menagerie.decryptors_eye": "Decryptor's Eye",
   "item.menagerie.trick_room": "Trick Room",
   "item.menagerie.astral_tear": "Astral Tear",
   "item.menagerie.reach_of_the_void": "§aReach of the Void",
@@ -25,5 +26,8 @@
   "item.menagerie.bonesaw": "Bonesaw",
   "effect.menagerie.immobilized": "Chained",
   "death.attack.bonesaw": "%1$s was ripped to pieces by %2$s",
-  "death.attack.bonesaw.item": "%1$s was ripped to pieces by %2$s weilding %3$s"
+  "death.attack.bonesaw.item": "%1$s was ripped to pieces by %2$s weilding %3$s",
+  "trinkets.slot.legs.bundle": "Bundle",
+  "key.category.menagerie": "Menagerie",
+  "key.menagerie.decryptors_eye_ability": "Activate Decryptor's Eye Sense"
 }

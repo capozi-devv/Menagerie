@@ -18,7 +18,8 @@
       "cardinal-components": [
         "menagerie:bound_accursed",
         "menagerie:bound_artifact",
-        "menagerie:bound_aqueous"
+        "menagerie:bound_aqueous",
+        "menagerie:decryptors_eye_sense"
       ]
     },
 	"license": "MIT",

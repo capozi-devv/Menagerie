@@ -17,11 +17,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
 public class CircleBeamRenderer extends EntityRenderer<CircleBeamEntity> {
-    public static boolean shouldRender = false;
-    public static boolean setShouldRender(boolean value) {
-        shouldRender = value;
-        return shouldRender;
-    }
     public CircleBeamRenderer(EntityRendererFactory.Context ctx) {
         super(ctx);
     }

@@ -12,6 +12,7 @@ import net.capozi.menagerie.foundation.ItemInit;
 import net.capozi.menagerie.server.cca.*;
 import net.capozi.menagerie.server.network.*;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 
 public class MenagerieComponents implements EntityComponentInitializer {
@@ -20,8 +21,10 @@ public class MenagerieComponents implements EntityComponentInitializer {
         Menagerie.BOUND_ARTIFACT = ComponentRegistry.getOrCreate(new Identifier(Menagerie.MOD_ID, "bound_artifact"), BoundArtifactComponent.class);
         Menagerie.BOUND_ACCURSED = ComponentRegistry.getOrCreate(new Identifier(Menagerie.MOD_ID, "bound_accursed"), BoundAccursedComponent.class);
         Menagerie.BOUND_AQUEOUS = ComponentRegistry.getOrCreate(new Identifier(Menagerie.MOD_ID, "bound_aqueous"), BoundAqueousComponent.class);
+        Menagerie.DECRYPTORS_EYE = ComponentRegistry.getOrCreate(new Identifier(Menagerie.MOD_ID, "decryptors_eye_sense"), DecryptorsEyeSenseAbilityComponent.class);
         registry.registerForPlayers(Menagerie.BOUND_AQUEOUS, player -> (BoundAqueousComponent) new BoundAqueousComponentImpl(), RespawnCopyStrategy.ALWAYS_COPY);
         registry.registerForPlayers(Menagerie.BOUND_ARTIFACT, player -> (BoundArtifactComponent) new BoundArtifactComponentImpl(), RespawnCopyStrategy.ALWAYS_COPY);
         registry.registerForPlayers(Menagerie.BOUND_ACCURSED, player -> (BoundAccursedComponent) new BoundAccursedComponentImpl(), RespawnCopyStrategy.ALWAYS_COPY);
+        registry.beginRegistration(PlayerEntity.class, DecryptorsEyeSenseAbilityComponent.KEY).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(DecryptorsEyeSenseAbilityComponent::new);
     }
 }
