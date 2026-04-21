@@ -29,5 +29,11 @@
   "death.attack.bonesaw.item": "%1$s was ripped to pieces by %2$s weilding %3$s",
   "trinkets.slot.legs.bundle": "Bundle",
   "key.category.menagerie": "Menagerie",
-  "key.menagerie.decryptors_eye_ability": "Activate Decryptor's Eye Sense"
+  "key.menagerie.decryptors_eye_ability": "Activate Decryptor's Eye Sense",
+  "subtitle.menagerie.decryptors_eye": "Decryptor's Eye Clinks",
+  "subtitle.menagerie.longspoon_hit": "Longspoon Hits",
+  "subtitle.menagerie.longspoon_smash": "Longspoon Smashes",
+  "subtitle.menagerie.longspoon_pogo": "Longspoon Pogos",
+  "subtitle.menagerie.camera_flash": "Some poor fucker gets flashbanged into the Otherside",
+  "subtitle.menagerie.simulacra": "Simulacrum Vessel duplicates an Item"
 }

@@ -59,7 +59,7 @@ public class ItemInit {
     public static final Item ASTRAL_TEAR = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "astral_tear"), new AstralTearItem(new Item.Settings().maxCount(1)));
     public static final Item BONESAW = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "bonesaw"), new BonesawItem(ToolMaterials.NETHERITE, 4, -2.8f, new  Item.Settings().maxCount(1)));
     public static final Item MARK_REMOVER = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "mark_remover"), new MarkRemoverItem(new Item.Settings()));
-    public static final Item DECRYPTORS_EYE = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "decryptors_eye"), new TrinketItem(new Item.Settings().maxCount(1)));
+    public static final Item DECRYPTORS_EYE = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "decryptors_eye"), new DecryptorsEyeTrinketItem(new Item.Settings().maxCount(1)));
 
     public static final List<Item> MENAGERIE_ITEMS = List.of(CAMERA_OF_THE_OTHERSIDE, SIMULACRUM_VESSEL, DAMNATIO_MEMORIAE_MUSIC_DISC, HEAVYIRON_LONGSPOON, REACH_OF_THE_VOID, INCOMPLETE_CONSTRUCT, TRICK_ROOM, MARK_OF_DISSONANCE, MARK_OF_THE_ACCURSED, MARK_OF_AQUEOUSNESS, BONESAW, ASTRAL_TEAR);
 }

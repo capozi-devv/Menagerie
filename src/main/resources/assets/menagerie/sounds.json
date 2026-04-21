@@ -1,9 +1,15 @@
 {
+  "decryptors_eye": {
+    "sounds": [
+      "menagerie:item/glass"
+    ],
+    "subtitle": "subtitle.menagerie.decryptors_eye"
+  },
   "spoon_hit": {
     "sounds": [
       "menagerie:item/spoon_hit"
     ],
-    "subtitle": "Longspoon Hits"
+    "subtitle": "subtitle.menagerie.longspoon_hit"
   },
   "button_click": {
     "sounds": [
@@ -19,7 +25,7 @@
     "sounds": [
       "menagerie:item/flash"
     ],
-    "subtitle": "Some poor fucker gets flashbanged into the Otherside"
+    "subtitle": "subtitle.menagerie.camera_flash"
   },
   "revival": {
     "sounds": [
@@ -43,18 +49,18 @@
     "sounds": [
       "menagerie:item/simulacra"
     ],
-    "subtitle": "Simulacrum Vessel Duplicates an Item"
+    "subtitle": "subtitle.menagerie.simulacra"
   },
   "spoon_bonk": {
     "sounds": [
       "menagerie:item/spoon_bonk"
     ],
-    "subtitle": "Longspoon Smashes"
+    "subtitle": "subtitle.menagerie.longspoon_smash"
   },
   "pogo": {
     "sounds": [
       "menagerie:item/pogo"
     ],
-    "subtitle": "Longspoon Pogos"
+    "subtitle": "subtitle.menagerie.longspoon_pogo"
   }
 }

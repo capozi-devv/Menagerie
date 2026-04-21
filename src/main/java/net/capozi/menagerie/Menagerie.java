@@ -3,6 +3,7 @@ package net.capozi.menagerie;
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.internal.entity.CardinalComponentsEntity;
 import net.capozi.menagerie.common.datagen.LootTableModifiers;
+import net.capozi.menagerie.common.event.KeyInputEventHandler;
 import net.capozi.menagerie.foundation.*;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
 import net.capozi.menagerie.server.cca.BoundAccursedComponent;
@@ -59,6 +60,7 @@ public class Menagerie implements ModInitializer {
         EntityInit.register();
 		EnchantInit.init();
         DamageTypeInit.init();
+        KeyInputEventHandler.register();
 		LootTableModifiers.modifyLootTables();
         ParticleInit.PARTICLES.register();
 		Registry.register(Registries.PAINTING_VARIANT, new Identifier(MOD_ID,"ether"), new PaintingVariant(64,48));
