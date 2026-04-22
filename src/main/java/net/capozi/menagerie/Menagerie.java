@@ -10,11 +10,13 @@ import net.capozi.menagerie.server.cca.BoundAccursedComponent;
 import net.capozi.menagerie.server.cca.BoundAqueousComponent;
 import net.capozi.menagerie.server.cca.BoundArtifactComponent;
 import net.capozi.menagerie.server.cca.DecryptorsEyeSenseAbilityComponent;
+import net.capozi.menagerie.server.network.DecryptorsEyeSensesCS2Packet;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -79,6 +81,7 @@ public class Menagerie implements ModInitializer {
 			}
 			return true; // Allow normal damage
 		});
+        ServerPlayNetworking.registerGlobalReceiver(DecryptorsEyeSensesCS2Packet.ID, DecryptorsEyeSensesCS2Packet::receive);
 		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
 			if (WARDEN_LOOT_TABLE_ID.equals(id)) {
 				NbtList enchantments = new NbtList();

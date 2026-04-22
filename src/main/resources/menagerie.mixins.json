@@ -16,6 +16,7 @@
     "client.ClientPlayerEntityMixin",
     "client.ItemRendererMixin",
     "client.KeyboardMixin",
+    "client.MinecraftClientMixin",
     "client.ModelLoaderMixin",
     "client.MouseMixin",
     "client.PlayerEntityModelMixin",

@@ -33,7 +33,12 @@ public class DecryptorsEyeSenseAbilityComponent implements AutoSyncedComponent, 
     @Override
     public void tick() {
         if (cooldownTicks > 0) cooldownTicks--; activeTicks++;
-        if (cooldownTicks == 0) senseEnabled = false;
+        if (cooldownTicks == 0) activeTicks = 0;
+        System.out.println(cooldownTicks);
+        if (activeTicks >= 300) {
+            senseEnabled = false;
+        }
+        sync();
     }
     @Override
     public void readFromNbt(NbtCompound nbtCompound) {
