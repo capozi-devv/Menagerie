@@ -1,4 +1,4 @@
-package net.capozi.menagerie.mixin;
+package net.capozi.menagerie.mixin.client;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;

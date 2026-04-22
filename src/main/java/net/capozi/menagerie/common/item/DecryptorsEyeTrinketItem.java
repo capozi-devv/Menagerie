@@ -17,7 +17,6 @@ public class DecryptorsEyeTrinketItem extends TrinketItem {
     public DecryptorsEyeTrinketItem(Settings settings) {
         super(settings);
     }
-
     @Override
     public void onEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
         super.onEquip(stack, slot, entity);

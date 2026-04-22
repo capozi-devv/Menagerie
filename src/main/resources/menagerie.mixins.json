@@ -12,13 +12,15 @@
     "access.LivingEntityAccessor"
   ],
   "client": [
-    "ClientPlayerEntityMixin",
-    "ItemRendererMixin",
-    "KeyboardMixin",
-    "ModelLoaderMixin",
-    "MouseMixin",
-    "PlayerEntityModelMixin",
-    "PlayerEntityRendererMixin"
+    "client.BipedModelMixin",
+    "client.ClientPlayerEntityMixin",
+    "client.ItemRendererMixin",
+    "client.KeyboardMixin",
+    "client.ModelLoaderMixin",
+    "client.MouseMixin",
+    "client.PlayerEntityModelMixin",
+    "client.PlayerEntityRendererMixin",
+    "client.WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

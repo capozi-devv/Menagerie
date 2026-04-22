@@ -1,11 +1,10 @@
-package net.capozi.menagerie.mixin;
+package net.capozi.menagerie.mixin.client;
 
 import net.capozi.menagerie.foundation.EffectInit;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.Mouse;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

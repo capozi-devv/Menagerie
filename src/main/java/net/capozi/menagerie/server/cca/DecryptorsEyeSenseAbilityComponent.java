@@ -5,6 +5,11 @@ import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.CommonTickingComponent;
 import net.capozi.menagerie.Menagerie;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
@@ -28,7 +33,7 @@ public class DecryptorsEyeSenseAbilityComponent implements AutoSyncedComponent, 
     @Override
     public void tick() {
         if (cooldownTicks > 0) cooldownTicks--; activeTicks++;
-
+        if (cooldownTicks == 0) senseEnabled = false;
     }
     @Override
     public void readFromNbt(NbtCompound nbtCompound) {
@@ -41,5 +46,14 @@ public class DecryptorsEyeSenseAbilityComponent implements AutoSyncedComponent, 
         nbtCompound.putBoolean("senseEnabled", senseEnabled);
         nbtCompound.putInt("activeTicks", activeTicks);
         nbtCompound.putInt("cooldownTicks", cooldownTicks);
+    }
+    public static int getInstinctHighlight(Entity target) {
+        if (KEY.get(MinecraftClient.getInstance().player).senseEnabled) {
+            if (target instanceof PlayerEntity) return 0xffffff;
+            if (target instanceof HostileEntity) return 0x990000;
+            if (target instanceof PassiveEntity) return 0x4EDD35;
+            if (target instanceof ItemEntity) return 0xDB9D00;
+        }
+        return -1;
     }
 }

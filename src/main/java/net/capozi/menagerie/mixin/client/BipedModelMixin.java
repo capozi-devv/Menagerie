@@ -1,4 +1,4 @@
-package net.capozi.menagerie.mixin;
+package net.capozi.menagerie.mixin.client;
 
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
 import net.minecraft.client.render.entity.model.AnimalModel;
