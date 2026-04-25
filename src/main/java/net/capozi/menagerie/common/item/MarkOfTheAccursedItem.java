@@ -22,7 +22,7 @@ public class MarkOfTheAccursedItem extends Item {
             BoundAccursedComponent accursed = Menagerie.getBoundAccursed().get(player);
             BoundAqueousComponent aqueous = Menagerie.getBoundAqueous().get(player);
             if (artifact.hasArtifact() || accursed.hasAccursed() || aqueous.hasAqueous()) {
-                player.sendMessage(Text.literal("Thy soul cannot split in twain."), true);
+                player.sendMessage(Text.translatable("message.menagerie.mark_failure"), true);
                 return TypedActionResult.fail(player.getStackInHand(hand));
             }
             accursed.setHasAccursed(true);

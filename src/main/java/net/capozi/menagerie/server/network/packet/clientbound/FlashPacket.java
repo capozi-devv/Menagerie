@@ -1,4 +1,4 @@
-package net.capozi.menagerie.server.network;
+package net.capozi.menagerie.server.network.packet.clientbound;
 
 import net.capozi.menagerie.client.render.FlashOverlayRenderer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;

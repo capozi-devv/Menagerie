@@ -1,9 +1,8 @@
-package net.capozi.menagerie.server.network;
+package net.capozi.menagerie.server.network.packet.serverbound;
 
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 import net.capozi.menagerie.Menagerie;
-import net.capozi.menagerie.common.entity.TrinketsHelper;
 import net.capozi.menagerie.foundation.ItemInit;
 import net.capozi.menagerie.server.cca.DecryptorsEyeSenseAbilityComponent;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
@@ -14,7 +13,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-import java.util.Optional;
+import java.util.UUID;
 
 public class DecryptorsEyeSensesCS2Packet {
     public static final Identifier ID = new Identifier(Menagerie.MOD_ID, "decryptor_sense");
@@ -26,9 +25,9 @@ public class DecryptorsEyeSensesCS2Packet {
                 component.setCooldownTicks(600);
                 component.setSenseEnabled(true);
                 component.sync();
-                System.out.println(player);
+                return;
             }
-            player.sendMessage(Text.translatable("message.menagerie.ability_cooldown"));
+            player.sendMessage(Text.translatable("message.menagerie.ability_cooldown"), true);
         }
     }
 }

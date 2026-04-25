@@ -4,13 +4,19 @@ import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.CommonTickingComponent;
+import moriyashiine.enchancement.common.init.ModEnchantments;
 import net.capozi.menagerie.Menagerie;
+import net.capozi.menagerie.foundation.EnchantInit;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 
@@ -34,7 +40,6 @@ public class DecryptorsEyeSenseAbilityComponent implements AutoSyncedComponent, 
     public void tick() {
         if (cooldownTicks > 0) cooldownTicks--; activeTicks++;
         if (cooldownTicks == 0) activeTicks = 0;
-        System.out.println(cooldownTicks);
         if (activeTicks >= 300) {
             senseEnabled = false;
         }
@@ -54,7 +59,13 @@ public class DecryptorsEyeSenseAbilityComponent implements AutoSyncedComponent, 
     }
     public static int getInstinctHighlight(Entity target) {
         if (KEY.get(MinecraftClient.getInstance().player).senseEnabled) {
-            if (target instanceof PlayerEntity) return 0xffffff;
+            if (target instanceof PlayerEntity player) {
+                if (player.hasStackEquipped(EquipmentSlot.HEAD)) {
+                    ItemStack stack = player.getEquippedStack(EquipmentSlot.HEAD);
+                    if (EnchantmentHelper.getLevel(ModEnchantments.VEIL, stack) > 0) return -1;
+                }
+                return 0xffffff;
+            }
             if (target instanceof HostileEntity) return 0x990000;
             if (target instanceof PassiveEntity) return 0x4EDD35;
             if (target instanceof ItemEntity) return 0xDB9D00;

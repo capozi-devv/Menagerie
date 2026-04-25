@@ -23,7 +23,7 @@ public class MarkOfAqueousnessItem extends Item {
             BoundAccursedComponent accursed = Menagerie.getBoundAccursed().get(user);
             BoundAqueousComponent aqueous = Menagerie.getBoundAqueous().get(user);
             if (artifact.hasArtifact() || accursed.hasAccursed() || aqueous.hasAqueous()) {
-                user.sendMessage(Text.literal("Thy soul cannot split in twain."), true);
+                user.sendMessage(Text.translatable("message.menagerie.mark_failure"), true);
                 return TypedActionResult.fail(user.getStackInHand(hand));
             }
             aqueous.setHasAqueous(true);

@@ -3,7 +3,7 @@ package net.capozi.menagerie;
 import net.capozi.menagerie.common.entity.client.CircleBeamRenderer;
 import net.capozi.menagerie.client.lodestone.vfx.AllVFX;
 import net.capozi.menagerie.foundation.ParticleInit;
-import net.capozi.menagerie.server.network.FlashPacket;
+import net.capozi.menagerie.server.network.packet.clientbound.FlashPacket;
 import net.capozi.menagerie.client.render.FlashOverlayRenderer;
 import net.capozi.menagerie.foundation.EnchantInit;
 import net.capozi.menagerie.foundation.EntityInit;
