@@ -1,6 +1,5 @@
 package net.capozi.menagerie.foundation;
 
-import dev.emi.trinkets.api.TrinketItem;
 import devv.capozi.zip.common.index.Registrar;
 import net.capozi.menagerie.Menagerie;
 import net.capozi.menagerie.common.item.*;
@@ -10,7 +9,6 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 import java.util.List;
@@ -27,6 +25,7 @@ public class ItemInit {
     public static void registerItemsToWeaponGroup(FabricItemGroupEntries entries) {
         entries.addAfter(Items.TRIDENT, HEAVYIRON_LONGSPOON);
         entries.addAfter(HEAVYIRON_LONGSPOON, BONESAW);
+        entries.addAfter(BONESAW, PUNCH_UP_STAR);
     }
     public static void registerItemToToolsTabItemGroup(FabricItemGroupEntries entries) {
         entries.addAfter(Items.MUSIC_DISC_RELIC, DAMNATIO_MEMORIAE_MUSIC_DISC);
@@ -60,6 +59,7 @@ public class ItemInit {
     public static final Item BONESAW = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "bonesaw"), new BonesawItem(ToolMaterials.NETHERITE, 4, -2.8f, new  Item.Settings().maxCount(1)));
     public static final Item MARK_REMOVER = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "mark_remover"), new MarkRemoverItem(new Item.Settings()));
     public static final Item DECRYPTORS_EYE = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "decryptors_eye"), new DecryptorsEyeTrinketItem(new Item.Settings().maxCount(1)));
+    public static final Item PUNCH_UP_STAR = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "punch_up_star"), new PunchUpStarItem(ToolMaterials.NETHERITE, -1, -1f, new Item.Settings().fireproof().maxCount(1)));
 
     public static final List<Item> MENAGERIE_ITEMS = List.of(CAMERA_OF_THE_OTHERSIDE, SIMULACRUM_VESSEL, DAMNATIO_MEMORIAE_MUSIC_DISC, HEAVYIRON_LONGSPOON, REACH_OF_THE_VOID, INCOMPLETE_CONSTRUCT, TRICK_ROOM, MARK_OF_DISSONANCE, MARK_OF_THE_ACCURSED, MARK_OF_AQUEOUSNESS, BONESAW, ASTRAL_TEAR);
 }

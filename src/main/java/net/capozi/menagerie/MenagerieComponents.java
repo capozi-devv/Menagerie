@@ -21,5 +21,6 @@ public class MenagerieComponents implements EntityComponentInitializer {
         registry.registerForPlayers(Menagerie.BOUND_ARTIFACT, player -> (BoundArtifactComponent) new BoundArtifactComponentImpl(), RespawnCopyStrategy.ALWAYS_COPY);
         registry.registerForPlayers(Menagerie.BOUND_ACCURSED, player -> (BoundAccursedComponent) new BoundAccursedComponentImpl(), RespawnCopyStrategy.ALWAYS_COPY);
         registry.beginRegistration(PlayerEntity.class, DecryptorsEyeSenseAbilityComponent.KEY).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(DecryptorsEyeSenseAbilityComponent::new);
+        registry.beginRegistration(PlayerEntity.class, PunchUpComboComponent.KEY).respawnStrategy(RespawnCopyStrategy.ALWAYS_COPY).end(PunchUpComboComponent::new);
     }
 }

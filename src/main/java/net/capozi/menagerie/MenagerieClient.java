@@ -36,20 +36,6 @@ import java.util.List;
 
 public class MenagerieClient implements ClientModInitializer {
     MinecraftClient minecraftClient = MinecraftClient.getInstance();
-    public static void registerModelPredicateProviders() {
-        ModelPredicateProviderRegistry.register(ItemInit.HEAVYIRON_LONGSPOON, new Identifier("pull"), (itemStack, clientWorld, livingEntity, seed) -> {
-            if (livingEntity == null || EnchantmentHelper.getLevel(EnchantInit.POGO, itemStack) > 0) {
-                return 0.0F;
-            }
-            return livingEntity.getActiveItem() != itemStack || EnchantmentHelper.getLevel(EnchantInit.POGO, itemStack) != 0 ? 0.0F : (itemStack.getMaxUseTime() - livingEntity.getItemUseTimeLeft()) / 20.0F;
-        });
-        ModelPredicateProviderRegistry.register(ItemInit.HEAVYIRON_LONGSPOON,  new Identifier("pulling"), (itemStack, clientWorld, livingEntity, seed) -> {
-            if (livingEntity == null || EnchantmentHelper.getLevel(EnchantInit.POGO, itemStack) > 0) {
-                return 0.0F;
-            }
-            return livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack && EnchantmentHelper.getLevel(EnchantInit.POGO, itemStack) == 0 ? 1.0F : 0.0F;
-        });
-    }
     @Override
     public void onInitializeClient() {
         EntityRendererRegistry.register(EntityInit.BLUE_CHAINS, ChainsRenderer::new);
@@ -57,7 +43,6 @@ public class MenagerieClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.CHAINS, ChainsEntityModel::getTexturedModelData);
         FlashPacket.registerClientReceiver();
         FlashOverlayRenderer.init();
-        registerModelPredicateProviders();
         ParticleInit.init();
         ItemTooltipCallback.EVENT.register((ItemStack stack, TooltipContext context, List<Text> lines) -> {
             int level = EnchantmentHelper.getLevel(EnchantInit.ARCANE_DAMAGE, stack);
