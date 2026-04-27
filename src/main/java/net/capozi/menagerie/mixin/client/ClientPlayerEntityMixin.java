@@ -17,6 +17,6 @@ public class ClientPlayerEntityMixin {
             )}
     )
     private boolean noBonesawSlowdown(ClientPlayerEntity player, Operation<Boolean> original) {
-        return original.call(player) && (!player.getActiveItem().isOf(ItemInit.BONESAW));
+        return original.call(player) && (!player.getActiveItem().isOf(ItemInit.BONESAW) && !player.getActiveItem().isOf(ItemInit.PUNCH_UP_STAR));
     }
 }

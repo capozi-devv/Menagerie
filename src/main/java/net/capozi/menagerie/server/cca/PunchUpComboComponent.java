@@ -16,6 +16,7 @@ public class PunchUpComboComponent implements AutoSyncedComponent, CommonTicking
         this.player = player;
     }
     private int combo = 0;
+    public final int max_combo = 10;
     public int getCombo() { return combo; }
     public void increment() { combo++; }
     public void reset() { combo = 0; }

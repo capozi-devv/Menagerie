@@ -1,9 +1,7 @@
 package net.capozi.menagerie.foundation;
 
 import net.capozi.menagerie.Menagerie;
-import net.capozi.menagerie.common.enchant.ArcaneEnchantment;
-import net.capozi.menagerie.common.enchant.CondensedEnchantment;
-import net.capozi.menagerie.common.enchant.PogoEnchantment;
+import net.capozi.menagerie.common.enchant.*;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -24,6 +22,16 @@ public class EnchantInit {
             Registries.ENCHANTMENT,
             new Identifier(Menagerie.MOD_ID, "condensed"),
             new CondensedEnchantment()
+    );
+    public static final Enchantment IMPLOSION = Registry.register(
+            Registries.ENCHANTMENT,
+            new Identifier(Menagerie.MOD_ID, "implosion"),
+            new ImplosionEnchantment()
+    );
+    public static final Enchantment BRACER = Registry.register(
+            Registries.ENCHANTMENT,
+            new Identifier(Menagerie.MOD_ID, "bracer"),
+            new BracerEnchantment()
     );
     public static void init() {}
 }

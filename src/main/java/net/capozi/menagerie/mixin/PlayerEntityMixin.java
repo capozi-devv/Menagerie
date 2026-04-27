@@ -2,10 +2,7 @@ package net.capozi.menagerie.mixin;
 
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import net.capozi.menagerie.Menagerie;
-import net.capozi.menagerie.server.cca.BoundAccursedComponent;
-import net.capozi.menagerie.server.cca.BoundAccursedComponentImpl;
-import net.capozi.menagerie.server.cca.BoundAqueousComponent;
-import net.capozi.menagerie.server.cca.BoundArtifactComponent;
+import net.capozi.menagerie.server.cca.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -44,6 +41,15 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
        super(entityType, world);
+    }
+    @Inject(method = "applyDamage", at = @At("TAIL"))
+    private void menagerie$applyDamage(DamageSource source, float amount, CallbackInfo ci) {
+        if ((Object)this instanceof PlayerEntity player) {
+            PunchUpComboComponent combo = PunchUpComboComponent.KEY.get(player);
+            if (amount > 0) {
+                combo.reset();
+            }
+        }
     }
     @Inject(
             method = "attack",
