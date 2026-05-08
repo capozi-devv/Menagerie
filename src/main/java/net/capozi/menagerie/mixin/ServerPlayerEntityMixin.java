@@ -12,6 +12,7 @@ import net.capozi.menagerie.server.cca.BoundArtifactComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EnderChestInventory;
 import net.minecraft.item.ItemStack;
@@ -67,7 +68,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
             if (this.getWorld().isRaining() && this.getWorld().hasRain(pos)) {
                 BoundAqueousComponent aqueousComponent = Menagerie.getBoundAqueous().get(this);
                 if (aqueousComponent.hasAqueous()) {
-                    this.addStatusEffect(new StatusEffectInstance(EffectInit.SPEED, 30, 0, false, false, false));
+                    this.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 30, 0, false, false, false));
                 }
             }
         }

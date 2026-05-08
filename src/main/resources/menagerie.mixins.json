@@ -3,6 +3,7 @@
   "package": "net.capozi.menagerie.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "BundleItemMixin",
     "EnchantmentHelperMixin",
     "LivingEntityMixin",
     "PlayerEntityMixin",
@@ -14,6 +15,7 @@
   "client": [
     "client.BipedModelMixin",
     "client.ClientPlayerEntityMixin",
+    "client.InGameHudMixin",
     "client.ItemRendererMixin",
     "client.KeyboardMixin",
     "client.MinecraftClientMixin",

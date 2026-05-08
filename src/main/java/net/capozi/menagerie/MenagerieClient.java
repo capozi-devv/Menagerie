@@ -3,6 +3,7 @@ package net.capozi.menagerie;
 import net.capozi.menagerie.common.entity.client.CircleBeamRenderer;
 import net.capozi.menagerie.client.lodestone.vfx.AllVFX;
 import net.capozi.menagerie.foundation.ParticleInit;
+import net.capozi.menagerie.server.cca.PunchUpComboComponent;
 import net.capozi.menagerie.server.network.packet.clientbound.FlashPacket;
 import net.capozi.menagerie.client.render.FlashOverlayRenderer;
 import net.capozi.menagerie.foundation.EnchantInit;
@@ -13,6 +14,7 @@ import net.capozi.menagerie.common.entity.client.ChainsRenderer;
 import net.capozi.menagerie.foundation.ItemInit;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
@@ -25,6 +27,7 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.text.Text;
@@ -35,6 +38,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class MenagerieClient implements ClientModInitializer {
+    PlayerEntity renderingPlayer = null;
     MinecraftClient minecraftClient = MinecraftClient.getInstance();
     @Override
     public void onInitializeClient() {

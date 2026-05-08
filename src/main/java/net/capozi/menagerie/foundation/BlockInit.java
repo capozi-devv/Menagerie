@@ -13,7 +13,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
-public class BlockInit {
+public interface BlockInit {
     private static Block registerBlock(String name, Block block) {
         registerBlockItems(name, block);
         return Registry.register(Registries.BLOCK, new Identifier(Menagerie.MOD_ID, name), block);
@@ -22,7 +22,7 @@ public class BlockInit {
         return Registry.register(Registries.ITEM, new Identifier(Menagerie.MOD_ID, name),
                 new BlockItem(block, new FabricItemSettings()));
     }
-    public static void registerBlocks() {}
+    static void registerBlocks() {}
 //    public static final Block CAPOZI_PLUSH = registerBlock("capozi_plush", new PlushBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).nonOpaque()));
 //    public static final Block EYA_PLUSH = registerBlock("eya_plush", new PlushBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).nonOpaque()));
 //    public static final Block COSMO_PLUSH = registerBlock("cosmo_plush",new PlushBlock(FabricBlockSettings.copyOf(Blocks.WHITE_WOOL).nonOpaque()));

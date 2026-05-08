@@ -6,8 +6,8 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 
-public class DamageTypeInit {
-    public static void init() {}
-    public static final RegistryKey<DamageType> BONESAW = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier(Menagerie.MOD_ID, "bonesaw"));
-    public static final RegistryKey<DamageType> PUNCH_COMBO = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier(Menagerie.MOD_ID, "punch_combo"));
+public interface DamageTypeInit {
+    static void init() {}
+    RegistryKey<DamageType> BONESAW = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier(Menagerie.MOD_ID, "bonesaw"));
+    RegistryKey<DamageType> PUNCH_COMBO = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier(Menagerie.MOD_ID, "punch_combo"));
 }

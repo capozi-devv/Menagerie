@@ -6,22 +6,20 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
-public class SoundInit {
-    public static void registerSounds() {
-        Menagerie.LOGGER.info("Registered sounds");
-    }
+public interface SoundInit {
+    static void registerSounds() {}
     private static SoundEvent registerSoundEvents(String name) {
         Identifier id = new Identifier(Menagerie.MOD_ID, name);
         return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
     }
-    public static final SoundEvent BUTTON_CLICK = registerSoundEvents("button_click");
-    public static final SoundEvent FILM_ADVANCE_LAST = registerSoundEvents("film_advance_last");
-    public static final SoundEvent FLASH = registerSoundEvents("flash");
-    public static final SoundEvent SIMULACRA = registerSoundEvents("simulacra");
-    public static final SoundEvent SPOON_BONK = registerSoundEvents("spoon_bonk");
-    public static final SoundEvent POGO = registerSoundEvents("pogo");
-    public static final SoundEvent REVIVAL = registerSoundEvents("revival");
-    public static final SoundEvent DAMNATIO_MEMORIAE = registerSoundEvents("damnatio_memoriae");
-    public static final SoundEvent SPOON_HIT = registerSoundEvents("spoon_hit");
-    public static final SoundEvent DECRYPTORS_EYE = registerSoundEvents("decryptors_eye");
+    SoundEvent BUTTON_CLICK = registerSoundEvents("button_click");
+    SoundEvent FILM_ADVANCE_LAST = registerSoundEvents("film_advance_last");
+    SoundEvent FLASH = registerSoundEvents("flash");
+    SoundEvent SIMULACRA = registerSoundEvents("simulacra");
+    SoundEvent SPOON_BONK = registerSoundEvents("spoon_bonk");
+    SoundEvent POGO = registerSoundEvents("pogo");
+    SoundEvent REVIVAL = registerSoundEvents("revival");
+    SoundEvent DAMNATIO_MEMORIAE = registerSoundEvents("damnatio_memoriae");
+    SoundEvent SPOON_HIT = registerSoundEvents("spoon_hit");
+    SoundEvent DECRYPTORS_EYE = registerSoundEvents("decryptors_eye");
 }

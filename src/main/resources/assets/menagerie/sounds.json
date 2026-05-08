@@ -1,4 +1,10 @@
 {
+  "punch_boost": {
+    "sounds": [
+      "menagerie:item/punch_combo"
+    ],
+    "subtitle": "subtitle.menagerie.punch_boost"
+  },
   "decryptors_eye": {
     "sounds": [
       "menagerie:item/glass"

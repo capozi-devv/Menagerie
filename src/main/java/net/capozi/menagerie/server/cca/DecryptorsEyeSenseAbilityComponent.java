@@ -4,10 +4,7 @@ import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.CommonTickingComponent;
-import moriyashiine.enchancement.common.init.ModEnchantments;
 import net.capozi.menagerie.Menagerie;
-import net.capozi.menagerie.foundation.EnchantInit;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -62,7 +59,6 @@ public class DecryptorsEyeSenseAbilityComponent implements AutoSyncedComponent, 
             if (target instanceof PlayerEntity player) {
                 if (player.hasStackEquipped(EquipmentSlot.HEAD)) {
                     ItemStack stack = player.getEquippedStack(EquipmentSlot.HEAD);
-                    if (EnchantmentHelper.getLevel(ModEnchantments.VEIL, stack) > 0) return -1;
                 }
                 return 0xffffff;
             }

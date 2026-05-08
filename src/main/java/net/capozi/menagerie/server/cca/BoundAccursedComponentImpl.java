@@ -22,10 +22,11 @@ public class BoundAccursedComponentImpl implements BoundAccursedComponent {
         if (hasAccursed()) {
             var attribute = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
             if (attribute != null && attribute.getModifier(HealthUtils.EXTRA_HEARTS_UUID) == null) {
-                HealthUtils.addExtraHearts(player, 10.0);
+                HealthUtils.addExtraHearts(player, 6.0);
             }
-            player.setAir(300);
-            player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 70, 0, false, false, false));
+            if (player.getWorld().isNight()) {
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 70, 0, false, false, false));
+            }
         }
     }
     @Override
