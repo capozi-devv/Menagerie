@@ -12,10 +12,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
-import net.minecraft.item.ToolMaterial;
+import net.minecraft.item.*;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -45,12 +42,59 @@ public class PunchUpStarItem extends AxeItem {
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
         int implosion = EnchantmentHelper.getLevel(EnchantInit.IMPLOSION, stack);
+        int bracer = EnchantmentHelper.getLevel(EnchantInit.BRACER, stack);
+        int charger = EnchantmentHelper.getLevel(EnchantInit.CHARGER, stack);
+        if (bracer > 0 || charger > 0) return ActionResult.FAIL;
         if (implosion > 0) {
             PunchUpComboComponent combo = PunchUpComboComponent.KEY.get(user);
+            if (combo.getCombo() == 0) return ActionResult.FAIL;
             user.getWorld().createExplosion(user, entity.getX(), entity.getY(), entity.getZ(), (float)(combo.getCombo() * 1.6), World.ExplosionSourceType.MOB);
+            user.getWorld().playSound(null, user.getBlockPos(), SoundInit.COMBO_EXPLSOION, SoundCategory.PLAYERS, 1f, 1f);
+            user.getItemCooldownManager().set(this, 150);
             combo.reset();
+        } else {
+            if (!user.getWorld().isClient) {
+                PunchUpComboComponent combo = PunchUpComboComponent.KEY.get(user);
+                double range = 4.5;
+                Vec3d eyePos = user.getCameraPosVec(1.0f);
+                Vec3d lookVec = user.getRotationVec(1.0f);
+                Vec3d end = eyePos.add(lookVec.multiply(range));
+                EntityHitResult hit = ProjectileUtil.raycast(
+                        user,
+                        eyePos,
+                        end,
+                        user.getBoundingBox().stretch(lookVec.multiply(range)).expand(1.0),
+                        e -> !e.isSpectator() && e.isAlive(),
+                        range*range
+                );
+                if (hit != null && hit.getEntity() != null) {
+                    Entity target = hit.getEntity();
+                    target.damage(new DamageSource(user.getWorld().getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(DamageTypes.PLAYER_ATTACK), user, user), combo.getCombo() * 2);
+                    target.addVelocity((lookVec.getX() * (combo.getCombo() * 1.5)), (lookVec.getY() * (combo.getCombo() * 1.5)), (lookVec.getZ() * (combo.getCombo() * 1.5)));
+                    user.getWorld().playSound(null, user.getX(), user.getY(), user.getZ(), SoundInit.COMBO_BOOST, SoundCategory.PLAYERS, 10f, 1.0F);
+                    combo.reset();
+                }
+                user.getItemCooldownManager().set(this, 60);
+            }
         }
         return super.useOnEntity(stack, user, entity, hand);
+    }
+
+    @Override
+    public ActionResult useOnBlock(ItemUsageContext context) {
+        int implosion = EnchantmentHelper.getLevel(EnchantInit.IMPLOSION, context.getStack());
+        int bracer = EnchantmentHelper.getLevel(EnchantInit.BRACER, context.getStack());
+        int charger = EnchantmentHelper.getLevel(EnchantInit.CHARGER, context.getStack());
+        if (bracer > 0 || charger > 0) return ActionResult.FAIL;
+        if (implosion > 0) {
+            PunchUpComboComponent combo = PunchUpComboComponent.KEY.get(context.getPlayer());
+            if (combo.getCombo() == 0) return ActionResult.FAIL;
+            context.getPlayer().getWorld().createExplosion(context.getPlayer(), context.getBlockPos().getX(), context.getBlockPos().getY(), context.getBlockPos().getZ(), (float)(combo.getCombo() * 1.6), World.ExplosionSourceType.MOB);
+            context.getPlayer().getWorld().playSound(null, context.getPlayer().getBlockPos(), SoundInit.COMBO_EXPLSOION, SoundCategory.PLAYERS, 1f, 1f);
+            context.getPlayer().getItemCooldownManager().set(this, 150);
+            combo.reset();
+        }
+        return super.useOnBlock(context);
     }
 
     @Override
@@ -71,8 +115,9 @@ public class PunchUpStarItem extends AxeItem {
             if (combo.getCombo() > 0) {
                 user.setVelocity(Vec3d.ZERO);
                 dashPlayer(user, combo.getCombo());
+                user.getWorld().playSound(null, user.getBlockPos(), SoundInit.COMBO_DASH, SoundCategory.PLAYERS, 1f, 1f);
                 combo.reset();
-                user.getItemCooldownManager().set(this, 300);
+                user.getItemCooldownManager().set(this, 150);
             }
         }
         return TypedActionResult.consume(stack);
@@ -96,7 +141,6 @@ public class PunchUpStarItem extends AxeItem {
             if (component.getCombo() < component.max_combo) {
                 component.increment();
             }
-            player.getWorld().playSound(null, attacker.getBlockPos(), SoundEvents.ENTITY_ARROW_HIT_PLAYER, SoundCategory.PLAYERS, 1f, (float)component.getCombo());
         }
         return super.postHit(stack, target, attacker);
     }

@@ -22,4 +22,7 @@ public interface SoundInit {
     SoundEvent DAMNATIO_MEMORIAE = registerSoundEvents("damnatio_memoriae");
     SoundEvent SPOON_HIT = registerSoundEvents("spoon_hit");
     SoundEvent DECRYPTORS_EYE = registerSoundEvents("decryptors_eye");
+    SoundEvent COMBO_BOOST = registerSoundEvents("punch_boost");
+    SoundEvent COMBO_DASH = registerSoundEvents("punch_dash");
+    SoundEvent COMBO_EXPLSOION = registerSoundEvents("punch_explosion");
 }

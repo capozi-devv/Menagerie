@@ -13,6 +13,7 @@
     "access.LivingEntityAccessor"
   ],
   "client": [
+    "client.ArmorFeatureRendererMixin",
     "client.BipedModelMixin",
     "client.ClientPlayerEntityMixin",
     "client.InGameHudMixin",
