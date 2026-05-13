@@ -29,6 +29,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.SwordItem;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -48,6 +49,11 @@ public class MenagerieClient implements ClientModInitializer {
         FlashPacket.registerClientReceiver();
         FlashOverlayRenderer.init();
         ParticleInit.init();
+        ModelPredicateProviderRegistry.register(
+                ItemInit.PUNCH_UP_STAR,
+                new Identifier("blocking"),
+                (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0F : 0.0F
+        );
         ItemTooltipCallback.EVENT.register((ItemStack stack, TooltipContext context, List<Text> lines) -> {
             int level = EnchantmentHelper.getLevel(EnchantInit.ARCANE_DAMAGE, stack);
             if (level > 0) {

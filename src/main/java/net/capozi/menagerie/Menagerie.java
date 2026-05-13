@@ -51,7 +51,6 @@ public class Menagerie implements ModInitializer {
     @Override
 	public void onInitialize() {
 		ItemInit.registerItems();
-		BlockInit.registerBlocks();
 		SoundInit.registerSounds();
 		EffectInit.registerEffects();
         EntityInit.register();

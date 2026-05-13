@@ -1,5 +1,6 @@
 package net.capozi.menagerie.foundation;
 
+import devv.capozi.zip.common.index.Registrar;
 import net.capozi.menagerie.Menagerie;
 import net.capozi.menagerie.common.effect.ChainedEffect;
 import net.minecraft.entity.effect.StatusEffect;
@@ -13,7 +14,7 @@ public interface EffectInit {
     StatusEffect CHAINED_EFFECT = new ChainedEffect();
     RegistryEntry<StatusEffect> IMMOBILIZED = registerStatusEffect("immobilize", CHAINED_EFFECT);
     static RegistryEntry<StatusEffect> registerStatusEffect(String name,StatusEffect statusEffect) {
-        return Registry.registerReference(Registries.STATUS_EFFECT, Identifier.of(Menagerie.MOD_ID, name),statusEffect);
+        return Registry.registerReference(Registries.STATUS_EFFECT, Identifier.of(Menagerie.MOD_ID, name), statusEffect);
     }
     static void registerEffects() {}
 }

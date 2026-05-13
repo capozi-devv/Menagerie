@@ -1,12 +1,14 @@
 package net.capozi.menagerie.mixin.client;
 
 import net.capozi.menagerie.Menagerie;
+import net.capozi.menagerie.foundation.EnchantInit;
 import net.capozi.menagerie.foundation.ItemInit;
 import net.minecraft.client.render.item.ItemModels;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.ModelIdentifier;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -23,6 +25,8 @@ public abstract class ItemRendererMixin {
     private static final ModelIdentifier MARK_ACTIVE;
     private static final ModelIdentifier HEAVYIRON_LONGSPOON_HANDHELD;
     private static final ModelIdentifier BONESAW_GUI;
+    private static final ModelIdentifier PUNCH_UP_CHARGER;
+    private static final ModelIdentifier PUNCH_UP_IMPLOSION;
     @Shadow @Final private ItemModels models;
     @Shadow public abstract BakedModel getModel(ItemStack stack, @Nullable World world, @Nullable LivingEntity entity, int seed);
     @ModifyVariable(method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V", at = @At("HEAD"), argsOnly = true)
@@ -36,6 +40,18 @@ public abstract class ItemRendererMixin {
         if (stack.isOf(ItemInit.BONESAW) && (mode.equals(ModelTransformationMode.GUI) || mode.equals(ModelTransformationMode.GROUND))) {
             return models.getModelManager().getModel(BONESAW_GUI);
         }
+        if (stack.isOf(ItemInit.PUNCH_UP_STAR)) {
+            if (stack.hasEnchantments()) {
+                int implosion = EnchantmentHelper.getLevel(EnchantInit.IMPLOSION, stack);
+                int charger = EnchantmentHelper.getLevel(EnchantInit.CHARGER, stack);
+                if (implosion > 0) {
+                    return models.getModelManager().getModel(PUNCH_UP_IMPLOSION);
+                }
+                if (charger > 0) {
+                    return models.getModelManager().getModel(PUNCH_UP_CHARGER);
+                }
+            }
+        }
         return value;
     }
     static {
@@ -43,5 +59,7 @@ public abstract class ItemRendererMixin {
         MARK_ACTIVE = new ModelIdentifier(Menagerie.identifier("mark_active"), "inventory");
         HEAVYIRON_LONGSPOON_HANDHELD = new ModelIdentifier(Menagerie.identifier("heavyiron_longspoon_handheld"), "inventory");
         BONESAW_GUI = new ModelIdentifier(Menagerie.MOD_ID, "bonesaw_gui", "inventory");
+        PUNCH_UP_CHARGER = new ModelIdentifier(Menagerie.MOD_ID, "punch_up_star_charger", "inventory");
+        PUNCH_UP_IMPLOSION = new ModelIdentifier(Menagerie.MOD_ID, "punch_up_star_implosion", "inventory");
     }
 }

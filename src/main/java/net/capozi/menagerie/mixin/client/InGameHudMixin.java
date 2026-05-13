@@ -3,16 +3,14 @@ package net.capozi.menagerie.mixin.client;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.capozi.menagerie.Menagerie;
-import net.capozi.menagerie.foundation.EnchantInit;
 import net.capozi.menagerie.foundation.ItemInit;
+import net.capozi.menagerie.server.cca.PunchUpComboComponent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.AttackIndicator;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Final;
@@ -25,9 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = InGameHud.class, priority = Integer.MAX_VALUE)
 public class InGameHudMixin {
     private static final Identifier BACKGROUND = Menagerie.identifier("textures/gui/hud/punch_up_crosshair_background.png");
-    private static final Identifier DEFAULT = Menagerie.identifier("textures/gui/hud/punch_up_crosshair.png");
-    private static final Identifier CHARGER = Menagerie.identifier("textures/gui/hud/punch_up_crosshair_charger.png");
-    private static final Identifier IMPLOSION = Menagerie.identifier("textures/gui/hud/punch_up_crosshair_implosion.png");
+    private static final Identifier COMBO_PROGRESS = Menagerie.identifier("textures/gui/hud/punch_up_crosshair.png");
     @Shadow @Final
     private MinecraftClient client;
     @Shadow
@@ -37,19 +33,15 @@ public class InGameHudMixin {
         if (!client.options.getPerspective().isFirstPerson()) return;
         ClientPlayerEntity player = this.client.player;
         if (player == null) return;
-        ItemCooldownManager manager = player.getItemCooldownManager();
         if (player.getMainHandStack().isOf(ItemInit.PUNCH_UP_STAR)) {
             RenderSystem.blendFuncSeparate(
                     GlStateManager.SrcFactor.ONE_MINUS_DST_COLOR, GlStateManager.DstFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO
             );
-            ItemStack stack = player.getMainHandStack();
-            int j = (context.getScaledWindowHeight() / 2) - 7;
-            int k = (context.getScaledWindowWidth() / 2) - 7;
-            context.drawTexture(BACKGROUND, k, j, 0, 0, 15, 15);
-            if (stack.hasEnchantments()) {
-                int implosion = EnchantmentHelper.getLevel(EnchantInit.IMPLOSION, stack);
-                int charger = EnchantmentHelper.getLevel(EnchantInit.CHARGER, stack);
-            }
+            PunchUpComboComponent combo = PunchUpComboComponent.KEY.get(player);
+            int j = (context.getScaledWindowHeight() / 2) - 10;
+            int k = (context.getScaledWindowWidth() / 2) - 10;
+            context.drawTexture(BACKGROUND, k, j, 0, 0, 20, 20, 20, 20);
+            context.drawTexture(COMBO_PROGRESS, k + 20, j + 20, 0, 20, -20, -combo.getCombo() * 2, 20, 20);
             if (this.client.options.getAttackIndicator().getValue() == AttackIndicator.CROSSHAIR) {
                 float f = this.client.player.getAttackCooldownProgress(0.0F);
                 boolean bl = false;

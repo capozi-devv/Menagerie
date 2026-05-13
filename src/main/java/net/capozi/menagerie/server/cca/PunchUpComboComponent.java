@@ -34,7 +34,7 @@ public class PunchUpComboComponent implements AutoSyncedComponent, CommonTicking
     }
     @Override
     public void readFromNbt(NbtCompound tag) {
-        tag.getInt("combo");
+        combo = tag.getInt("combo");
     }
     @Override
     public void writeToNbt(NbtCompound tag) {

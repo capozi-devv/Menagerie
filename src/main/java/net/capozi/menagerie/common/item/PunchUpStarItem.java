@@ -1,5 +1,8 @@
 package net.capozi.menagerie.common.item;
 
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
+import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import net.capozi.menagerie.foundation.DamageTypeInit;
 import net.capozi.menagerie.foundation.EnchantInit;
 import net.capozi.menagerie.foundation.SoundInit;
@@ -7,7 +10,11 @@ import net.capozi.menagerie.server.cca.PunchUpComboComponent;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,11 +32,19 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class PunchUpStarItem extends AxeItem {
-    public PunchUpStarItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
-        super(toolMaterial, attackDamage, attackSpeed, settings);
+public class PunchUpStarItem extends ToolItem {
+    private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
+    public PunchUpStarItem(ToolMaterial toolMaterial, Settings settings) {
+        super(toolMaterial, settings);
+        ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
+        builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", 3d, EntityAttributeModifier.Operation.ADDITION));
+        builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -1d, EntityAttributeModifier.Operation.ADDITION));
+        this.attributeModifiers = builder.build();
     }
-
+    @Override
+    public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(ItemStack stack, EquipmentSlot slot) {
+        return slot == EquipmentSlot.MAINHAND ? this.attributeModifiers : super.getAttributeModifiers(slot);
+    }
     @Override
     public UseAction getUseAction(ItemStack stack) {
         int bracer = EnchantmentHelper.getLevel(EnchantInit.BRACER, stack);
@@ -45,9 +60,11 @@ public class PunchUpStarItem extends AxeItem {
         int bracer = EnchantmentHelper.getLevel(EnchantInit.BRACER, stack);
         int charger = EnchantmentHelper.getLevel(EnchantInit.CHARGER, stack);
         if (bracer > 0 || charger > 0) return ActionResult.FAIL;
+        user.setCurrentHand(hand);
         if (implosion > 0) {
             PunchUpComboComponent combo = PunchUpComboComponent.KEY.get(user);
             if (combo.getCombo() == 0) return ActionResult.FAIL;
+            user.swingHand(hand);
             user.getWorld().createExplosion(user, entity.getX(), entity.getY(), entity.getZ(), (float)(combo.getCombo() * 1.6), World.ExplosionSourceType.MOB);
             user.getWorld().playSound(null, user.getBlockPos(), SoundInit.COMBO_EXPLSOION, SoundCategory.PLAYERS, 1f, 1f);
             user.getItemCooldownManager().set(this, 150);
@@ -69,6 +86,7 @@ public class PunchUpStarItem extends AxeItem {
                 );
                 if (hit != null && hit.getEntity() != null) {
                     Entity target = hit.getEntity();
+                    user.swingHand(hand);
                     target.damage(new DamageSource(user.getWorld().getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(DamageTypes.PLAYER_ATTACK), user, user), combo.getCombo() * 2);
                     target.addVelocity((lookVec.getX() * (combo.getCombo() * 1.5)), (lookVec.getY() * (combo.getCombo() * 1.5)), (lookVec.getZ() * (combo.getCombo() * 1.5)));
                     user.getWorld().playSound(null, user.getX(), user.getY(), user.getZ(), SoundInit.COMBO_BOOST, SoundCategory.PLAYERS, 10f, 1.0F);
@@ -89,7 +107,8 @@ public class PunchUpStarItem extends AxeItem {
         if (implosion > 0) {
             PunchUpComboComponent combo = PunchUpComboComponent.KEY.get(context.getPlayer());
             if (combo.getCombo() == 0) return ActionResult.FAIL;
-            context.getPlayer().getWorld().createExplosion(context.getPlayer(), context.getBlockPos().getX(), context.getBlockPos().getY(), context.getBlockPos().getZ(), (float)(combo.getCombo() * 1.6), World.ExplosionSourceType.MOB);
+            context.getPlayer().swingHand(context.getHand());
+            context.getPlayer().getWorld().createExplosion(context.getPlayer(), context.getBlockPos().getX(), context.getBlockPos().getY(), context.getBlockPos().getZ(), (float)(combo.getCombo()), World.ExplosionSourceType.MOB);
             context.getPlayer().getWorld().playSound(null, context.getPlayer().getBlockPos(), SoundInit.COMBO_EXPLSOION, SoundCategory.PLAYERS, 1f, 1f);
             context.getPlayer().getItemCooldownManager().set(this, 150);
             combo.reset();
@@ -120,6 +139,7 @@ public class PunchUpStarItem extends AxeItem {
                 user.getItemCooldownManager().set(this, 150);
             }
         }
+        user.swingHand(hand);
         return TypedActionResult.consume(stack);
     }
     @Override

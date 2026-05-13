@@ -1,6 +1,5 @@
 package net.capozi.menagerie.common.datagen;
 
-import net.capozi.menagerie.foundation.BlockInit;
 import net.capozi.menagerie.foundation.ItemInit;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;

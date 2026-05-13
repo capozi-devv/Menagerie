@@ -13,8 +13,6 @@ import net.minecraft.util.Identifier;
 
 import java.util.List;
 
-import static net.capozi.menagerie.foundation.BlockInit.*;
-
 public interface ItemInit {
     static void registerItems() {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(ItemInit::registerItemToToolsTabItemGroup);
@@ -59,5 +57,5 @@ public interface ItemInit {
     Item BONESAW = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "bonesaw"), new BonesawItem(ToolMaterials.NETHERITE, 4, -2.8f, new  Item.Settings().maxCount(1)));
     Item MARK_REMOVER = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "mark_remover"), new MarkRemoverItem(new Item.Settings()));
     Item DECRYPTORS_EYE = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "decryptors_eye"), new DecryptorsEyeTrinketItem(new Item.Settings().maxCount(1)));
-    Item PUNCH_UP_STAR = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "punch_up_star"), new PunchUpStarItem(ToolMaterials.NETHERITE, -1, -1f, new Item.Settings().fireproof().maxCount(1)));
+    Item PUNCH_UP_STAR = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "punch_up_star"), new PunchUpStarItem(ToolMaterials.NETHERITE, new Item.Settings().fireproof().maxCount(1)));
 }
