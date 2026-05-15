@@ -34,13 +34,12 @@ import net.minecraft.item.SwordItem;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.TypedActionResult;
 
 import java.text.DecimalFormat;
 import java.util.List;
 
 public class MenagerieClient implements ClientModInitializer {
-    PlayerEntity renderingPlayer = null;
-    MinecraftClient minecraftClient = MinecraftClient.getInstance();
     @Override
     public void onInitializeClient() {
         EntityRendererRegistry.register(EntityInit.BLUE_CHAINS, ChainsRenderer::new);
@@ -52,7 +51,13 @@ public class MenagerieClient implements ClientModInitializer {
         ModelPredicateProviderRegistry.register(
                 ItemInit.PUNCH_UP_STAR,
                 new Identifier("blocking"),
-                (stack, world, entity, seed) -> entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0F : 0.0F
+                (stack, world, entity, seed) -> {
+                    int bracer = EnchantmentHelper.getLevel(EnchantInit.BRACER, stack);
+                    if (bracer > 0) {
+                        return entity != null && entity.isUsingItem() && entity.getActiveItem() == stack ? 1.0F : 0.0F;
+                    }
+                    return 0f;
+                }
         );
         ItemTooltipCallback.EVENT.register((ItemStack stack, TooltipContext context, List<Text> lines) -> {
             int level = EnchantmentHelper.getLevel(EnchantInit.ARCANE_DAMAGE, stack);

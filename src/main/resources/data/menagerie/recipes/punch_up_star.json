@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "base": {
+    "item": "menagerie:kinematic_core"
+  },
+  "addition": {
+    "item": "minecraft:gold_block"
+  },
+  "template": {
+    "item": "menagerie:flywheel_framework"
+  },
+  "result": {
+    "item": "menagerie:punch_up_star"
+  }
+}

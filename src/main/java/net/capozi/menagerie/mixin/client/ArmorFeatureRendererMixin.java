@@ -2,6 +2,7 @@ package net.capozi.menagerie.mixin.client;
 
 import net.capozi.menagerie.foundation.ItemInit;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -18,6 +19,7 @@ import net.minecraft.item.DyeableArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.trim.ArmorTrim;
 import net.minecraft.util.Arm;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -30,36 +32,24 @@ public abstract class ArmorFeatureRendererMixin<T extends LivingEntity, M extend
         super(context);
     }
     @Shadow
-    abstract void renderArmor(MatrixStack matrices, VertexConsumerProvider vertexConsumers, T entity, EquipmentSlot armorSlot, int light, A model);
-    @Shadow
-    abstract A getModel(EquipmentSlot slot);
-    @Inject(method = "setVisible", at = @At("TAIL"))
-    private void menagerie$setVisible(A bipedModel, EquipmentSlot slot, CallbackInfo ci) {
-        PlayerEntity player = MinecraftClient.getInstance().player;
-        GameOptions options = MinecraftClient.getInstance().options;
-        switch (slot) {
-            case CHEST:
-                if (player.getMainHandStack().isOf(ItemInit.PUNCH_UP_STAR)) {
-                    if (options.getMainArm().getValue() == Arm.LEFT) {
-                        bipedModel.leftArm.visible = false;
-                    } else {
-                        bipedModel.rightArm.visible = false;
-                    }
+    public abstract void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T livingEntity, float f, float g, float h, float j, float k, float l);
+    @Inject(method = "renderArmor", at = @At(value = "INVOKE", shift = At.Shift.AFTER, target = "Lnet/minecraft/client/render/entity/feature/ArmorFeatureRenderer;setVisible(Lnet/minecraft/client/render/entity/model/BipedEntityModel;Lnet/minecraft/entity/EquipmentSlot;)V"))
+    private void menagerie$renderArmor(MatrixStack matrices, VertexConsumerProvider vertexConsumers, T entity, EquipmentSlot armorSlot, int light, A bipedModel, CallbackInfo ci) {
+        if (entity instanceof PlayerEntity player) {
+            if (player.getMainHandStack().isOf(ItemInit.PUNCH_UP_STAR)) {
+                if (player.getMainArm() == Arm.LEFT) {
+                    bipedModel.leftArm.visible = false;
+                } else {
+                    bipedModel.rightArm.visible = false;
                 }
-                if (player.getOffHandStack().isOf(ItemInit.PUNCH_UP_STAR)) {
-                    if (options.getMainArm().getValue() == Arm.LEFT) {
-                        bipedModel.rightArm.visible = false;
-                    } else {
-                        bipedModel.leftArm.visible = false;
-                    }
+            }
+            if (player.getOffHandStack().isOf(ItemInit.PUNCH_UP_STAR)) {
+                if (player.getMainArm() == Arm.LEFT) {
+                    bipedModel.rightArm.visible = false;
+                } else {
+                    bipedModel.leftArm.visible = false;
                 }
+            }
         }
-    }
-    @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, T entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
-        this.renderArmor(matrices, vertexConsumers, entity, EquipmentSlot.CHEST, light, this.getModel(EquipmentSlot.CHEST));
-        this.renderArmor(matrices, vertexConsumers, entity, EquipmentSlot.LEGS, light, this.getModel(EquipmentSlot.LEGS));
-        this.renderArmor(matrices, vertexConsumers, entity, EquipmentSlot.FEET, light, this.getModel(EquipmentSlot.FEET));
-        this.renderArmor(matrices, vertexConsumers, entity, EquipmentSlot.HEAD, light, this.getModel(EquipmentSlot.HEAD));
     }
 }

@@ -37,25 +37,5 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(Items.SALMON)
                 .add(Items.ROTTEN_FLESH)
                 .add(Items.TROPICAL_FISH);
-        getOrCreateTagBuilder(AllItemTags.NONDUPLICATIVE)
-                .add(ItemInit.MARK_OF_AQUEOUSNESS)
-                .add(ItemInit.MARK_OF_THE_ACCURSED)
-                .add(ItemInit.MARK_OF_DISSONANCE)
-                .add(Items.NETHER_STAR)
-                .addTag(ItemTags.COAL_ORES)
-                .addTag(ItemTags.DIAMOND_ORES)
-                .addTag(ItemTags.GOLD_ORES)
-                .addTag(ItemTags.IRON_ORES)
-                .addTag(ItemTags.LAPIS_ORES)
-                .addTag(ItemTags.EMERALD_ORES)
-                .add(Items.EMERALD_BLOCK)
-                .add(Items.DIAMOND_BLOCK)
-                .add(Items.NETHERITE_BLOCK)
-                .add(Items.ANCIENT_DEBRIS)
-                .add(Items.GOLD_BLOCK)
-                .add(Items.IRON_BLOCK)
-                .add(Items.LAPIS_BLOCK)
-                .add(Items.RAW_GOLD_BLOCK)
-                .add(Items.RAW_IRON_BLOCK);
     }
 }

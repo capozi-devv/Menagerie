@@ -8,14 +8,6 @@
 		"2": "menagerie:item/punch_up_star_tinted",
 		"particle": "menagerie:item/punch_up_star"
 	},
-    "overrides": [
-      {
-        "predicate": {
-          "blocking": 1
-        },
-        "model": "menagerie:item/punch_up_star_blocking"
-      }
-    ],
 	"elements": [
 		{
 			"from": [5, 0, 5],
@@ -70,6 +62,9 @@
 			}
 		}
 	],
+	"overrides": [
+		{"predicate": {"blocking": 1}, "model": "menagerie:item/punch_up_star_blocking"}
+	],
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [90, 0, 0],
@@ -91,7 +86,7 @@
 			"translation": [0, 5.75, 0]
 		},
 		"gui": {
-			"rotation": [0, -134, 59],
+			"rotation": [0, -135, 60],
 			"translation": [-0.25, 0, 0]
 		},
 		"fixed": {

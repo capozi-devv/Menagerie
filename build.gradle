@@ -46,6 +46,7 @@ dependencies {
         modImplementation("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version")
     }
     modImplementation("com.jamieswhiteshirt:reach-entity-attributes:${project.rea_version}")
+    include("com.jamieswhiteshirt:reach-entity-attributes:${project.rea_version}")
 
 }
 

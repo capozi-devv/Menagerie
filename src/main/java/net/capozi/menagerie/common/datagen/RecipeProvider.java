@@ -6,7 +6,9 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.SmithingTransformRecipeJsonBuilder;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.util.Identifier;
 
@@ -85,5 +87,8 @@ public class RecipeProvider extends FabricRecipeProvider {
                 .input('D', Items.DIAMOND)
                 .criterion(hasItem(Items.ENDER_EYE), conditionsFromItem(Items.DIAMOND))
                 .offerTo(exporter, new Identifier(getRecipeName(ItemInit.INCOMPLETE_CONSTRUCT)));
+        SmithingTransformRecipeJsonBuilder.create(Ingredient.ofItems(Items.NETHER_STAR), Ingredient.ofItems(ItemInit.FLYWHEEL_FRAMEWORK), Ingredient.ofItems(Items.NETHERITE_INGOT), RecipeCategory.COMBAT, ItemInit.PUNCH_UP_STAR)
+                .criterion(hasItem(ItemInit.FLYWHEEL_FRAMEWORK), conditionsFromItem(ItemInit.FLYWHEEL_FRAMEWORK))
+                .offerTo(exporter, new Identifier(getRecipeName(ItemInit.PUNCH_UP_STAR)));
     }
 }

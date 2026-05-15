@@ -56,22 +56,21 @@ public class PunchUpStarItem extends ToolItem {
 
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
+        PunchUpComboComponent combo = PunchUpComboComponent.KEY.get(user);
         int implosion = EnchantmentHelper.getLevel(EnchantInit.IMPLOSION, stack);
         int bracer = EnchantmentHelper.getLevel(EnchantInit.BRACER, stack);
         int charger = EnchantmentHelper.getLevel(EnchantInit.CHARGER, stack);
-        if (bracer > 0 || charger > 0) return ActionResult.FAIL;
+        if (bracer > 0 || charger > 0) return ActionResult.PASS;
         user.setCurrentHand(hand);
         if (implosion > 0) {
-            PunchUpComboComponent combo = PunchUpComboComponent.KEY.get(user);
-            if (combo.getCombo() == 0) return ActionResult.FAIL;
+            if (combo.getCombo() == 0) return ActionResult.PASS;
             user.swingHand(hand);
             user.getWorld().createExplosion(user, entity.getX(), entity.getY(), entity.getZ(), (float)(combo.getCombo() * 1.6), World.ExplosionSourceType.MOB);
             user.getWorld().playSound(null, user.getBlockPos(), SoundInit.COMBO_EXPLSOION, SoundCategory.PLAYERS, 1f, 1f);
             user.getItemCooldownManager().set(this, 150);
             combo.reset();
-        } else {
+        } else if (combo.getCombo() > 0) {
             if (!user.getWorld().isClient) {
-                PunchUpComboComponent combo = PunchUpComboComponent.KEY.get(user);
                 double range = 4.5;
                 Vec3d eyePos = user.getCameraPosVec(1.0f);
                 Vec3d lookVec = user.getRotationVec(1.0f);
@@ -95,7 +94,7 @@ public class PunchUpStarItem extends ToolItem {
                 user.getItemCooldownManager().set(this, 60);
             }
         }
-        return super.useOnEntity(stack, user, entity, hand);
+        return ActionResult.PASS;
     }
 
     @Override
@@ -103,10 +102,10 @@ public class PunchUpStarItem extends ToolItem {
         int implosion = EnchantmentHelper.getLevel(EnchantInit.IMPLOSION, context.getStack());
         int bracer = EnchantmentHelper.getLevel(EnchantInit.BRACER, context.getStack());
         int charger = EnchantmentHelper.getLevel(EnchantInit.CHARGER, context.getStack());
-        if (bracer > 0 || charger > 0) return ActionResult.FAIL;
+        if (bracer > 0 || charger > 0) return ActionResult.PASS;
         if (implosion > 0) {
             PunchUpComboComponent combo = PunchUpComboComponent.KEY.get(context.getPlayer());
-            if (combo.getCombo() == 0) return ActionResult.FAIL;
+            if (combo.getCombo() == 0) return ActionResult.PASS;
             context.getPlayer().swingHand(context.getHand());
             context.getPlayer().getWorld().createExplosion(context.getPlayer(), context.getBlockPos().getX(), context.getBlockPos().getY(), context.getBlockPos().getZ(), (float)(combo.getCombo()), World.ExplosionSourceType.MOB);
             context.getPlayer().getWorld().playSound(null, context.getPlayer().getBlockPos(), SoundInit.COMBO_EXPLSOION, SoundCategory.PLAYERS, 1f, 1f);
@@ -126,9 +125,9 @@ public class PunchUpStarItem extends ToolItem {
         PunchUpComboComponent combo = PunchUpComboComponent.KEY.get(user);
         user.setCurrentHand(hand);
         int bracer = EnchantmentHelper.getLevel(EnchantInit.BRACER, stack);
-        if (bracer > 0) return  TypedActionResult.consume(stack);
+        if (bracer > 0) return  TypedActionResult.pass(stack);
         int implosion = EnchantmentHelper.getLevel(EnchantInit.IMPLOSION, stack);
-        if (implosion > 0) return  TypedActionResult.consume(stack);
+        if (implosion > 0) return  TypedActionResult.pass(stack);
         int charger = EnchantmentHelper.getLevel(EnchantInit.CHARGER, stack);
         if (charger > 0) {
             if (combo.getCombo() > 0) {
@@ -140,7 +139,7 @@ public class PunchUpStarItem extends ToolItem {
             }
         }
         user.swingHand(hand);
-        return TypedActionResult.consume(stack);
+        return TypedActionResult.pass(stack);
     }
     @Override
     public boolean hasGlint(ItemStack stack) {

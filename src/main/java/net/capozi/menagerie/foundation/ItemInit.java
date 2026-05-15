@@ -11,8 +11,6 @@ import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 
-import java.util.List;
-
 public interface ItemInit {
     static void registerItems() {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(ItemInit::registerItemToToolsTabItemGroup);
@@ -58,4 +56,6 @@ public interface ItemInit {
     Item MARK_REMOVER = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "mark_remover"), new MarkRemoverItem(new Item.Settings()));
     Item DECRYPTORS_EYE = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "decryptors_eye"), new DecryptorsEyeTrinketItem(new Item.Settings().maxCount(1)));
     Item PUNCH_UP_STAR = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "punch_up_star"), new PunchUpStarItem(ToolMaterials.NETHERITE, new Item.Settings().fireproof().maxCount(1)));
+    Item FLYWHEEL_FRAMEWORK = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "flywheel_framework"), new Item(new Item.Settings().maxCount(32).fireproof()));
+    Item KINEMATIC_CORE = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "kinematic_core"), new Item(new Item.Settings().maxCount(1)));
 }
