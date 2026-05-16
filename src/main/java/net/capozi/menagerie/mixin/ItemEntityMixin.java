@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
+
 @Mixin(ItemEntity.class)
 public abstract class ItemEntityMixin extends Entity implements Ownable {
     @Shadow
@@ -22,24 +23,21 @@ public abstract class ItemEntityMixin extends Entity implements Ownable {
     @Override
     public boolean collidesWith(Entity other) {
         if (other instanceof FallingBlockEntity block) {
-            if (block.getBlockState() == Blocks.ANVIL.getDefaultState()) {
+            if (block.getBlockState().getBlock() == Blocks.ANVIL) {
                 if (getStack().getItem() == Items.NETHERITE_INGOT) {
                     this.dropStack(new ItemStack(ItemInit.KINEMATIC_CORE, getStack().getCount()));
-                    this.discard();
                     this.playSound(SoundEvents.BLOCK_ANVIL_USE, 1, 1);
+                    this.discard();
+                    return super.collidesWith(other);
+                }
+                if (getStack().getItem() == Items.NETHER_STAR) {
+                    this.dropStack(new ItemStack(ItemInit.FLYWHEEL_FRAMEWORK, this.getStack().getCount()));
+                    this.playSound(SoundEvents.BLOCK_ANVIL_USE, 1, 1);
+                    this.discard();
+                    return super.collidesWith(other);
                 }
             }
         }
         return super.collidesWith(other);
-    }
-    @Override
-    protected void onBlockCollision(BlockState state) {
-        if (state.isOf(Blocks.FIRE) && this.getStack().getItem().equals(Items.NETHER_STAR)) {
-            if (getWorld() instanceof ServerWorld serverWorld) {
-                this.dropStack(new ItemStack(ItemInit.FLYWHEEL_FRAMEWORK, this.getStack().getCount()));
-                this.discard();
-                this.playSound(SoundEvents.BLOCK_LAVA_EXTINGUISH, 1, 1);
-            }
-        }
     }
 }

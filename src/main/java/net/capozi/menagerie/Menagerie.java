@@ -90,7 +90,7 @@ public class Menagerie implements ModInitializer {
 						.with(ItemEntry.builder(Items.ENCHANTED_BOOK)
 								.apply(SetNbtLootFunction.builder(nbt))
 								.weight(1))
-						.conditionally(RandomChanceLootCondition.builder(0.25f)); // 25% chance
+						.conditionally(RandomChanceLootCondition.builder(0.25f));
 				tableBuilder.pool(pool);
 			}
 		});

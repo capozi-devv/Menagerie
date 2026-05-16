@@ -156,7 +156,7 @@ public class PunchUpStarItem extends ToolItem {
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (attacker instanceof PlayerEntity player) {
             PunchUpComboComponent component = PunchUpComboComponent.KEY.get(player);
-            target.damage(new DamageSource(player.getWorld().getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(DamageTypeInit.PUNCH_COMBO)), (float)component.getCombo());
+            target.damage(new DamageSource(player.getWorld().getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(DamageTypeInit.PUNCH_COMBO)), (float)component.getCombo() * 1.5f);
             if (component.getCombo() < component.max_combo) {
                 component.increment();
             }

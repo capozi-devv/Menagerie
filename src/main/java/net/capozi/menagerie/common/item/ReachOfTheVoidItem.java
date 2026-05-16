@@ -28,6 +28,9 @@ public class ReachOfTheVoidItem extends ToolItem {
     }
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
+        if (user.getItemCooldownManager().isCoolingDown(ItemInit.REACH_OF_THE_VOID)) {
+            return ActionResult.FAIL;
+        }
         if (user instanceof ServerPlayerEntity sUser) {
             if (entity instanceof ServerPlayerEntity target) {
                 EnderChestInventory targetEnder = target.getEnderChestInventory();

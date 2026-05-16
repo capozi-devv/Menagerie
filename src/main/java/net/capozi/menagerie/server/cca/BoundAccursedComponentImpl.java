@@ -24,9 +24,7 @@ public class BoundAccursedComponentImpl implements BoundAccursedComponent {
             if (attribute != null && attribute.getModifier(HealthUtils.EXTRA_HEARTS_UUID) == null) {
                 HealthUtils.addExtraHearts(player, 6.0);
             }
-            if (player.getWorld().isNight()) {
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 70, 0, false, false, false));
-            }
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 70, 0, false, false, false));
         }
     }
     @Override
