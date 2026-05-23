@@ -12,9 +12,7 @@ import org.lwjgl.glfw.GLFW;
 public class KeyInputEventHandler {
     public static final String CATEGORY = "key.category.menagerie";
     public static final String EYE_ABILITY_KEY = "key.menagerie.decryptors_eye_ability";
-    public static final String EYE_TRACK_KEY = "key.menagerie.decryptors_eye_tracking";
     public static KeyBinding eyeKey;
-    public static KeyBinding trackKey;
 
     public static void registerKeyInputs() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {

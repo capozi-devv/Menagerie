@@ -6,7 +6,7 @@ import net.minecraft.recipe.Ingredient;
 public class ReachOftheVoidMaterial implements ToolMaterial {
     @Override
     public int getDurability() {
-        return 25;
+        return 5;
     }
 
     @Override

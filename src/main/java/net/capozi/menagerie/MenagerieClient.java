@@ -2,6 +2,7 @@ package net.capozi.menagerie;
 
 import net.capozi.menagerie.common.entity.client.CircleBeamRenderer;
 import net.capozi.menagerie.client.lodestone.vfx.AllVFX;
+import net.capozi.menagerie.common.event.KeyInputEventHandler;
 import net.capozi.menagerie.foundation.ParticleInit;
 import net.capozi.menagerie.server.cca.PunchUpComboComponent;
 import net.capozi.menagerie.server.network.packet.clientbound.FlashPacket;
@@ -48,6 +49,7 @@ public class MenagerieClient implements ClientModInitializer {
         FlashPacket.registerClientReceiver();
         FlashOverlayRenderer.init();
         ParticleInit.init();
+        KeyInputEventHandler.register();
         ModelPredicateProviderRegistry.register(
                 ItemInit.PUNCH_UP_STAR,
                 new Identifier("blocking"),

@@ -19,14 +19,18 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
+import java.util.Arrays;
+
 @Mixin(ItemRenderer.class)
 public abstract class ItemRendererMixin {
+    private final String[] punchUpStarNames = {"Punch-Star.02_Super-Nova", "Punch-Star.01_Block", "Vaserite"};
     private static final ModelIdentifier CAMERA_ACTIVE;
     private static final ModelIdentifier MARK_ACTIVE;
     private static final ModelIdentifier HEAVYIRON_LONGSPOON_HANDHELD;
     private static final ModelIdentifier BONESAW_GUI;
     private static final ModelIdentifier PUNCH_UP_CHARGER;
     private static final ModelIdentifier PUNCH_UP_IMPLOSION;
+    private static final ModelIdentifier PUNCH_UP_STAR_VASERITE;
     @Shadow @Final private ItemModels models;
     @Shadow public abstract BakedModel getModel(ItemStack stack, @Nullable World world, @Nullable LivingEntity entity, int seed);
     @ModifyVariable(method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V", at = @At("HEAD"), argsOnly = true)
@@ -41,6 +45,11 @@ public abstract class ItemRendererMixin {
             return models.getModelManager().getModel(BONESAW_GUI);
         }
         if (stack.isOf(ItemInit.PUNCH_UP_STAR)) {
+            if (stack.hasCustomName()) {
+                if (Arrays.stream(punchUpStarNames).toList().contains(stack.getName().getString())) {
+                    return models.getModelManager().getModel(PUNCH_UP_STAR_VASERITE);
+                }
+            }
             if (stack.hasEnchantments()) {
                 int implosion = EnchantmentHelper.getLevel(EnchantInit.IMPLOSION, stack);
                 int charger = EnchantmentHelper.getLevel(EnchantInit.CHARGER, stack);
@@ -61,5 +70,6 @@ public abstract class ItemRendererMixin {
         BONESAW_GUI = new ModelIdentifier(Menagerie.MOD_ID, "bonesaw_gui", "inventory");
         PUNCH_UP_CHARGER = new ModelIdentifier(Menagerie.MOD_ID, "punch_up_star_charger", "inventory");
         PUNCH_UP_IMPLOSION = new ModelIdentifier(Menagerie.MOD_ID, "punch_up_star_implosion", "inventory");
+        PUNCH_UP_STAR_VASERITE = new ModelIdentifier(Menagerie.MOD_ID, "punch_up_star_vaserite", "inventory");
     }
 }

@@ -26,6 +26,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -65,8 +66,7 @@ public class PunchUpStarItem extends ToolItem {
         if (implosion > 0) {
             if (combo.getCombo() == 0) return ActionResult.PASS;
             user.swingHand(hand);
-            user.getWorld().createExplosion(user, entity.getX(), entity.getY(), entity.getZ(), (float)(combo.getCombo() * 1.6), World.ExplosionSourceType.MOB);
-            user.getWorld().playSound(null, user.getBlockPos(), SoundInit.COMBO_EXPLSOION, SoundCategory.PLAYERS, 1f, 1f);
+            explode(user, entity, 0.3f);
             user.getItemCooldownManager().set(this, 150);
             combo.reset();
         } else if (combo.getCombo() > 0) {
@@ -107,8 +107,7 @@ public class PunchUpStarItem extends ToolItem {
             PunchUpComboComponent combo = PunchUpComboComponent.KEY.get(context.getPlayer());
             if (combo.getCombo() == 0) return ActionResult.PASS;
             context.getPlayer().swingHand(context.getHand());
-            context.getPlayer().getWorld().createExplosion(context.getPlayer(), context.getBlockPos().getX(), context.getBlockPos().getY(), context.getBlockPos().getZ(), (float)(combo.getCombo()), World.ExplosionSourceType.MOB);
-            context.getPlayer().getWorld().playSound(null, context.getPlayer().getBlockPos(), SoundInit.COMBO_EXPLSOION, SoundCategory.PLAYERS, 1f, 1f);
+            explode(context.getPlayer(), context.getBlockPos(), 1);
             context.getPlayer().getItemCooldownManager().set(this, 150);
             combo.reset();
         }
@@ -131,7 +130,6 @@ public class PunchUpStarItem extends ToolItem {
         int charger = EnchantmentHelper.getLevel(EnchantInit.CHARGER, stack);
         if (charger > 0) {
             if (combo.getCombo() > 0) {
-                user.setVelocity(Vec3d.ZERO);
                 dashPlayer(user, combo.getCombo());
                 user.getWorld().playSound(null, user.getBlockPos(), SoundInit.COMBO_DASH, SoundCategory.PLAYERS, 1f, 1f);
                 combo.reset();
@@ -169,5 +167,15 @@ public class PunchUpStarItem extends ToolItem {
         Vec3d dashVelocity = new Vec3d(look.x * strength, look.y * strength, look.z * strength);
         player.addVelocity(dashVelocity.x, dashVelocity.y, dashVelocity.z);
         player.velocityModified = true;
+    }
+    public static void explode(PlayerEntity user, LivingEntity entity, float power) {
+        PunchUpComboComponent combo = PunchUpComboComponent.KEY.get(user);
+        user.getWorld().createExplosion(user, entity.getX(), entity.getY() + 1, entity.getZ(), (float)(combo.getCombo() * power), World.ExplosionSourceType.NONE);
+        user.getWorld().playSound(null, user.getBlockPos(), SoundInit.COMBO_EXPLSOION, SoundCategory.PLAYERS, 1f, 1f);
+    }
+    public static void explode(PlayerEntity user, BlockPos pos, float power) {
+        PunchUpComboComponent combo = PunchUpComboComponent.KEY.get(user);
+        user.getWorld().createExplosion(user, pos.getX(), pos.getY(), pos.getZ(), combo.getCombo() * power, World.ExplosionSourceType.NONE);
+        user.getWorld().playSound(null, user.getBlockPos(), SoundInit.COMBO_EXPLSOION, SoundCategory.PLAYERS, 1f, 1f);
     }
 }

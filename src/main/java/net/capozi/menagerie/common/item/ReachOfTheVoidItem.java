@@ -67,7 +67,7 @@ public class ReachOfTheVoidItem extends ToolItem {
     }
     @Override
     public int getItemBarStep(ItemStack stack) {
-        return Math.round(13 * (material.getDurability() - stack.getDamage()) / 25f);
+        return Math.round(13f * (material.getDurability() - stack.getDamage()) / material.getDurability());
     }
     @Override
     public int getItemBarColor(ItemStack stack) {
