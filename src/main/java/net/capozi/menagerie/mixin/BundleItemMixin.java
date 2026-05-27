@@ -3,6 +3,7 @@ package net.capozi.menagerie.mixin;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketItem;
 import dev.emi.trinkets.api.TrinketsApi;
+import net.capozi.menagerie.foundation.ItemInit;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BundleItem;
 import net.minecraft.item.ItemStack;

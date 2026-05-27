@@ -42,7 +42,7 @@ public class ReachOfTheVoidItem extends ToolItem {
                     ItemStack stack1 = targetEnder.getStack(i);
                     if (stack1.isOf(ItemInit.REACH_OF_THE_VOID)) {
                         stack1.damage(1, Random.create(), target);
-                        if (stack1.getDamage() >= 25) {
+                        if (stack1.getDamage() >= 5) {
                             stack1.decrement(1);
                             target.getWorld().playSound(null, user.getBlockPos(), SoundEvents.BLOCK_BEACON_DEACTIVATE, SoundCategory.PLAYERS, 1f, 1f);
                             user.getItemCooldownManager().set(ItemInit.REACH_OF_THE_VOID, 6000);

@@ -29,6 +29,8 @@ import java.util.List;
 
 @Mixin(ServerPlayerEntity.class)
 public abstract class ServerPlayerEntityMixin extends PlayerEntity {
+    ServerPlayerEntity player;
+    EnderChestInventory ender;
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
     }
@@ -75,9 +77,8 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     }
     @Inject(method = "tick", at = @At("HEAD"))
     private void tickEnderChest(CallbackInfo ci) {
-        ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
-        EnderChestInventory ender = player.getEnderChestInventory();
-
+        player = (ServerPlayerEntity) (Object) this;
+        ender = player.getEnderChestInventory();
         for (int i = 0; i < ender.size(); i++) {
             ItemStack stack = ender.getStack(i);
             if (stack.isOf(ItemInit.INCOMPLETE_CONSTRUCT)) {
