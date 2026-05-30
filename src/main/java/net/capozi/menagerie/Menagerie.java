@@ -70,9 +70,9 @@ public class Menagerie implements ModInitializer {
 		ServerLivingEntityEvents.ALLOW_DAMAGE.register((LivingEntity entity, DamageSource source, float amount) -> {
 			if (entity instanceof PlayerEntity player) {
 				StatusEffectInstance effect = player.getStatusEffect(EffectInit.CHAINED_EFFECT);
-				return effect == null || effect.getAmplifier() < 0; // Cancel the damage
+				return effect == null || effect.getAmplifier() < 0;
 			}
-			return true; // Allow normal damage
+			return true;
 		});
         ServerPlayNetworking.registerGlobalReceiver(DecryptorsEyeSensesCS2Packet.ID, DecryptorsEyeSensesCS2Packet::receive);
 		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
