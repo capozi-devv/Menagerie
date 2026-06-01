@@ -31,9 +31,4 @@ public class TrickRoomItem extends Item {
     public TrickRoomItem(Settings settings) {
         super(settings);
     }
-    @Override
-    public ActionResult useOnBlock(ItemUsageContext context) {
-        AllVFX.showCubeAt(context.getBlockPos());
-        return ActionResult.PASS;
-    }
 }
