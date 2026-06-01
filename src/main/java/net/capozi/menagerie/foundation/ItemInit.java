@@ -1,6 +1,6 @@
 package net.capozi.menagerie.foundation;
 
-import devv.capozi.zip.common.index.Registrar;
+import devv.capozi.zip.common.api.index.Registrar;
 import net.capozi.menagerie.Menagerie;
 import net.capozi.menagerie.common.item.*;
 import net.capozi.menagerie.common.item.material.ReachOftheVoidMaterial;
@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public interface ItemInit {
@@ -39,7 +40,7 @@ public interface ItemInit {
 //        entries.add(EYA_PLUSH);
 //        entries.add(COSMO_PLUSH);
 //    }
-    Registrar<Item> itemRegistrar = new Registrar<Item>(Menagerie.MOD_ID, Registries.ITEM);
+    Registrar<Item> itemRegistrar = new Registrar<Item>(((id, item) -> Registry.register(Registries.ITEM, id, item)));
     Item CAMERA_OF_THE_OTHERSIDE = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "camera_of_the_otherside"), new CameraOfTheOthersideItem(new FabricItemSettings().maxCount(1)));
     Item SIMULACRUM_VESSEL = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "simulacrum_vessel"), new SimulacrumVesselItem(new FabricItemSettings().maxCount(16)));
     Item TEST_ITEM = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "test_item"), new TestItem(new FabricItemSettings()));
