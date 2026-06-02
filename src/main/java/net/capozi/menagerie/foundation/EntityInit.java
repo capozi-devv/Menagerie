@@ -3,6 +3,7 @@ package net.capozi.menagerie.foundation;
 import net.capozi.menagerie.Menagerie;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
 import net.capozi.menagerie.common.entity.object.CircleBeamEntity;
+import net.capozi.menagerie.common.entity.object.TrickRoomEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -17,6 +18,15 @@ public interface EntityInit {
             new Identifier(Menagerie.MOD_ID, "circle"),
             FabricEntityTypeBuilder.create(SpawnGroup.MISC, CircleBeamEntity::new)
                     .dimensions(EntityDimensions.fixed(0.6f, 0.5f))
+                    .fireImmune()
+                    .trackedUpdateRate(1)
+                    .trackRangeChunks(32)
+                    .trackRangeBlocks(1024)
+                    .build());
+    EntityType<TrickRoomEntity> TRICK_ROOM = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(Menagerie.MOD_ID, "trick_room"),
+            FabricEntityTypeBuilder.create(SpawnGroup.MISC, TrickRoomEntity::new)
+                    .dimensions(EntityDimensions.fixed(1.0F, 1.0F))
                     .fireImmune()
                     .trackedUpdateRate(1)
                     .trackRangeChunks(32)

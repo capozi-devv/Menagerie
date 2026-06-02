@@ -1,12 +1,14 @@
 package net.capozi.menagerie;
 
 import net.capozi.menagerie.common.entity.client.CircleBeamRenderer;
+import net.capozi.menagerie.common.entity.client.TrickRoomEntityRenderer;
 import net.capozi.menagerie.client.lodestone.vfx.AllVFX;
 import net.capozi.menagerie.common.event.KeyInputEventHandler;
 import net.capozi.menagerie.foundation.ParticleInit;
 import net.capozi.menagerie.server.cca.PunchUpComboComponent;
 import net.capozi.menagerie.server.network.packet.clientbound.FlashPacket;
 import net.capozi.menagerie.client.render.FlashOverlayRenderer;
+import net.capozi.menagerie.client.render.TrickRoomShaders;
 import net.capozi.menagerie.foundation.EnchantInit;
 import net.capozi.menagerie.foundation.EntityInit;
 import net.capozi.menagerie.common.entity.client.ChainsEntityModel;
@@ -43,8 +45,10 @@ import java.util.List;
 public class MenagerieClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+        TrickRoomShaders.register();
         EntityRendererRegistry.register(EntityInit.BLUE_CHAINS, ChainsRenderer::new);
         EntityRendererRegistry.register(EntityInit.CIRCLE, CircleBeamRenderer::new);
+        EntityRendererRegistry.register(EntityInit.TRICK_ROOM, TrickRoomEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.CHAINS, ChainsEntityModel::getTexturedModelData);
         FlashPacket.registerClientReceiver();
         FlashOverlayRenderer.init();
@@ -87,5 +91,6 @@ public class MenagerieClient implements ClientModInitializer {
                 vertexConsumers.draw();
             }
         });
+        WorldRenderEvents.LAST.register(TrickRoomEntityRenderer::renderLast);
     }
 }

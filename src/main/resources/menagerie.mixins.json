@@ -9,6 +9,9 @@
     "LivingEntityMixin",
     "PlayerEntityMixin",
     "ServerPlayerEntityMixin",
+    "TrickRoomBlockViewRaycastMixin",
+    "TrickRoomEntityCollisionMixin",
+    "TrickRoomProjectileCollisionMixin",
     "VillagerEntityMixin",
     "access.EntityAccessor",
     "access.LivingEntityAccessor"

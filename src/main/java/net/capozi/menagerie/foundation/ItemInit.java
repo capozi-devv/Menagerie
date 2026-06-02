@@ -30,7 +30,8 @@ public interface ItemInit {
         entries.addAfter(CAMERA_OF_THE_OTHERSIDE, SIMULACRUM_VESSEL);
         entries.addAfter(SIMULACRUM_VESSEL, REACH_OF_THE_VOID);
         entries.addAfter(REACH_OF_THE_VOID, ASTRAL_TEAR);
-        entries.addAfter(ASTRAL_TEAR, DECRYPTORS_EYE);
+        entries.addAfter(ASTRAL_TEAR, TRICK_ROOM);
+        entries.addAfter(TRICK_ROOM, DECRYPTORS_EYE);
         entries.addAfter(DECRYPTORS_EYE, MARK_OF_DISSONANCE);
         entries.addAfter(MARK_OF_DISSONANCE, MARK_OF_THE_ACCURSED);
         entries.addAfter(MARK_OF_THE_ACCURSED, MARK_OF_AQUEOUSNESS);
@@ -40,7 +41,7 @@ public interface ItemInit {
 //        entries.add(EYA_PLUSH);
 //        entries.add(COSMO_PLUSH);
 //    }
-    Registrar<Item> itemRegistrar = new Registrar<Item>(((id, item) -> Registry.register(Registries.ITEM, id, item)));
+    Registrar<Item> itemRegistrar = new Registrar<Item>(((identifier, item) -> Registry.register(Registries.ITEM, identifier, item)));
     Item CAMERA_OF_THE_OTHERSIDE = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "camera_of_the_otherside"), new CameraOfTheOthersideItem(new FabricItemSettings().maxCount(1)));
     Item SIMULACRUM_VESSEL = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "simulacrum_vessel"), new SimulacrumVesselItem(new FabricItemSettings().maxCount(16)));
     Item TEST_ITEM = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "test_item"), new TestItem(new FabricItemSettings()));
