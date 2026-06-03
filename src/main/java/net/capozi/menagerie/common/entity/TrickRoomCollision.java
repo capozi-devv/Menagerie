@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class TrickRoomCollision {
-    public static final int SIDE_RADIUS = 25;
+    public static final int SIDE_RADIUS = 15;
     public static final int ROOM_SIZE = SIDE_RADIUS * 2 + 1;
 
     private static final double MIN_MOVEMENT_LENGTH_SQUARED = 1.0E-9D;
@@ -30,7 +30,7 @@ public final class TrickRoomCollision {
 
     public static Box boundsCenteredAtFeet(BlockPos footBlock) {
         int minX = footBlock.getX() - SIDE_RADIUS;
-        int minY = footBlock.getY();
+        int minY = footBlock.getY() - 1;
         int minZ = footBlock.getZ() - SIDE_RADIUS;
         int maxX = minX + ROOM_SIZE;
         int maxY = minY + ROOM_SIZE;

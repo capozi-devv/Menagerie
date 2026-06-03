@@ -1,6 +1,7 @@
 package net.capozi.menagerie;
 
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
+import io.github.fabricators_of_create.porting_lib.event.common.AttackAirCallback;
 import net.capozi.menagerie.common.datagen.LootTableModifiers;
 import net.capozi.menagerie.common.event.KeyInputEventHandler;
 import net.capozi.menagerie.foundation.*;
@@ -11,6 +12,7 @@ import net.capozi.menagerie.server.cca.BoundArtifactComponent;
 import net.capozi.menagerie.server.network.packet.serverbound.DecryptorsEyeSensesCS2Packet;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
+import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -21,6 +23,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.decoration.painting.PaintingVariant;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
@@ -31,6 +34,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.EntityHitResult;
@@ -93,6 +97,27 @@ public class Menagerie implements ModInitializer {
 				tableBuilder.pool(pool);
 			}
 		});
+        AttackAirCallback.EVENT.register((player -> {
+            if (player.getMainHandStack().isOf(ItemInit.TRICK_ROOM)) {
+                if (player.getItemCooldownManager().isCoolingDown(ItemInit.TRICK_ROOM)) return;
+                ItemStack stack = player.getMainHandStack();
+                NbtCompound nbt = stack.getNbt();
+                int i = nbt.getBoolean("TrickRoomAbilityMode") ? 1 : 0;
+                switch (i) {
+                    case 0 -> {
+                        nbt.putBoolean("TrickRoomAbilityMode", true);
+                        player.playSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, 1f, 1f);
+                    }
+                    case 1 -> {
+                        nbt.putBoolean("TrickRoomAbilityMode", false);
+                        player.playSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, 1f, 1f);
+                    }
+                }
+                if (!player.getAbilities().creativeMode) {
+                    player.getItemCooldownManager().set(ItemInit.TRICK_ROOM, 60);
+                }
+            }
+        }));
     }
 	public static Identifier identifier(String name) {
 		return new Identifier(Menagerie.MOD_ID, name);

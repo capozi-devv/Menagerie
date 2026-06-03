@@ -1,4 +1,10 @@
 {
+  "trick_room": {
+    "sounds": [
+      "menagerie:item/trick_room"
+    ],
+    "subtitle": "subtitle.menagerie.trick_room"
+  },
   "punch_boost": {
     "sounds": [
       "menagerie:item/combo_punch"

@@ -4,19 +4,25 @@ import net.capozi.menagerie.common.entity.TrickRoomCollision;
 import net.capozi.menagerie.foundation.EntityInit;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 public class TrickRoomEntity extends Entity {
-    public static final int FADE_OUT_TICKS = 60;
+    public static final int FADE_OUT_TICKS = 30;
 
     private static final String MIN_X_KEY = "MinX";
     private static final String MIN_Y_KEY = "MinY";
@@ -56,7 +62,10 @@ public class TrickRoomEntity extends Entity {
         this.dataTracker.startTracking(MAX_Z, 0);
         this.dataTracker.startTracking(FADE_TICKS, 0);
     }
-
+    @Override
+    public boolean shouldRender(double cameraX, double cameraY, double cameraZ) {
+        return true;
+    }
     @Override
     public void tick() {
         super.tick();
@@ -64,6 +73,33 @@ public class TrickRoomEntity extends Entity {
         tickFadeOut();
         if (hasRoomBounds()) {
             refreshRoomBoundingBox();
+        }
+        if (this.getWorld() instanceof ServerWorld serverWorld) {
+            List<Entity> entities = serverWorld.getOtherEntities(null, getRoomBounds());
+            for (Entity entity : entities) {
+                if (entity instanceof LivingEntity livingEntity) {
+                    if (livingEntity.hasStatusEffect(StatusEffects.STRENGTH)) {
+                        StatusEffectInstance instance = livingEntity.getStatusEffect(StatusEffects.STRENGTH);
+                        livingEntity.removeStatusEffect(StatusEffects.STRENGTH);
+                        livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, instance.duration, instance.amplifier));
+                    }
+                    if (livingEntity.hasStatusEffect(StatusEffects.SPEED)) {
+                        StatusEffectInstance instance = livingEntity.getStatusEffect(StatusEffects.SPEED);
+                        livingEntity.removeStatusEffect(StatusEffects.SPEED);
+                        livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, instance.duration, instance.amplifier));
+                    }
+                    if (livingEntity.hasStatusEffect(StatusEffects.INVISIBILITY)) {
+                        StatusEffectInstance instance = livingEntity.getStatusEffect(StatusEffects.INVISIBILITY);
+                        livingEntity.removeStatusEffect(StatusEffects.INVISIBILITY);
+                        livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, instance.duration, instance.amplifier));
+                    }
+                    if (livingEntity.hasStatusEffect(StatusEffects.REGENERATION)) {
+                        StatusEffectInstance instance = livingEntity.getStatusEffect(StatusEffects.REGENERATION);
+                        livingEntity.removeStatusEffect(StatusEffects.REGENERATION);
+                        livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, instance.duration, instance.amplifier));
+                    }
+                }
+            }
         }
     }
 

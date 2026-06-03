@@ -3,6 +3,7 @@ package net.capozi.menagerie.mixin;
 import com.mojang.authlib.GameProfile;
 import net.capozi.menagerie.Menagerie;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
+import net.capozi.menagerie.common.item.TrickRoomItem;
 import net.capozi.menagerie.foundation.EffectInit;
 import net.capozi.menagerie.foundation.EnchantInit;
 import net.capozi.menagerie.foundation.EntityInit;
@@ -55,6 +56,11 @@ public abstract class LivingEntityMixin {
     @Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;onDeath(Lnet/minecraft/entity/damage/DamageSource;)V"), cancellable = true)
     private void onDieDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity thisEntity = (LivingEntity)(Object)this;
+        if (thisEntity instanceof PlayerEntity player) {
+            for (ItemStack stack : player.getInventory().main) {
+                TrickRoomItem.discardBoundRoom(player.getWorld(), stack);
+            }
+        }
         if (thisEntity instanceof PlayerEntity victimPlayer && source.getAttacker() instanceof ServerPlayerEntity killerPlayer) {
             if (victimPlayer.getWorld() == null) return;
             if (hasCameraItem(killerPlayer)) {
@@ -62,6 +68,7 @@ public abstract class LivingEntityMixin {
                 triggerMenagerieChainsEffect(killerPlayer, victimPlayer);
             }
         }
+
     }
     private boolean hasCameraItem(ServerPlayerEntity player) {
         for (ItemStack stack : player.getInventory().main) {

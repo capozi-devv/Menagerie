@@ -59,6 +59,9 @@
   "subtitle.menagerie.punch_dash": "Punch-Up Star Dashes",
   "subtitle.menagerie.punch_explosion": "Punch-Up Star Implodes",
   "subtitle.menagerie.simulacra": "Simulacrum Vessel duplicates an Item",
+  "subtitle.menagerie.trick_room": "Trick Room Conjures",
   "tooltip.menagerie.punch_up_combo": "§7Current Combo: ",
+  "tooltip.menagerie.trick_room": "§7Trick Room Ability: ",
+  "trinkets.slot.head.banner": "Banner",
   "trinkets.slot.legs.bundle": "Bundle"
 }

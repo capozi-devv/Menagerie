@@ -49,7 +49,7 @@ public interface ItemInit {
     Item HEAVYIRON_LONGSPOON = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "heavyiron_longspoon"), new HeavyIronLongSpoonItem(ToolMaterials.NETHERITE, 6, -3.2F, new Item.Settings().maxCount(1).fireproof()));
     Item REACH_OF_THE_VOID = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "reach_of_the_void"), new ReachOfTheVoidItem(new ReachOftheVoidMaterial(), new Item.Settings().maxCount(1)));
     Item INCOMPLETE_CONSTRUCT = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "incomplete_construct"), new Item(new Item.Settings().maxCount(1)));
-    Item TRICK_ROOM = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "trick_room"), new TrickRoomItem(new Item.Settings().maxCount(1)));
+    Item TRICK_ROOM = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "trick_room"), new TrickRoomItem(new Item.Settings().maxCount(1).fireproof()));
     Item MARK_OF_DISSONANCE = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "mark_of_dissonance"), new MarkOfDissonanceItem(new Item.Settings().maxCount(1)));
     Item MARK_OF_THE_ACCURSED = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "mark_of_the_accursed"), new MarkOfTheAccursedItem(new Item.Settings().maxCount(1)));
     Item MARK_OF_AQUEOUSNESS = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "mark_of_aqueousness"), new MarkOfAqueousnessItem(new Item.Settings().maxCount(1)));

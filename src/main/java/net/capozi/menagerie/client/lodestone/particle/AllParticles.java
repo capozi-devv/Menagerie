@@ -97,4 +97,19 @@ public class AllParticles {
                 .setBehavior(new DirectionalBehaviorComponent(new Vec3d(0, 90, 0)))
                 .spawn(world, pos.x, pos.y, pos.z);
     }
+    public static void shockwaveParticlesNoDelay(World world, Vec3d pos) {
+        Color startColour = new Color(0, 255, 244);
+        Color endingColor = new Color(0, 255, 244);
+        WorldParticleBuilder.create(ParticleInit.SHOCKWAVE)
+                .setScaleData(GenericParticleData.create(1f, 30f).build())
+                .setTransparencyData(GenericParticleData.create(0.95f, 0).build())
+                .setColorData(ColorParticleData.create(startColour, endingColor).setCoefficient(1.4f).build())
+                .setSpinData(SpinParticleData.create(0f, 0f).build())
+                .setLifetime(80)
+                .enableNoClip()
+                .disableCull()
+                .enableForcedSpawn()
+                .setBehavior(new DirectionalBehaviorComponent(new Vec3d(0, 90, 0)))
+                .spawn(world, pos.x, pos.y, pos.z);
+    }
 }

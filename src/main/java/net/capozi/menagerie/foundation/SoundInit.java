@@ -12,6 +12,7 @@ public interface SoundInit {
         Identifier id = new Identifier(Menagerie.MOD_ID, name);
         return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
     }
+    SoundEvent TRICK_ROOM_SPAWN = registerSoundEvents("trick_room");
     SoundEvent BUTTON_CLICK = registerSoundEvents("button_click");
     SoundEvent FILM_ADVANCE_LAST = registerSoundEvents("film_advance_last");
     SoundEvent FLASH = registerSoundEvents("flash");

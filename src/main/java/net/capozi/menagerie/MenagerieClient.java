@@ -81,16 +81,6 @@ public class MenagerieClient implements ClientModInitializer {
         FabricLoader.getInstance().getModContainer(Menagerie.MOD_ID).ifPresent(modContainer -> {
             ResourceManagerHelper.registerBuiltinResourcePack(new Identifier(Menagerie.MOD_ID, "spoon_accessibility"), modContainer, ResourcePackActivationType.NORMAL);
         });
-        WorldRenderEvents.AFTER_ENTITIES.register((context) -> {
-            if (AllVFX.shouldRenderCube) {
-                MatrixStack matrices = context.matrixStack();
-                VertexConsumerProvider.Immediate vertexConsumers = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
-                matrices.push();
-                AllVFX.renderSolidPurpleCube(matrices, vertexConsumers, AllVFX.cubePosition, 1.0f);
-                matrices.pop();
-                vertexConsumers.draw();
-            }
-        });
         WorldRenderEvents.LAST.register(TrickRoomEntityRenderer::renderLast);
     }
 }
