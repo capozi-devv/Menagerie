@@ -1,8 +1,8 @@
 package net.capozi.menagerie.mixin;
 
-import com.mojang.authlib.GameProfile;
 import net.capozi.menagerie.Menagerie;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
+import net.capozi.menagerie.common.entity.object.TrickRoomEntity;
 import net.capozi.menagerie.common.item.TrickRoomItem;
 import net.capozi.menagerie.foundation.EffectInit;
 import net.capozi.menagerie.foundation.EnchantInit;
@@ -10,41 +10,46 @@ import net.capozi.menagerie.foundation.EntityInit;
 import net.capozi.menagerie.foundation.ItemInit;
 import net.capozi.menagerie.mixin.access.EntityAccessor;
 import net.capozi.menagerie.mixin.access.LivingEntityAccessor;
-import net.capozi.menagerie.server.cca.BoundAccursedComponent;
 import net.capozi.menagerie.server.cca.BoundArtifactComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageSources;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
     @Shadow
-    public abstract boolean teleport(double x, double y, double z, boolean particleEffects);
+    public abstract boolean hasStatusEffect(StatusEffect effect);
+    @Shadow
+    @Nullable
+    public abstract StatusEffectInstance getStatusEffect(StatusEffect effect);
     private static final UUID SOUL_SPEED_BOOST_ID = UUID.fromString("87f46a96-686f-4796-b035-22e16ee9e038");
     @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
     private void onDemiseDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
@@ -78,6 +83,7 @@ public abstract class LivingEntityMixin {
         }
         return false;
     }
+
     private void triggerMenagerieChainsEffect(ServerPlayerEntity attacker, LivingEntity killed) {
         ServerWorld world = attacker.getServerWorld();
         ChainsEntity chains = new ChainsEntity(EntityInit.BLUE_CHAINS, killed.getWorld());
@@ -120,5 +126,46 @@ public abstract class LivingEntityMixin {
                 }
             }
         }
+    }
+    @ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
+    private float damageForVulnerability(float amount) {
+        if (this.hasStatusEffect(EffectInit.VULNERABILITY)) {
+            return amount + (amount * (0.25f * (this.getStatusEffect(EffectInit.VULNERABILITY).getAmplifier() + 1)));
+        }
+        return amount;
+    }
+    @ModifyVariable(method = "Lnet/minecraft/entity/LivingEntity;addStatusEffect(Lnet/minecraft/entity/effect/StatusEffectInstance;Lnet/minecraft/entity/Entity;)Z", at = @At(value = "HEAD"), argsOnly = true)
+    private StatusEffectInstance menagerie$addStatusEffect(StatusEffectInstance effect) {
+        if ((Object)this instanceof LivingEntity entity) {
+            List<TrickRoomEntity> rooms = entity.getEntityWorld().getEntitiesByClass(TrickRoomEntity.class, entity.getBoundingBox().expand(300), Objects::nonNull);
+            System.out.println(rooms);
+            for (TrickRoomEntity room : rooms) {
+                if (!room.computed.contains(entity)) return effect;
+                if (room.getRoomBounds().intersects(entity.getBoundingBox())) {
+                    if (effect.getEffectType().getCategory() == StatusEffectCategory.NEUTRAL && !effect.getEffectType().equals(StatusEffects.GLOWING)) {
+                        continue;
+                    }
+                    if (!Arrays.stream(EffectInit.positiveEffects).toList().contains(effect.getEffectType()) && !Arrays.stream(EffectInit.negativeEffects).toList().contains(effect.getEffectType())) {
+                        continue;
+                    }
+                    if (effect.getEffectType().isBeneficial()) {
+                        for (int i = 0; i < EffectInit.positiveEffects.length; i++) {
+                            if (effect.getEffectType() == EffectInit.positiveEffects[i]) {
+                                effect = new StatusEffectInstance(EffectInit.negativeEffects[i], effect.duration, effect.amplifier);
+                            }
+                        }
+                        continue;
+                    }
+                    if (!effect.getEffectType().isBeneficial()) {
+                        for (int i = 0; i < EffectInit.positiveEffects.length; i++) {
+                            if (effect.getEffectType() == EffectInit.negativeEffects[i]) {
+                                effect = new StatusEffectInstance(EffectInit.positiveEffects[i], effect.duration, effect.amplifier);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return effect;
     }
 }

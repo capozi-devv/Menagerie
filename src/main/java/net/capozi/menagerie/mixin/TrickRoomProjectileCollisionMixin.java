@@ -3,6 +3,7 @@ package net.capozi.menagerie.mixin;
 import net.capozi.menagerie.common.entity.TrickRoomCollision;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.thrown.EnderPearlEntity;
+import net.minecraft.entity.projectile.thrown.PotionEntity;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
@@ -28,8 +29,7 @@ public abstract class TrickRoomProjectileCollisionMixin {
 
         Vec3d start = new Vec3d(projectile.prevX, projectile.prevY, projectile.prevZ);
         Vec3d end = projectile.getPos();
-        if (projectile instanceof EnderPearlEntity
-                && TrickRoomCollision.segmentIntersectsBarrierShell(projectile.getWorld(), start, end, ENDER_PEARL_BORDER_REMOVAL_DISTANCE)) {
+        if (projectile instanceof EnderPearlEntity && TrickRoomCollision.segmentIntersectsBarrierShell(projectile.getWorld(), start, end, ENDER_PEARL_BORDER_REMOVAL_DISTANCE)) {
             projectile.discard();
             return;
         }

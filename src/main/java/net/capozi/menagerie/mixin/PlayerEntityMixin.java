@@ -2,17 +2,14 @@ package net.capozi.menagerie.mixin;
 
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import net.capozi.menagerie.Menagerie;
+import net.capozi.menagerie.foundation.EffectInit;
 import net.capozi.menagerie.server.cca.*;
 import net.minecraft.entity.*;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -85,7 +82,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         if (!component.hasArtifact()) {
             return super.canHaveStatusEffect(effect);
         } else {
-            return (effect.getEffectType().getCategory().equals(StatusEffectCategory.BENEFICIAL) || effect.getEffectType().getCategory().equals(StatusEffectCategory.NEUTRAL)) || effect.getEffectType().equals(StatusEffects.SLOWNESS);
+            return (effect.getEffectType().getCategory().equals(StatusEffectCategory.BENEFICIAL) || effect.getEffectType().getCategory().equals(StatusEffectCategory.NEUTRAL)) || effect.getEffectType().equals(StatusEffects.SLOWNESS) || effect.getEffectType().equals(EffectInit.RUINOUS);
         }
     }
     @Override

@@ -1,5 +1,6 @@
 package net.capozi.menagerie.common.item;
 
+import devv.capozi.zip.common.api.util.MathUtils;
 import net.capozi.menagerie.common.entity.object.TrickRoomEntity;
 import net.capozi.menagerie.foundation.SoundInit;
 import net.capozi.menagerie.server.network.packet.clientbound.FlashPacket;
@@ -20,6 +21,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import java.util.List;
@@ -54,29 +56,33 @@ public class TrickRoomItem extends Item {
         ItemStack stack = user.getStackInHand(hand);
         if (!user.isSneaking()) {
             NbtCompound nbt = stack.getNbt();
+            if (nbt == null) return TypedActionResult.pass(stack);
             if (!nbt.isEmpty()) {
+                if (!nbt.containsUuid(ROOM_UUID_KEY)) return TypedActionResult.pass(stack);
                 UUID roomUuid = nbt.getUuid(ROOM_UUID_KEY);
                 if (world instanceof ServerWorld serverWorld) {
                     boolean bl = stack.getNbt().getBoolean("TrickRoomAbilityMode");
                     TrickRoomEntity room = serverWorld.getEntity(roomUuid) instanceof TrickRoomEntity ? (TrickRoomEntity)serverWorld.getEntity(roomUuid) : null;
                     List<Entity> entities = serverWorld.getOtherEntities(user, room.getRoomBounds());
-                    List<LivingEntity> livingEntities = serverWorld.getEntitiesByClass(LivingEntity.class, room.getRoomBounds().contract(1), entity -> entity.isAlive() && entity != user);
+                    List<LivingEntity> livingEntities = serverWorld.getEntitiesByClass(LivingEntity.class, room.getRoomBounds().contract(1.5), entity -> entity.isAlive() && entity != user);
                     if (bl) {
                         BlockPos pos = user.getBlockPos();
                         Random r = new Random();
-                        LivingEntity swapped = livingEntities.get(r.nextInt(livingEntities.size()));
+                        int i = r.nextInt(livingEntities.size());
+                        LivingEntity swapped = livingEntities.get(i);
                         BlockPos target = swapped.getBlockPos();
-                        user.teleport(target.getX(), target.getY(), target.getZ(), true);
-                        swapped.teleport(pos.getX(), pos.getY(), pos.getZ(), true);
+                        user.teleport(target.getX(), target.getY(), target.getZ());
+                        swapped.setPos(pos.getX(), pos.getY(), pos.getZ());
+                        if (!user.getAbilities().creativeMode) user.getItemCooldownManager().set(this, 300);
                         return TypedActionResult.success(stack);
                     }
                     for (Entity entity : entities) {
                        if (entity instanceof LivingEntity) {
                            entity.setVelocity(user.getRotationVector().multiply(5));
-                           if (!user.getAbilities().creativeMode) {
-                               user.getItemCooldownManager().set(this, 300);
-                           }
                        }
+                    }
+                    if (!user.getAbilities().creativeMode) {
+                        user.getItemCooldownManager().set(this, 300);
                     }
                 }
             }
@@ -106,7 +112,6 @@ public class TrickRoomItem extends Item {
                 }
                 return;
             }
-
             TrickRoomEntity room = TrickRoomEntity.create(world, player.getBlockPos());
             if (world.spawnEntity(room)) {
                 NbtCompound nbt = stack.getOrCreateNbt();
@@ -116,7 +121,7 @@ public class TrickRoomItem extends Item {
             world.playSound(null, room.getBlockPos(), SoundInit.TRICK_ROOM_SPAWN, SoundCategory.PLAYERS, 7f, 1f);
             FlashPacket.sendToTracking((ServerWorld) player.getWorld(), player);
         }
-        player.getItemCooldownManager().set(this, 20);
+        if (!player.getAbilities().creativeMode) player.getItemCooldownManager().set(this, 20);
     }
 
     public static boolean discardBoundRoom(World world, ItemStack stack) {
@@ -124,7 +129,6 @@ public class TrickRoomItem extends Item {
         if (nbt == null || !nbt.containsUuid(ROOM_UUID_KEY)) {
             return false;
         }
-
         UUID roomUuid = nbt.getUuid(ROOM_UUID_KEY);
         if (world instanceof ServerWorld serverWorld) {
             MinecraftServer server = serverWorld.getServer();
@@ -138,7 +142,6 @@ public class TrickRoomItem extends Item {
                 }
             }
         }
-
         clearBoundRoom(stack);
         return false;
     }
@@ -148,7 +151,6 @@ public class TrickRoomItem extends Item {
         if (nbt == null) {
             return;
         }
-
         nbt.remove(ROOM_UUID_KEY);
         nbt.remove(ROOM_DIMENSION_KEY);
     }

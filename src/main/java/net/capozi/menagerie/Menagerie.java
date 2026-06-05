@@ -10,11 +10,14 @@ import net.capozi.menagerie.server.cca.BoundAccursedComponent;
 import net.capozi.menagerie.server.cca.BoundAqueousComponent;
 import net.capozi.menagerie.server.cca.BoundArtifactComponent;
 import net.capozi.menagerie.server.network.packet.serverbound.DecryptorsEyeSensesCS2Packet;
+import net.capozi.menagerie.server.network.packet.serverbound.TrickRoomNbtSyncCS2Packet;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.Entity;
@@ -79,6 +82,7 @@ public class Menagerie implements ModInitializer {
 			return true;
 		});
         ServerPlayNetworking.registerGlobalReceiver(DecryptorsEyeSensesCS2Packet.ID, DecryptorsEyeSensesCS2Packet::receive);
+        ServerPlayNetworking.registerGlobalReceiver(TrickRoomNbtSyncCS2Packet.ID, TrickRoomNbtSyncCS2Packet::receive);
 		LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
 			if (WARDEN_LOOT_TABLE_ID.equals(id)) {
 				NbtList enchantments = new NbtList();
@@ -98,25 +102,7 @@ public class Menagerie implements ModInitializer {
 			}
 		});
         AttackAirCallback.EVENT.register((player -> {
-            if (player.getMainHandStack().isOf(ItemInit.TRICK_ROOM)) {
-                if (player.getItemCooldownManager().isCoolingDown(ItemInit.TRICK_ROOM)) return;
-                ItemStack stack = player.getMainHandStack();
-                NbtCompound nbt = stack.getNbt();
-                int i = nbt.getBoolean("TrickRoomAbilityMode") ? 1 : 0;
-                switch (i) {
-                    case 0 -> {
-                        nbt.putBoolean("TrickRoomAbilityMode", true);
-                        player.playSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, 1f, 1f);
-                    }
-                    case 1 -> {
-                        nbt.putBoolean("TrickRoomAbilityMode", false);
-                        player.playSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, 1f, 1f);
-                    }
-                }
-                if (!player.getAbilities().creativeMode) {
-                    player.getItemCooldownManager().set(ItemInit.TRICK_ROOM, 60);
-                }
-            }
+            ClientPlayNetworking.send(TrickRoomNbtSyncCS2Packet.ID, PacketByteBufs.create());
         }));
     }
 	public static Identifier identifier(String name) {

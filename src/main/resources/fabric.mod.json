@@ -21,7 +21,8 @@
         "menagerie:bound_artifact",
         "menagerie:bound_aqueous",
         "menagerie:decryptors_eye_sense",
-        "menagerie:punch_up_combo"
+        "menagerie:punch_up_combo",
+        "menagerie:current_trick_room"
       ]
     },
 	"license": "MIT",

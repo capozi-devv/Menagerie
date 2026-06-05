@@ -8,6 +8,8 @@
   "death.attack.punch_combo.player": "%1$s experienced a high velocity combo punch from %2$s",
   "death.attack.punch_combo.item": "%1$s experienced a high velocity combo punch from %2$s wielding %3$s",
   "effect.menagerie.immobilized": "Chained",
+  "effect.menagerie.vulnerability": "Vulnerability",
+  "entity.menagerie.trick_room": "Trick Room",
   "enchantment.menagerie.arcane": "Arcane",
   "enchantment.menagerie.arcane.desc": "Adds magic damage to the weapon proportional to the weapon's attack damage",
   "enchantment.menagerie.bracer": "Bracer",

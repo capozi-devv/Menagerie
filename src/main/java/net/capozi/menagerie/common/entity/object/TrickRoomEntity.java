@@ -1,6 +1,7 @@
 package net.capozi.menagerie.common.entity.object;
 
 import net.capozi.menagerie.common.entity.TrickRoomCollision;
+import net.capozi.menagerie.foundation.EffectInit;
 import net.capozi.menagerie.foundation.EntityInit;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -9,9 +10,14 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.projectile.thrown.PotionEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionUtil;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -19,9 +25,13 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class TrickRoomEntity extends Entity {
+    public List<Entity> computed = new ArrayList<>();
     public static final int FADE_OUT_TICKS = 30;
 
     private static final String MIN_X_KEY = "MinX";
@@ -78,26 +88,15 @@ public class TrickRoomEntity extends Entity {
             List<Entity> entities = serverWorld.getOtherEntities(null, getRoomBounds());
             for (Entity entity : entities) {
                 if (entity instanceof LivingEntity livingEntity) {
-                    if (livingEntity.hasStatusEffect(StatusEffects.STRENGTH)) {
-                        StatusEffectInstance instance = livingEntity.getStatusEffect(StatusEffects.STRENGTH);
-                        livingEntity.removeStatusEffect(StatusEffects.STRENGTH);
-                        livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, instance.duration, instance.amplifier));
+                    if (computed.contains(livingEntity)) {
+                        continue;
                     }
-                    if (livingEntity.hasStatusEffect(StatusEffects.SPEED)) {
-                        StatusEffectInstance instance = livingEntity.getStatusEffect(StatusEffects.SPEED);
-                        livingEntity.removeStatusEffect(StatusEffects.SPEED);
-                        livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, instance.duration, instance.amplifier));
+                    Collection<StatusEffectInstance> effects = reverseEffects(livingEntity.getStatusEffects().toArray(StatusEffectInstance[]::new));
+                    livingEntity.clearStatusEffects();
+                    for (StatusEffectInstance effect : effects) {
+                        livingEntity.addStatusEffect(effect);
                     }
-                    if (livingEntity.hasStatusEffect(StatusEffects.INVISIBILITY)) {
-                        StatusEffectInstance instance = livingEntity.getStatusEffect(StatusEffects.INVISIBILITY);
-                        livingEntity.removeStatusEffect(StatusEffects.INVISIBILITY);
-                        livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, instance.duration, instance.amplifier));
-                    }
-                    if (livingEntity.hasStatusEffect(StatusEffects.REGENERATION)) {
-                        StatusEffectInstance instance = livingEntity.getStatusEffect(StatusEffects.REGENERATION);
-                        livingEntity.removeStatusEffect(StatusEffects.REGENERATION);
-                        livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, instance.duration, instance.amplifier));
-                    }
+                    computed.add(livingEntity);
                 }
             }
         }
@@ -246,5 +245,32 @@ public class TrickRoomEntity extends Entity {
         } else {
             this.dataTracker.set(FADE_TICKS, fadeTicks - 1);
         }
+    }
+    public static Collection<StatusEffectInstance> reverseEffects(StatusEffectInstance... effectInstances) {
+        Collection<StatusEffectInstance> effects = new ArrayList<>();
+        for (StatusEffectInstance effect : effectInstances) {
+            if (effect.getEffectType().getCategory() == StatusEffectCategory.NEUTRAL && !effect.getEffectType().equals(StatusEffects.GLOWING)) {
+                continue;
+            }
+            if (!Arrays.stream(EffectInit.positiveEffects).toList().contains(effect.getEffectType()) && !Arrays.stream(EffectInit.negativeEffects).toList().contains(effect.getEffectType())) {
+                continue;
+            }
+            if (effect.getEffectType().isBeneficial()) {
+                for (int i = 0; i < EffectInit.positiveEffects.length; i++) {
+                    if (effect.getEffectType() == EffectInit.positiveEffects[i]) {
+                        effects.add(new StatusEffectInstance(EffectInit.negativeEffects[i], effect.duration, effect.amplifier));
+                    }
+                }
+                continue;
+            }
+            if (!effect.getEffectType().isBeneficial()) {
+                for (int i = 0; i < EffectInit.positiveEffects.length; i++) {
+                    if (effect.getEffectType() == EffectInit.negativeEffects[i]) {
+                        effects.add(new StatusEffectInstance(EffectInit.positiveEffects[i], effect.duration, effect.amplifier));
+                    }
+                }
+            }
+        }
+        return effects;
     }
 }
