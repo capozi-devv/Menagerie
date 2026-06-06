@@ -128,9 +128,9 @@ public abstract class LivingEntityMixin {
         }
     }
     @ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
-    private float damageForVulnerability(float amount) {
+    private float menagerie$damage(float amount) {
         if (this.hasStatusEffect(EffectInit.VULNERABILITY)) {
-            return amount + (amount * (0.25f * (this.getStatusEffect(EffectInit.VULNERABILITY).getAmplifier() + 1)));
+            return amount + (amount * (0.4f * (this.getStatusEffect(EffectInit.VULNERABILITY).getAmplifier() + 1)));
         }
         return amount;
     }
@@ -138,7 +138,6 @@ public abstract class LivingEntityMixin {
     private StatusEffectInstance menagerie$addStatusEffect(StatusEffectInstance effect) {
         if ((Object)this instanceof LivingEntity entity) {
             List<TrickRoomEntity> rooms = entity.getEntityWorld().getEntitiesByClass(TrickRoomEntity.class, entity.getBoundingBox().expand(300), Objects::nonNull);
-            System.out.println(rooms);
             for (TrickRoomEntity room : rooms) {
                 if (!room.computed.contains(entity)) return effect;
                 if (room.getRoomBounds().intersects(entity.getBoundingBox())) {

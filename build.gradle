@@ -18,7 +18,7 @@ repositories {
     maven {url = "https://maven.jamieswhiteshirt.com/libs-release"}
     maven {url = 'https://maven.ladysnake.org/releases'}
     maven {url = "https://maven.terraformersmc.com/"}
-
+    maven {url = "https://maven.midnightdust.eu/releases"}
 }
 
 fabricApi {
@@ -47,6 +47,8 @@ dependencies {
     modImplementation("com.jamieswhiteshirt:reach-entity-attributes:${project.rea_version}")
     include("com.jamieswhiteshirt:reach-entity-attributes:${project.rea_version}")
     modImplementation fileTree(dir: 'libs', include: ['*.jar'])
+    modImplementation("eu.midnightdust:midnightlib:${project.midnightlib_version}")
+    include("eu.midnightdust:midnightlib:${project.midnightlib_version}")
 }
 
 processResources {

@@ -1,6 +1,8 @@
 package net.capozi.menagerie;
 
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
+import eu.midnightdust.core.MidnightLib;
+import eu.midnightdust.lib.config.MidnightConfig;
 import io.github.fabricators_of_create.porting_lib.event.common.AttackAirCallback;
 import net.capozi.menagerie.common.datagen.LootTableModifiers;
 import net.capozi.menagerie.common.event.KeyInputEventHandler;
@@ -57,7 +59,8 @@ public class Menagerie implements ModInitializer {
     public static ComponentKey<BoundAqueousComponent> getBoundAqueous() { return BOUND_AQUEOUS; }
     @Override
 	public void onInitialize() {
-		ItemInit.registerItems();
+        MidnightConfig.init(MOD_ID, MenagerieConfig.class);
+        ItemInit.registerItems();
 		SoundInit.registerSounds();
 		EffectInit.registerEffects();
         EntityInit.register();

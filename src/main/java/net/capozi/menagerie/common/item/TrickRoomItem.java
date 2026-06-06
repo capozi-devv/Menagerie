@@ -21,7 +21,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import java.util.List;
@@ -64,14 +63,14 @@ public class TrickRoomItem extends Item {
                     boolean bl = stack.getNbt().getBoolean("TrickRoomAbilityMode");
                     TrickRoomEntity room = serverWorld.getEntity(roomUuid) instanceof TrickRoomEntity ? (TrickRoomEntity)serverWorld.getEntity(roomUuid) : null;
                     List<Entity> entities = serverWorld.getOtherEntities(user, room.getRoomBounds());
-                    List<LivingEntity> livingEntities = serverWorld.getEntitiesByClass(LivingEntity.class, room.getRoomBounds().contract(1.5), entity -> entity.isAlive() && entity != user);
+                    List<LivingEntity> livingEntities = serverWorld.getEntitiesByClass(LivingEntity.class, room.getRoomBounds().contract(1), entity -> entity.isAlive() && entity != user);
                     if (bl) {
                         BlockPos pos = user.getBlockPos();
                         Random r = new Random();
                         int i = r.nextInt(livingEntities.size());
                         LivingEntity swapped = livingEntities.get(i);
                         BlockPos target = swapped.getBlockPos();
-                        user.teleport(target.getX(), target.getY(), target.getZ());
+                        user.teleport(target.getX(), target.getY(), target.getZ(), true);
                         swapped.setPos(pos.getX(), pos.getY(), pos.getZ());
                         if (!user.getAbilities().creativeMode) user.getItemCooldownManager().set(this, 300);
                         return TypedActionResult.success(stack);
