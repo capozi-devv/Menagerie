@@ -82,7 +82,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         if (!component.hasArtifact()) {
             return super.canHaveStatusEffect(effect);
         } else {
-            return (effect.getEffectType().getCategory().equals(StatusEffectCategory.BENEFICIAL) || effect.getEffectType().getCategory().equals(StatusEffectCategory.NEUTRAL)) || effect.getEffectType().equals(StatusEffects.SLOWNESS) || effect.getEffectType().equals(EffectInit.RUINOUS);
+            return (effect.getEffectType().getCategory().equals(StatusEffectCategory.BENEFICIAL) || effect.getEffectType().getCategory().equals(StatusEffectCategory.NEUTRAL)) && !effect.getEffectType().equals(StatusEffects.RESISTANCE);
         }
     }
     @Override

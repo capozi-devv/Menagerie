@@ -20,14 +20,18 @@ public class TrickRoomNbtSyncCS2Packet {
             if (player.getItemCooldownManager().isCoolingDown(ItemInit.TRICK_ROOM)) return;
             ItemStack stack = player.getMainHandStack();
             NbtCompound nbt = stack.getNbt();
-            int i = nbt.getBoolean("TrickRoomAbilityMode") ? 1 : 0;
+            int i = nbt.getInt("TrickRoomAbilityMode");
             switch (i) {
                 case 0 -> {
-                    nbt.putBoolean("TrickRoomAbilityMode", true);
+                    nbt.putInt("TrickRoomAbilityMode", 1);
                     player.getWorld().playSound(null, player.getBlockPos(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.PLAYERS, 1f, 1f);
                 }
                 case 1 -> {
-                    nbt.putBoolean("TrickRoomAbilityMode", false);
+                    nbt.putInt("TrickRoomAbilityMode", 2);
+                    player.getWorld().playSound(null, player.getBlockPos(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.PLAYERS, 1f, 1f);
+                }
+                case 2 -> {
+                    nbt.putInt("TrickRoomAbilityMode", 0);
                     player.getWorld().playSound(null, player.getBlockPos(), SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, SoundCategory.PLAYERS, 1f, 1f);
                 }
             }

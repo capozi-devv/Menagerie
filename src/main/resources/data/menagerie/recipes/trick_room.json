@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "DGD",
+    "GTG",
+    "DGD"
+  ],
+  "key": {
+    "T": {
+      "item": "menagerie:trick_room"
+    },
+    "G": {
+      "item": "minecraft:gold_block"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "result": {
+    "item": "menagerie:trick_room"
+  }
+}

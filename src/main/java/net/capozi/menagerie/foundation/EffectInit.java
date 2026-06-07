@@ -15,7 +15,7 @@ public interface EffectInit {
     StatusEffect CHAINED_EFFECT = new ChainedEffect();
     StatusEffect RUINOUS = new RuinousEffect();
     StatusEffect VULNERABILITY = new VulnerabilityEffect();
-    RegistryEntry<StatusEffect> IMMOBILIZED = registerStatusEffect("immobilize", CHAINED_EFFECT);
+    RegistryEntry<StatusEffect> immobilized = registerStatusEffect("immobilize", CHAINED_EFFECT);
     RegistryEntry<StatusEffect> dismantled = registerStatusEffect("ruinous", RUINOUS);
     RegistryEntry<StatusEffect> vulnerability = registerStatusEffect("vulnerability", VULNERABILITY);
     static RegistryEntry<StatusEffect> registerStatusEffect(String name,StatusEffect statusEffect) {

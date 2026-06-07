@@ -4,7 +4,6 @@
   ],
   "slots": [
     "head/face",
-    "head/banner",
     "legs/bundle"
   ]
 }

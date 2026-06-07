@@ -40,8 +40,10 @@ public class ChainedEffect extends StatusEffect {
         for (ChainsEntity chains : chainsNearby) {
             chains.discard();
         }
-        if ((PlayerEntity)entity instanceof TrappedState state) {
-            state.setTrapped(false);
+        if (entity instanceof PlayerEntity player) {
+            if (player instanceof TrappedState state) {
+                state.setTrapped(false);
+            }
         }
     }
 }

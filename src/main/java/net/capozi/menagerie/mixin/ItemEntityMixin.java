@@ -25,7 +25,7 @@ public abstract class ItemEntityMixin extends Entity implements Ownable {
         if (other instanceof FallingBlockEntity block) {
             if (block.getBlockState().getBlock() == Blocks.ANVIL) {
                 if (getStack().getItem() == Items.NETHERITE_INGOT) {
-                    this.dropStack(new ItemStack(ItemInit.KINEMATIC_CORE, getStack().getCount()));
+                    this.dropStack(new ItemStack(ItemInit.KINEMATIC_CORE, 1));
                     this.playSound(SoundEvents.BLOCK_ANVIL_USE, 1, 1);
                     this.discard();
                     return super.collidesWith(other);
