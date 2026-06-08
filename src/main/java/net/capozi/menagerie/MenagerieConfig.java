@@ -1,8 +1,6 @@
 package net.capozi.menagerie;
 
 import eu.midnightdust.lib.config.MidnightConfig;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

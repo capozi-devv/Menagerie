@@ -36,11 +36,6 @@ public interface ItemInit {
         entries.addAfter(MARK_OF_DISSONANCE, MARK_OF_THE_ACCURSED);
         entries.addAfter(MARK_OF_THE_ACCURSED, MARK_OF_AQUEOUSNESS);
     }
-//    public static void registerBlocksToBuildingTab(FabricItemGroupEntries entries) {
-//        entries.add(CAPOZI_PLUSH);
-//        entries.add(EYA_PLUSH);
-//        entries.add(COSMO_PLUSH);
-//    }
     Registrar<Item> itemRegistrar = new Registrar<Item>(((identifier, item) -> Registry.register(Registries.ITEM, identifier, item)));
     Item CAMERA_OF_THE_OTHERSIDE = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "camera_of_the_otherside"), new CameraOfTheOthersideItem(new FabricItemSettings().maxCount(1)));
     Item SIMULACRUM_VESSEL = itemRegistrar.add(Identifier.of(Menagerie.MOD_ID, "simulacrum_vessel"), new SimulacrumVesselItem(new FabricItemSettings().maxCount(16)));
