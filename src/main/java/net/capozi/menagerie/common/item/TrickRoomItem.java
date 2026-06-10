@@ -142,7 +142,6 @@ public class TrickRoomItem extends Item {
                     player.getItemCooldownManager().set(this, 6000);
                     if (stack.getNbt().getBoolean(TEMPORARY)) {
                         world.playSound(null, player.getBlockPos(), SoundEvents.ENTITY_ITEM_BREAK, SoundCategory.PLAYERS, 1f, 1f);
-
                     }
                 }
                 return;
@@ -175,7 +174,6 @@ public class TrickRoomItem extends Item {
                         stack.decrement(1);
                     }
                     world.playSound(null, room.getBlockPos(), SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE.value(), SoundCategory.PLAYERS, 7f, 1f);
-
                     clearBoundRoom(stack);
                     return true;
                 }
