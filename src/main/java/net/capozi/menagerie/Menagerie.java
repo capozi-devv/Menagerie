@@ -22,6 +22,7 @@ import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -109,6 +110,9 @@ public class Menagerie implements ModInitializer {
         AttackAirCallback.EVENT.register((player -> {
             ClientPlayNetworking.send(TrickRoomNbtSyncCS2Packet.ID, PacketByteBufs.create());
         }));
+        if (!FabricLoader.getInstance().isModLoaded("dotzip")) {
+            throw new RuntimeException("Dotzip is required to run " + MOD_ID);
+        }
     }
 	public static Identifier identifier(String name) {
 		return new Identifier(Menagerie.MOD_ID, name);

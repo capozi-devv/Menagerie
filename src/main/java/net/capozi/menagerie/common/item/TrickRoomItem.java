@@ -131,6 +131,8 @@ public class TrickRoomItem extends Item {
         }
         if (player.isSneaking()) {
             toggleRoom(context.getWorld(), player, context.getStack());
+        } else {
+            use(context.getWorld(), context.getPlayer(), context.getHand());
         }
         return ActionResult.success(context.getWorld().isClient());
     }

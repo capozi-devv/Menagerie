@@ -43,7 +43,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     private void menagerie$applyDamage(DamageSource source, float amount, CallbackInfo ci) {
         if ((Object)this instanceof PlayerEntity player) {
             PunchUpComboComponent combo = PunchUpComboComponent.KEY.get(player);
-            if (amount > 6) {
+            if (amount > 4) {
                 combo.reset();
             }
         }
