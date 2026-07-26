@@ -27,6 +27,8 @@ public abstract class ItemRendererMixin {
     private static final ModelIdentifier CAMERA_ACTIVE;
     private static final ModelIdentifier MARK_ACTIVE;
     private static final ModelIdentifier HEAVYIRON_LONGSPOON_HANDHELD;
+    private static final ModelIdentifier HEAVYGOLD_LONGSPOON_HANDHELD;
+    private static final ModelIdentifier HEAVYGOLD_LONGSPOON;
     private static final ModelIdentifier BONESAW_GUI;
     private static final ModelIdentifier PUNCH_UP_CHARGER;
     private static final ModelIdentifier PUNCH_UP_IMPLOSION;
@@ -39,8 +41,17 @@ public abstract class ItemRendererMixin {
             return models.getModelManager().getModel(CAMERA_ACTIVE);
         if(stack.isOf(ItemInit.MARK_OF_DISSONANCE) && !mode.equals(ModelTransformationMode.GUI))
             return models.getModelManager().getModel(MARK_ACTIVE);
-        if (stack.isOf(ItemInit.HEAVYIRON_LONGSPOON) && !mode.equals(ModelTransformationMode.GUI) && !mode.equals(ModelTransformationMode.GROUND))
-            return models.getModelManager().getModel(HEAVYIRON_LONGSPOON_HANDHELD);
+        if (stack.isOf(ItemInit.HEAVYIRON_LONGSPOON)) {
+            if (!mode.equals(ModelTransformationMode.GUI) && !mode.equals(ModelTransformationMode.GROUND)) {
+                if (stack.getOrCreateNbt().getBoolean("golden")) {
+                    return models.getModelManager().getModel(HEAVYGOLD_LONGSPOON_HANDHELD);
+                }
+                return models.getModelManager().getModel(HEAVYIRON_LONGSPOON_HANDHELD);
+            }
+            if (stack.getOrCreateNbt().getBoolean("golden")) {
+                return models.getModelManager().getModel(HEAVYGOLD_LONGSPOON);
+            }
+        }
         if (stack.isOf(ItemInit.BONESAW) && (mode.equals(ModelTransformationMode.GUI) || mode.equals(ModelTransformationMode.GROUND))) {
             return models.getModelManager().getModel(BONESAW_GUI);
         }
@@ -67,6 +78,8 @@ public abstract class ItemRendererMixin {
         CAMERA_ACTIVE = new ModelIdentifier(Menagerie.identifier("camera_active"), "inventory");
         MARK_ACTIVE = new ModelIdentifier(Menagerie.identifier("mark_active"), "inventory");
         HEAVYIRON_LONGSPOON_HANDHELD = new ModelIdentifier(Menagerie.identifier("heavyiron_longspoon_handheld"), "inventory");
+        HEAVYGOLD_LONGSPOON = new ModelIdentifier(Menagerie.identifier("heavygold_longspoon"), "inventory");
+        HEAVYGOLD_LONGSPOON_HANDHELD= new ModelIdentifier(Menagerie.identifier("heavygold_longspoon_handheld"), "inventory");
         BONESAW_GUI = new ModelIdentifier(Menagerie.MOD_ID, "bonesaw_gui", "inventory");
         PUNCH_UP_CHARGER = new ModelIdentifier(Menagerie.MOD_ID, "punch_up_star_charger", "inventory");
         PUNCH_UP_IMPLOSION = new ModelIdentifier(Menagerie.MOD_ID, "punch_up_star_implosion", "inventory");

@@ -24,5 +24,7 @@ public abstract class ModelLoaderMixin {
         addModel(new ModelIdentifier(Menagerie.MOD_ID, "punch_up_star_charger", "inventory"));
         addModel(new ModelIdentifier(Menagerie.MOD_ID, "punch_up_star_implosion", "inventory"));
         addModel(new ModelIdentifier(Menagerie.MOD_ID, "punch_up_star_vaserite", "inventory"));
+        addModel(new ModelIdentifier(Menagerie.identifier("heavygold_longspoon"), "inventory"));
+        addModel(new ModelIdentifier(Menagerie.identifier("heavygold_longspoon_handheld"), "inventory"));
     }
 }

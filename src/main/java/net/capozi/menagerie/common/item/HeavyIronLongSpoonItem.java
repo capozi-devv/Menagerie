@@ -3,9 +3,11 @@ package net.capozi.menagerie.common.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
+import devv.capozi.zip.common.api.DataConstants;
 import net.capozi.menagerie.foundation.EnchantInit;
 import net.capozi.menagerie.foundation.ItemInit;
 import net.capozi.menagerie.foundation.SoundInit;
+import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -21,6 +23,7 @@ import net.minecraft.entity.vehicle.TntMinecartEntity;
 import net.minecraft.item.*;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -76,8 +79,18 @@ public class HeavyIronLongSpoonItem extends ShovelItem {
     }
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
+        if (context.getPlayer().isSneaking()) {
+            if (context.getWorld().getBlockState(context.getBlockPos()) == Blocks.SMITHING_TABLE.getDefaultState()) {
+                if (DataConstants.friendUUIDs.contains(context.getPlayer().getUuid()) || DataConstants.capozi_uuid.contains(context.getPlayer().getUuid())) {
+                    context.getWorld().playSound(null, context.getBlockPos(), SoundEvents.BLOCK_SMITHING_TABLE_USE, SoundCategory.BLOCKS, 1f, 1f);
+                    context.getStack().getOrCreateNbt().putBoolean("golden", !context.getStack().getOrCreateNbt().getBoolean("golden"));
+                    return ActionResult.SUCCESS;
+                }
+            }
+        }
+
         if (EnchantmentHelper.getLevel(EnchantInit.POGO, context.getStack()) != 0) {
-            if(((PlayerEntity)context.getPlayer()).canModifyBlocks()) {
+            if(context.getPlayer().canModifyBlocks()) {
                 Vec3d lookVec = context.getPlayer().getRotationVec(1.0f);
                 if (!context.getPlayer().isOnGround()) {
                     context.getPlayer().setVelocity(-lookVec.getX() * 2.45, -lookVec.getY() * 2.35, -lookVec.getZ() * 2.45);
