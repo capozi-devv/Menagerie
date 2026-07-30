@@ -107,9 +107,6 @@ public class Menagerie implements ModInitializer {
 				tableBuilder.pool(pool);
 			}
 		});
-        AttackAirCallback.EVENT.register((player -> {
-            ClientPlayNetworking.send(TrickRoomNbtSyncCS2Packet.ID, PacketByteBufs.create());
-        }));
         if (!FabricLoader.getInstance().isModLoaded("dotzip")) {
             throw new RuntimeException("Dotzip is required to run " + MOD_ID);
         }

@@ -1,5 +1,6 @@
 package net.capozi.menagerie;
 
+import io.github.fabricators_of_create.porting_lib.event.common.AttackAirCallback;
 import net.capozi.menagerie.common.entity.client.CircleBeamRenderer;
 import net.capozi.menagerie.common.entity.client.TrickRoomEntityRenderer;
 import net.capozi.menagerie.client.lodestone.vfx.AllVFX;
@@ -15,12 +16,15 @@ import net.capozi.menagerie.common.entity.client.ChainsEntityModel;
 import net.capozi.menagerie.client.render.ModModelLayers;
 import net.capozi.menagerie.common.entity.client.ChainsRenderer;
 import net.capozi.menagerie.foundation.ItemInit;
+import net.capozi.menagerie.server.network.packet.serverbound.TrickRoomNbtSyncCS2Packet;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -81,6 +85,9 @@ public class MenagerieClient implements ClientModInitializer {
         FabricLoader.getInstance().getModContainer(Menagerie.MOD_ID).ifPresent(modContainer -> {
             ResourceManagerHelper.registerBuiltinResourcePack(new Identifier(Menagerie.MOD_ID, "spoon_accessibility"), modContainer, ResourcePackActivationType.NORMAL);
         });
+        AttackAirCallback.EVENT.register((player -> {
+            ClientPlayNetworking.send(TrickRoomNbtSyncCS2Packet.ID, PacketByteBufs.create());
+        }));
         WorldRenderEvents.LAST.register(TrickRoomEntityRenderer::renderLast);
     }
 }
