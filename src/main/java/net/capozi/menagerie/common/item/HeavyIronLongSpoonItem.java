@@ -121,7 +121,7 @@ public class HeavyIronLongSpoonItem extends ShovelItem {
                                 playerEntity,
                                 eyePos,
                                 end,
-                                playerEntity.getBoundingBox().stretch(lookVec.multiply(range)).expand(1.0),
+                                playerEntity.getBoundingBox().stretch(lookVec.multiply(range)).expand(4.0),
                                 e -> !e.isSpectator() && e.isAlive(),
                                 range*range
                         );
