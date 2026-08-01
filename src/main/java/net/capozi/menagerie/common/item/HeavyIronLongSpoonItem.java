@@ -63,7 +63,10 @@ public class HeavyIronLongSpoonItem extends ShovelItem {
     }
     @Override
     public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(ItemStack stack, EquipmentSlot slot) {
-        return slot == EquipmentSlot.MAINHAND ? this.attributeModifiers : super.getAttributeModifiers(slot);
+        if (slot == EquipmentSlot.MAINHAND) {
+            return attributeModifiers;
+        }
+        return super.getAttributeModifiers(stack, slot);
     }
     @Override
     public UseAction getUseAction(ItemStack stack) {
