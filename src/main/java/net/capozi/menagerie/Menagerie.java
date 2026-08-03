@@ -63,6 +63,9 @@ public class Menagerie implements ModInitializer {
     @Override
 	public void onInitialize() {
         MidnightConfig.init(MOD_ID, MenagerieConfig.class);
+        if (FabricLoader.getInstance().isModLoaded("lithium")) {
+            System.setProperty("mixin.entity.collisions", "false");
+        }
         ItemInit.registerItems();
 		SoundInit.registerSounds();
 		EffectInit.registerEffects();
