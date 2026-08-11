@@ -167,4 +167,12 @@ public abstract class LivingEntityMixin {
         }
         return effect;
     }
+    @Inject(method = "canHaveStatusEffect", at = @At(value = "HEAD"))
+    private void menagerie$canHaveStatusEffect(StatusEffectInstance effect, CallbackInfoReturnable<Boolean> cir) {
+        if (effect.getEffectType() == EffectInit.RUINOUS) {
+            if (!((LivingEntity)(Object)this instanceof PlayerEntity)) {
+                cir.setReturnValue(false);
+            }
+        }
+    }
 }

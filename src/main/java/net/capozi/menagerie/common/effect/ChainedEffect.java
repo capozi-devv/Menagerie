@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ChainedEffect extends StatusEffect {
     public ChainedEffect() {
-        super(StatusEffectCategory.NEUTRAL, 0x5A5A5A);
+        super(StatusEffectCategory.HARMFUL, 0x5A5A5A);
     }
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {

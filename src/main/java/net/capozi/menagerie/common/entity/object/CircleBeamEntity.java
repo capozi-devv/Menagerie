@@ -35,9 +35,6 @@ public class CircleBeamEntity extends Entity {
         float progress = (System.currentTimeMillis() - flashStartTime) / (float) FLASH_DURATION_MS;
         ticksAlive++;
         if (this.age == 1) {
-            AllParticles.circleParticle(this.getWorld(), Vec3d.ofCenter(this.getBlockPos()));
-            AllParticles.circleLongParticle(this.getWorld(), Vec3d.ofCenter(this.getBlockPos()));
-            AllParticles.shockwaveParticles(this.getWorld(), new Vec3d(this.getBlockPos().getX(), this.getBlockPos().getY() + 1, this.getBlockPos().getZ()));
             this.getWorld().playSound(null, this.getBlockPos(), SoundInit.REVIVAL, SoundCategory.PLAYERS, 1f, 1f);
         }
         if (this.age >= 260) {
@@ -45,6 +42,11 @@ public class CircleBeamEntity extends Entity {
             triggered = false;
             this.discard();
         } else if (this.age >= 80){
+            if (this.age == 1) {
+                AllParticles.circleParticle(this.getWorld(), Vec3d.ofCenter(this.getBlockPos()));
+                AllParticles.circleLongParticle(this.getWorld(), Vec3d.ofCenter(this.getBlockPos()));
+                AllParticles.shockwaveParticles(this.getWorld(), new Vec3d(this.getBlockPos().getX(), this.getBlockPos().getY() + 1, this.getBlockPos().getZ()));
+            }
             if (this.age % 2 == 0) {
                 this.getWorld().createExplosion(null, null, null, this.getPos().add(RandomHelper.randomBetween(Random.create(), -9f, 9f), RandomHelper.randomBetween(Random.create(), -9f, 9f), RandomHelper.randomBetween(Random.create(), -6f, 6f)), 8, true, World.ExplosionSourceType.MOB);
             }

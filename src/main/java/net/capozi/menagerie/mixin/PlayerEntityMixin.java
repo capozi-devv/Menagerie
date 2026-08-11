@@ -58,10 +58,10 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             BoundAqueousComponent component = Menagerie.getBoundAqueous().get(marked);
             if (component.hasAqueous()) {
                 if (!isSubmergedInWater) {
-                    double maxReach = 4.0D + marked.getAttributes().getValue(ReachEntityAttributes.ATTACK_RANGE); // reduced reach
+                    double maxReach = 2.0D + marked.getAttributes().getValue(ReachEntityAttributes.ATTACK_RANGE); // reduced reach
                     double maxReachSq = maxReach * maxReach;
                     if (marked.squaredDistanceTo(target) > maxReachSq) {
-                        ci.cancel(); // prevents the attack entirely
+                        ci.cancel();
                     }
                 }
             }

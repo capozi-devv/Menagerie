@@ -13,11 +13,20 @@ public class RuinousEffect extends StatusEffect {
     }
     @Override
     public void onApplied(LivingEntity entity, AttributeContainer attributes, int amplifier) {
+        if (!(entity instanceof PlayerEntity)) return;
         HealthUtils.reduceMaxHealth((PlayerEntity)entity, (amplifier + 1) * 4);
         super.onApplied(entity, attributes, amplifier);
     }
     @Override
+    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
+        if (!(entity instanceof PlayerEntity)) {
+            entity.removeStatusEffect(this);
+        }
+    }
+
+    @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
+        if (!(entity instanceof PlayerEntity)) return;
         super.onRemoved(entity, attributes, amplifier);
         HealthUtils.removeExtraHearts((PlayerEntity)entity);
     }

@@ -1,11 +1,8 @@
 package net.capozi.menagerie;
 
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
-import eu.midnightdust.core.MidnightLib;
 import eu.midnightdust.lib.config.MidnightConfig;
-import io.github.fabricators_of_create.porting_lib.event.common.AttackAirCallback;
 import net.capozi.menagerie.common.datagen.LootTableModifiers;
-import net.capozi.menagerie.common.event.KeyInputEventHandler;
 import net.capozi.menagerie.foundation.*;
 import net.capozi.menagerie.common.entity.object.ChainsEntity;
 import net.capozi.menagerie.server.cca.BoundAccursedComponent;
@@ -14,24 +11,18 @@ import net.capozi.menagerie.server.cca.BoundArtifactComponent;
 import net.capozi.menagerie.server.network.packet.serverbound.DecryptorsEyeSensesCS2Packet;
 import net.capozi.menagerie.server.network.packet.serverbound.TrickRoomNbtSyncCS2Packet;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
-import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.decoration.painting.PaintingVariant;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.condition.RandomChanceLootCondition;
@@ -42,7 +33,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.EntityHitResult;
@@ -63,9 +53,6 @@ public class Menagerie implements ModInitializer {
     @Override
 	public void onInitialize() {
         MidnightConfig.init(MOD_ID, MenagerieConfig.class);
-        if (FabricLoader.getInstance().isModLoaded("lithium")) {
-            System.setProperty("mixin.entity.collisions", "false");
-        }
         ItemInit.registerItems();
 		SoundInit.registerSounds();
 		EffectInit.registerEffects();

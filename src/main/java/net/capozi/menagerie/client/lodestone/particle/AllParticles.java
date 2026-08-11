@@ -31,6 +31,12 @@ public class AllParticles {
                 .enableForcedSpawn()
                 .spawn(world, pos.x, pos.y, pos.z);
     }
+    public static void auraPillar(World world, Vec3d pos) {
+        Color colour = new Color(255, 197, 62);
+        for (double i = pos.y; i < 319; i++) {
+            glowAura(world, new Vec3d(pos.x, pos.y + i, pos.z));
+        }
+    }
     public static void circleParticle(World world, Vec3d pos) {
         Color startColour = new Color(0, 255, 244);
         Color endingColor = new Color(0, 234, 190);
